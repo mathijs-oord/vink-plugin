@@ -25,7 +25,7 @@ skills/<naam>/SKILL.md            de skills (auto-discovered)
 lib/admin.mjs                     deterministische CLI
 templates/                        HTML voor PDF-render
 rules/                            NL fiscale regels (kennisbron) — begin bij rules/INDEX.md
-seed/                             lege templates die /setup naar de gebruikersmap kopieert
+seed/                             lege templates die /setup-zzp-admin naar de gebruikersmap kopieert
 ```
 
 ## admin.mjs — commando's

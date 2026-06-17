@@ -23,12 +23,12 @@ Voor de Read-tool heb je het letterlijke pad nodig — draai dan eerst `echo "$C
 
 ## Slash-command detectie
 
-Noemt de gebruiker `/setup`, `/factuur`, `/zelffactuur`, `/bon`, `/betaald` of `/aangifte` (ook
+Noemt de gebruiker `/setup-zzp-admin`, `/factuur`, `/zelffactuur`, `/bon`, `/betaald` of `/aangifte` (ook
 midden in een zin), roep direct de bijbehorende skill aan — niet om bevestiging vragen, niet
 uitleggen, invoke. (In het slash-menu heten ze `boekhoud:factuur` enz.; de korte vorm herken je
 als intentie.)
 
-- `/setup` — eenmalige onboarding: bedrijfsgegevens + betaaltermijn instellen.
+- `/setup-zzp-admin` — eenmalige onboarding: bedrijfsgegevens + betaaltermijn instellen.
 - `/factuur` — ik maak zelf een verkoopfactuur (omzet, genereert PDF).
 - `/zelffactuur` — opdrachtgever maakt de factuur namens mij (self-billing, ook omzet, importeert).
 - `/bon` — inkoopfactuur/bon als kosten verwerken.
@@ -38,7 +38,7 @@ als intentie.)
 ## Map-conventies (in déze map)
 
 ```
-data/business.json        afzender (1 record) — maak je met /setup
+data/business.json        afzender (1 record) — maak je met /setup-zzp-admin
 data/clients.csv          klanten
 data/invoices.csv         factuur-headers (status draft|sent|paid, source created|imported)
 data/invoice_items.csv    factuurregels

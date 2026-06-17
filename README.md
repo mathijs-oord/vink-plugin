@@ -18,7 +18,7 @@ en blijft staan als de plugin een update krijgt.
 
 | Commando | Wat het doet |
 |---|---|
-| `/setup` | Eenmalige onboarding: je map initialiseren + bedrijfsgegevens en standaard betaaltermijn instellen. |
+| `/setup-zzp-admin` | Eenmalige onboarding: je map initialiseren + bedrijfsgegevens en standaard betaaltermijn instellen. |
 | `/factuur` | Een verkoopfactuur maken (omzet). Vult tarief/omschrijving aan op basis van eerdere facturen, kent het juiste oplopende factuurnummer toe en genereert een PDF. |
 | `/zelffactuur` | Een factuur importeren die je opdrachtgever namens jou maakte (self-billing). Telt óók als omzet. |
 | `/bon` | Een bon of inkoopfactuur als kostenpost verwerken. Classificeert de BTW (aftrekbaar / verlegd / niet-aftrekbaar) en rekent vreemde valuta om op de ECB-dagkoers. |
@@ -56,7 +56,7 @@ Daarna:
 
 1. **Maak (of kies) een map** voor je administratie, bv. `~/Administratie`, en **open die map in
    Claude Code** (`cd ~/Administratie` en start Claude Code daar). Hier komt jouw data te staan.
-2. Typ **`/setup`**. Dat zet bij eerste gebruik de lege templates klaar in je map (`data/`-CSV's,
+2. Typ **`/setup-zzp-admin`**. Dat zet bij eerste gebruik de lege templates klaar in je map (`data/`-CSV's,
    `business.example.json`, een project-`CLAUDE.md` en de uitvoer-mappen) en vraagt vervolgens je
    bedrijfsgegevens (naam, adres, KvK, BTW-id, IBAN) + standaard betaaltermijn.
 3. **Probeer het uit**, bijvoorbeeld:
@@ -64,7 +64,7 @@ Daarna:
    - `/bon` → "Verwerk deze bon" (+ pad naar een PDF/foto).
    - `/aangifte` → "Stel de aangifte voor dit kwartaal samen."
 
-Werk je voor meerdere administraties? Maak per administratie een aparte map en draai `/setup` in
+Werk je voor meerdere administraties? Maak per administratie een aparte map en draai `/setup-zzp-admin` in
 elk. De plugin is overal beschikbaar; de data blijft per map gescheiden.
 
 ## Updates ontvangen
@@ -95,14 +95,14 @@ zzp-admin-skills/
 ├── lib/admin.mjs            deterministische kern (factuurnr, BTW, FX, PDF, CSV-I/O)
 ├── templates/               HTML-templates voor de factuur- en aangifte-PDF's
 ├── rules/                   Nederlandse BTW-regels in markdown — de kennisbron van de skills
-└── seed/                    lege templates die /setup naar je eigen map kopieert
+└── seed/                    lege templates die /setup-zzp-admin naar je eigen map kopieert
 ```
 
 **Jouw map (per gebruiker — blijft van jou):**
 
 ```
 ~/Administratie/
-├── CLAUDE.md                projectconventies (door /setup neergezet)
+├── CLAUDE.md                projectconventies (door /setup-zzp-admin neergezet)
 ├── data/                    je administratie (CSV's + business.json)
 ├── facturen/<YYYY-QN>/      gegenereerde + geïmporteerde factuur-PDF's, per kwartaal
 ├── bonnen/<YYYY-QN>/        kopie van je bonbestanden, per kwartaal (bewaarplicht)
@@ -149,7 +149,7 @@ als ze auto-update aan hebben). Wil je later vaste releases (semver), zet dan `v
 /plugin install boekhoud@boekhoud-marketplace
 ```
 
-Daarna in een lege testmap `/setup` draaien. Pas je de plugin aan, herlaad met
+Daarna in een lege testmap `/setup-zzp-admin` draaien. Pas je de plugin aan, herlaad met
 `/plugin marketplace update boekhoud-marketplace` (lokaal pad) en `/plugin reload-plugins`.
 
 **Validatie:**
