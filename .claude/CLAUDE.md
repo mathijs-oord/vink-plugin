@@ -33,10 +33,12 @@ seed/                             lege templates die /setup-zzp-admin naar de ge
 ```bash
 node lib/admin.mjs next-invoice-number
 node lib/admin.mjs fx USD 2026-03-15
-node lib/admin.mjs compute-invoice <inv.json>
-node lib/admin.mjs render-invoice <inv.json> facturen/2026-0005.pdf
+node lib/admin.mjs compute-invoice <inv.json>          # preview (read-only)
+node lib/admin.mjs render-invoice <inv.json> facturen/2026-Q2/2026-0005.pdf
+node lib/admin.mjs record-invoice <inv.json> facturen/2026-Q2/2026-0005.pdf   # compute+due_date+PDF+CSV's
 node lib/admin.mjs aangifte 2026-Q2
 node lib/admin.mjs render-aangifte <aangifte.json> aangiftes/2026-Q2-btw-aangifte.pdf
+node lib/admin.mjs record-aangifte <aangifte.json> aangiftes/2026-Q2-btw-aangifte.pdf  # PDF+CSV-rij
 node lib/admin.mjs append data/receipts.csv <row.json>
 node lib/admin.mjs mark-paid 2026-0006 2026-06-10
 ```

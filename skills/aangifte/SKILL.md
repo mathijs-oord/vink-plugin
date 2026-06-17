@@ -36,19 +36,19 @@ Loop de `warnings` na en meld ze (concept-facturen niet meegeteld, ontbrekend `b
 geen data, geen bonnen). Als iets oogt alsof er data mist (bv. wel facturen maar 0 bonnen),
 wijs daarop voordat je een PDF maakt.
 
-### 4. Genereer PDF + schrijf weg
+### 4. Genereer PDF + leg vast (één deterministische stap)
 Bouw `/tmp/aangifte.json`:
 ```json
 { "business": { …uit business.json… }, "aangifte": <de volledige JSON uit stap 2> }
 ```
-Dan:
-1. **PDF:** `node "$CLAUDE_PLUGIN_ROOT/lib/admin.mjs" render-aangifte /tmp/aangifte.json aangiftes/2026-Q2-btw-aangifte.pdf`
-2. **aangiftes.csv:** `node "$CLAUDE_PLUGIN_ROOT/lib/admin.mjs" append data/aangiftes.csv '<row>'` met:
-   `quarter, generated_at` (vandaag) `, r1a_omzet, r1a_btw, r1b_omzet, r1b_btw, r1e_omzet, r3a, r3b,
-   r4a_omzet, r4a_btw, r4b_omzet, r4b_btw, r5a, r5b, r5g, icp_total, deadline, pdf_path`.
-   Haal de rubriekwaarden uit de JSON (`r3a`/`r3b` = de omzet-velden van rubriek 3a/3b;
-   `r5a`/`r5b`/`r5g` = `summary.verschuldigd`/`voorbelasting`/`saldo`).
-3. Open de PDF: `open aangiftes/2026-Q2-btw-aangifte.pdf`.
+Draai dan:
+```
+node "$CLAUDE_PLUGIN_ROOT/lib/admin.mjs" record-aangifte /tmp/aangifte.json aangiftes/2026-Q2-btw-aangifte.pdf
+```
+Dit rendert de PDF **en** schrijft de `aangiftes.csv`-rij weg, rechtstreeks uit de berekende JSON —
+**je tikt geen enkele rubriekwaarde over** (alle 18 kolommen mapt de code zelf). Het commando print
+kwartaal, saldo, richting en deadline terug; gebruik die in je melding.
+Open de PDF: `open aangiftes/2026-Q2-btw-aangifte.pdf`.
 
 Meld kort: kwartaal, saldo (te betalen/terug), deadline, pad naar de PDF. Als er ICP-regels zijn,
 herinner de gebruiker dat er naast de BTW-aangifte ook een **ICP-opgaaf** moet (zie

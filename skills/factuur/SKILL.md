@@ -37,11 +37,12 @@ eerdere facturen voor dezelfde klant.
   automatische verleggings-zin op de PDF, en het telt in rubriek 3a/3b + ICP. Zeldzaam — bij
   NL-klanten nooit. Twijfel? Lees `$CLAUDE_PLUGIN_ROOT/rules/nultarief-verlegd-vrijgesteld.md`.
 
-### 4. Nummer & datums
+### 4. Nummer, datum, betaaltermijn & kwartaal
 - Factuurnummer: `node "$CLAUDE_PLUGIN_ROOT/lib/admin.mjs" next-invoice-number` → `YYYY-NNNN`. **Nooit zelf verzinnen.**
 - Datum: vandaag, tenzij anders opgegeven.
-- Vervaldatum: datum + betaaltermijn. Termijn = `client.payment_terms` (kolom in clients.csv),
-  anders `business.payment_terms_days` (14).
+- Betaaltermijn (`payment_term_days`): `client.payment_terms` (kolom in clients.csv) als die gevuld
+  is, anders `business.payment_terms_days` (14). **De vervaldatum reken je niet zelf uit** — die
+  berekent `record-invoice` deterministisch uit datum + termijn.
 - **Kwartaal** uit de factuurdatum: `YYYY-QN` (Q1=jan–mrt, Q2=apr–jun, Q3=jul–sep, Q4=okt–dec).
   De PDF gaat in het kwartaalmapje `facturen/<YYYY-QN>/` (bv. datum 2026-05-08 → `facturen/2026-Q2/`).
   Het mapje wordt automatisch aangemaakt door `render-invoice` als het nog niet bestaat.
@@ -59,36 +60,37 @@ Factuur 2026-0005 — Voorbeeld Klant B.V. — datum 05-06-2026, vervalt 19-06-2
 
 Vraag expliciet om bevestiging vóór je iets wegschrijft. Pas aan op feedback en toon opnieuw.
 
-### 6. Na bevestiging: schrijf weg + genereer PDF
-Bouw `/tmp/factuur.json`:
+### 6. Na bevestiging: vastleggen (één deterministische stap)
+Bouw `/tmp/factuur.json` — alléén de **WAT**. Alle bedragen én de vervaldatum berekent de code zelf;
+neem dus géén `subtotal`/`vat`/`total`/`due_date`/`amount` op in de JSON:
 ```json
 {
   "business": { …uit business.json… },
-  "client":   { …uit clients.csv (name, attention, address, postal_code, city, vat_number)… },
+  "client":   { "id": "c_001", …name, attention, address, postal_code, city, vat_number… },
   "invoice": {
-    "number": "2026-0005", "date": "2026-06-05", "due_date": "2026-06-19",
+    "number": "2026-0005", "date": "2026-06-05",
     "vat_reverse_charged": false, "reference": "", "notes": "",
     "line_items": [
-      {"description":"…","quantity":24,"unit":"hours","rate":150,"vat_percentage":21}
+      {"description":"…","quantity":24,"unit":"hours","rate":100,"vat_percentage":21}
     ]
   },
   "payment_term_days": 14
 }
 ```
-Dan (vervang `<YYYY-QN>` door het kwartaal uit stap 4):
-1. **PDF:** `node "$CLAUDE_PLUGIN_ROOT/lib/admin.mjs" render-invoice /tmp/factuur.json facturen/<YYYY-QN>/2026-0005.pdf`
-   (print de berekende totalen terug — gebruik die voor de CSV zodat ze 1-op-1 kloppen). Het
-   kwartaalmapje wordt automatisch aangemaakt.
-2. **invoices.csv:** `node "$CLAUDE_PLUGIN_ROOT/lib/admin.mjs" append data/invoices.csv '<row>'` met:
-   `number, date, due_date, client_id, client_name, subtotal, vat_percentage, vat_amount,
-   total, vat_reverse_charged, status="sent", source="created", self_billing="false",
-   reference, notes, pdf_path, created_at` (vandaag). `pdf_path` = `facturen/<YYYY-QN>/2026-0005.pdf`
-   (hetzelfde pad als bij render — moet exact kloppen).
-3. **invoice_items.csv:** per regel een append met
-   `invoice_number, line_no, description, quantity, unit, rate, amount, vat_percentage`.
-4. Open de PDF: `open facturen/<YYYY-QN>/2026-0005.pdf`.
+Draai dan (vervang `<YYYY-QN>` door het kwartaal uit stap 4):
+```
+node "$CLAUDE_PLUGIN_ROOT/lib/admin.mjs" record-invoice /tmp/factuur.json facturen/<YYYY-QN>/2026-0005.pdf
+```
+Dit berekent regels/subtotaal/BTW/totaal **en** de vervaldatum, rendert de PDF, en schrijft in één
+keer `invoices.csv` + `invoice_items.csv` weg (kwartaalmapje wordt automatisch aangemaakt). **Je tikt
+zelf geen enkel bedrag of datum over.** Het commando print de weggeschreven waarden terug (nummer,
+vervaldatum, subtotaal, BTW, totaal, pad) — gebruik die in je melding. Bestaat het factuurnummer al,
+dan stopt het commando en schrijft het niets (duplicaat-guard); kies dan een nieuw nummer.
 
-Meld kort: nummer, klant, totaal, pad naar de PDF.
+Open daarna de PDF: `open facturen/<YYYY-QN>/2026-0005.pdf`. Meld kort: nummer, klant, totaal, pad.
+
+> Concept i.p.v. verzonden? Zet `"status": "draft"` in `invoice` — concepten tellen niet mee in de
+> aangifte. Default (zonder `status`) is `sent`.
 
 ## Factuureisen (Art. 35a Wet OB) — afgedwongen
 Afzender naam/adres/BTW-nr/KvK/IBAN, klantnaam + adres, oplopend factuurnummer, factuurdatum,
