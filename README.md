@@ -45,12 +45,12 @@ en blijft staan als de plugin een update krijgt.
 
 ## Installeren (voor gebruikers)
 
-> Vervang hieronder `JOUW-GITHUB/administratie-skills` door de echte repo (owner/repo).
+> Vervang hieronder `JOUW-GITHUB/zzp-admin-skills` door de echte repo (owner/repo).
 
 Eenmalig, in Claude Code:
 
 ```text
-/plugin marketplace add JOUW-GITHUB/administratie-skills
+/plugin marketplace add JOUW-GITHUB/zzp-admin-skills
 /plugin install boekhoud@boekhoud-marketplace
 ```
 
@@ -89,7 +89,7 @@ Updates raken alleen de plugin-code/skills/regels — **nooit je data**. Je `dat
 **De plugin (deze repo — wordt geüpdatet):**
 
 ```
-administratie-skills/
+zzp-admin-skills/
 ├── .claude-plugin/
 │   ├── marketplace.json     marketplace-definitie (deze repo = marketplace)
 │   └── plugin.json          plugin-manifest (naam: boekhoud)
@@ -147,7 +147,7 @@ als ze auto-update aan hebben). Wil je later vaste releases (semver), zet dan `v
 **Lokaal testen vóór je pusht** — in een aparte testmap, niet in deze repo:
 
 ```text
-/plugin marketplace add /Users/<jij>/Documents/administratie-skills
+/plugin marketplace add /Users/<jij>/Documents/zzp-admin-skills
 /plugin install boekhoud@boekhoud-marketplace
 ```
 
