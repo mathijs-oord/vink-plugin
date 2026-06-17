@@ -1,0 +1,15 @@
+{
+  "name": "Jouw Bedrijfsnaam",
+  "address": "Straatnaam 1",
+  "postal_code": "1000 AA",
+  "city": "Amsterdam",
+  "country": "Nederland",
+  "phone": "0600000000",
+  "email": "",
+  "website": "",
+  "coc_number": "12345678",
+  "vat_number": "NL000000000B00",
+  "iban": "NL00BANK0000000000",
+  "account_holder": "Jouw Bedrijfsnaam",
+  "payment_terms_days": 14
+}

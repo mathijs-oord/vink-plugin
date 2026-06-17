@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<style>
+  @page { size: A4; margin: 18mm 18mm 16mm 18mm; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #000;
+    font-size: 9pt;
+    line-height: 1.45;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* --- Header: afzender --- */
+  .biz-name { font-size: 18pt; font-weight: 700; margin: 0 0 4px; letter-spacing: -0.2px; }
+  .biz-meta { font-size: 9pt; color: #000; }
+  .biz-meta div { line-height: 1.4; }
+
+  /* --- AAN + FACTUUR rij --- */
+  .head { display: flex; justify-content: space-between; margin-top: 34px; }
+  .label { font-size: 7pt; font-weight: 700; color: #999; letter-spacing: 0.5px; text-transform: uppercase; }
+  .client { margin-top: 6px; }
+  .client .cname { font-size: 10pt; font-weight: 700; }
+  .client div { line-height: 1.4; }
+  .meta { text-align: right; }
+  .meta .title { font-size: 16pt; font-weight: 700; letter-spacing: 1px; }
+  .meta .meta-line { font-size: 9pt; color: #666; margin-top: 4px; }
+
+  /* --- Regels --- */
+  table.items { width: 100%; border-collapse: collapse; margin-top: 40px; }
+  table.items thead th {
+    font-size: 7pt; font-weight: 700; color: #999; letter-spacing: 0.3px;
+    text-transform: uppercase; text-align: left; padding: 0 0 6px;
+    border-bottom: 1px solid #000;
+  }
+  table.items thead th.num { text-align: right; }
+  table.items thead th + th, table.items tbody td + td { padding-left: 22px; }
+  table.items tbody td { padding: 7px 0; vertical-align: top; font-size: 9pt; }
+  table.items tbody td.num { text-align: right; }
+  table.items tbody td.desc { width: 44%; }
+  table.items .unit { white-space: nowrap; }
+  table.items tbody tr:not(:last-child) td { border-bottom: 1px solid #f0f0f0; }
+
+  /* --- Totalen --- */
+  .totals { width: 100%; margin-top: 10px; }
+  .totals table { margin-left: auto; border-collapse: collapse; min-width: 230px; }
+  .totals td { padding: 3px 0; font-size: 9pt; }
+  .totals td.t-label { color: #888; text-align: right; padding-right: 26px; }
+  .totals td.t-val { text-align: right; min-width: 95px; }
+  .totals tr.grand td { font-size: 11pt; font-weight: 700; color: #000; border-top: 1px solid #000; padding-top: 7px; }
+  .totals tr.grand td.t-label { color: #000; }
+
+  .reverse-note { font-size: 8pt; color: #888; margin-top: 16px; }
+  .notes { font-size: 8pt; color: #666; margin-top: 14px; white-space: pre-wrap; }
+
+  /* --- Footer onderaan de pagina --- */
+  .footer { position: fixed; left: 0; right: 0; bottom: 0; }
+  .pay-box { background: #fafaf9; border-radius: 3px; padding: 8px 10px; font-size: 8pt; color: #666; }
+  .kvk-line { border-top: 0.5px solid #eee; margin-top: 10px; padding-top: 6px; text-align: center; font-size: 7pt; color: #aaa; }
+</style>
+</head>
+<body>
+  <div class="biz-name">{{BUSINESS_NAME}}</div>
+  <div class="biz-meta">
+    <div>{{BUSINESS_ADDRESS}}</div>
+    <div>{{BUSINESS_POSTCODE_CITY}}</div>
+    <div>{{BUSINESS_CONTACT}}</div>
+    <div>KvK: {{BUSINESS_KVK}}</div>
+    <div>BTW: {{BUSINESS_VAT}}</div>
+  </div>
+
+  <div class="head">
+    <div class="aan">
+      <div class="label">Aan</div>
+      <div class="client">
+        <div class="cname">{{CLIENT_NAME}}</div>
+        {{CLIENT_ATTENTION}}
+        <div>{{CLIENT_ADDRESS}}</div>
+        <div>{{CLIENT_POSTCODE_CITY}}</div>
+        {{CLIENT_VAT}}
+      </div>
+    </div>
+    <div class="meta">
+      <div class="title">FACTUUR</div>
+      <div class="meta-line">Nummer: {{INVOICE_NUMBER}}</div>
+      <div class="meta-line">Datum: {{INVOICE_DATE}}</div>
+      <div class="meta-line">Vervaldatum: {{INVOICE_DUE_DATE}}</div>
+      {{REFERENCE_ROW}}
+    </div>
+  </div>
+
+  <table class="items">
+    <thead>
+      <tr>
+        <th class="desc">Omschrijving</th>
+        <th class="num">Aantal</th>
+        <th>Eenheid</th>
+        <th class="num">Tarief</th>
+        <th class="num">Bedrag</th>
+      </tr>
+    </thead>
+    <tbody>{{LINE_ITEMS}}
+    </tbody>
+  </table>
+
+  <div class="totals">
+    <table>
+      <tr><td class="t-label">Subtotaal</td><td class="t-val">{{SUBTOTAL}}</td></tr>
+      {{VAT_ROWS}}
+      <tr class="grand"><td class="t-label">Totaal</td><td class="t-val">{{TOTAL}}</td></tr>
+    </table>
+  </div>
+
+  {{REVERSE_NOTE}}
+  {{NOTES}}
+
+  <div class="footer">
+    <div class="pay-box">Gelieve het bedrag {{PAYMENT_TERM}} over te maken op IBAN {{BUSINESS_IBAN}} t.n.v. {{ACCOUNT_HOLDER}} o.v.v. factuurnummer {{INVOICE_NUMBER}}.</div>
+    <div class="kvk-line">KvK: {{BUSINESS_KVK}} | BTW: {{BUSINESS_VAT}} | IBAN: {{BUSINESS_IBAN}}</div>
+  </div>
+</body>
+</html>

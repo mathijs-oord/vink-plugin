@@ -1,0 +1,16 @@
+{
+  "name": "boekhoud-marketplace",
+  "owner": {
+    "name": "AM Oord Consulting"
+  },
+  "metadata": {
+    "description": "Boekhoud-skills voor ZZP'ers — distributie + updates van de boekhoud-plugin."
+  },
+  "plugins": [
+    {
+      "name": "boekhoud",
+      "description": "Freelance-boekhouding: factuur, zelffactuur, bon, betaald, BTW-aangifte.",
+      "source": "./"
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+date,supplier_name,supplier_vat_number,supplier_invoice_number,description,category,amount_eur,vat_amount_eur,vat_percentage,vat_status,vat_breakdown,business_pct,vat_period,original_currency,original_amount,original_vat_amount,exchange_rate,exchange_rate_date,file_path,notes,created_at

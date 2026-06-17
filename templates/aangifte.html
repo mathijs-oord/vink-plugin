@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<style>
+  @page { size: A4; margin: 18mm 18mm 16mm 18mm; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #000; font-size: 9.5pt; line-height: 1.45;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  h1 { font-size: 18pt; font-weight: 700; margin: 0 0 2px; }
+  .sub { color: #666; font-size: 9pt; }
+  .biz { margin-top: 4px; font-size: 9pt; color: #444; }
+  .deadline-box {
+    margin-top: 20px; background: #fafaf9; border-radius: 3px;
+    padding: 10px 12px; font-size: 9pt; color: #444;
+  }
+
+  h2 { font-size: 11pt; font-weight: 700; margin: 26px 0 8px; }
+
+  table.rubrieken { width: 100%; border-collapse: collapse; margin-top: 14px; }
+  table.rubrieken thead th {
+    font-size: 7pt; font-weight: 700; color: #999; letter-spacing: 0.3px;
+    text-transform: uppercase; text-align: left; padding: 0 0 6px; border-bottom: 1px solid #000;
+  }
+  table.rubrieken thead th.num { text-align: right; }
+  table.rubrieken td { padding: 6px 0; font-size: 9pt; border-bottom: 1px solid #f0f0f0; vertical-align: top; }
+  table.rubrieken td.code { width: 34px; color: #999; font-weight: 700; }
+  table.rubrieken td.rlabel { width: auto; }
+  table.rubrieken td.num { text-align: right; min-width: 95px; white-space: nowrap; }
+  table.rubrieken tr.total-row td { font-weight: 700; color: #000; border-bottom: none; }
+  table.rubrieken tr.total-row td.code { color: #000; }
+
+  table.icp { width: 100%; border-collapse: collapse; margin-top: 6px; }
+  table.icp th { font-size: 7pt; font-weight: 700; color: #999; text-transform: uppercase; text-align: left; padding: 0 0 6px; border-bottom: 1px solid #000; }
+  table.icp th.num { text-align: right; }
+  table.icp td { padding: 6px 0; font-size: 9pt; border-bottom: 1px solid #f0f0f0; }
+  table.icp td.num { text-align: right; }
+
+  .saldo {
+    margin-top: 28px; border-top: 2px solid #000; padding-top: 12px;
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .saldo .lbl { font-size: 11pt; font-weight: 700; }
+  .saldo .val { font-size: 16pt; font-weight: 700; }
+
+  .warnings { margin-top: 24px; background: #fff8ec; border-radius: 3px; padding: 10px 12px; font-size: 8.5pt; color: #7a5b1e; }
+  .warnings ul { margin: 6px 0 0; padding-left: 18px; }
+  .warnings li { margin: 2px 0; }
+
+  .disclaimer { margin-top: 30px; font-size: 7.5pt; color: #aaa; border-top: 0.5px solid #eee; padding-top: 8px; }
+</style>
+</head>
+<body>
+  <h1>BTW-aangifte</h1>
+  <div class="sub">{{QUARTER}}</div>
+  <div class="biz">{{BUSINESS_NAME}} &middot; BTW: {{BUSINESS_VAT}} &middot; KvK: {{BUSINESS_KVK}}</div>
+
+  <div class="deadline-box">Uiterste datum aangifte &amp; betaling: <strong>{{DEADLINE}}</strong></div>
+
+  <h2>Rubrieken</h2>
+  <table class="rubrieken">
+    <thead>
+      <tr>
+        <th class="code">Rb.</th>
+        <th class="rlabel">Omschrijving</th>
+        <th class="num">Omzet</th>
+        <th class="num">BTW</th>
+      </tr>
+    </thead>
+    <tbody>{{RUBRIEK_ROWS}}
+    </tbody>
+  </table>
+
+  {{ICP_BLOCK}}
+
+  <div class="saldo">
+    <div class="lbl">{{SALDO_LABEL}}</div>
+    <div class="val">{{SALDO_VALUE}}</div>
+  </div>
+
+  {{WARNINGS_BLOCK}}
+
+  <div class="disclaimer">Dit overzicht is gegenereerd uit de eigen administratie (facturen + bonnen) en dient ter voorbereiding van de BTW-aangifte. Het is geen fiscaal advies en geen ingediende aangifte. Controleer de cijfers en raadpleeg bij twijfel een boekhouder.</div>
+</body>
+</html>

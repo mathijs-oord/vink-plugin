@@ -1,0 +1,18 @@
+node_modules/
+*.key
+.service-key
+.env
+.env.*
+.DS_Store
+
+# --- Werkdata van de maintainer hoort NIET in de plugin-repo ---
+# De plugin levert alleen code/skills/regels/templates. Echte administratie (CSV's, PDF's,
+# business.json) leeft in de eigen map van elke gebruiker, niet hier. De lege templates die
+# nieuwe gebruikers krijgen staan in seed/ (wél meegeleverd).
+/data/
+/facturen/
+/bonnen/
+/aangiftes/
+
+# seed/ blijft expliciet wél getrackt (templates voor nieuwe gebruikers).
+!/seed/
