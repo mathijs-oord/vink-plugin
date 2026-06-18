@@ -16,3 +16,6 @@ node_modules/
 
 # seed/ blijft expliciet wél getrackt (templates voor nieuwe gebruikers).
 !/seed/
+
+# --- Privé maintainer-notities (nooit delen via git) ---
+*.local.md

@@ -1,6 +1,6 @@
-# Boekhoud-skills — ZZP-administratie met Claude Code
+# ZZP-admin — lichtgewicht ZZP-administratie met Claude Code
 
-Een lichtgewicht boekhouding voor Nederlandse ZZP'ers/freelancers, volledig op **platte
+Een lichtgewicht administratie voor Nederlandse ZZP'ers/freelancers, volledig op **platte
 bestanden** (CSV + JSON) en aangedreven door [Claude Code](https://claude.com/claude-code).
 Je praat in gewone taal ("maak een factuur voor klant X", "verwerk deze bon"); de skills
 redeneren en stellen voor, en een klein deterministisch programma (`lib/admin.mjs`) doet het
@@ -25,7 +25,7 @@ en blijft staan als de plugin een update krijgt.
 | `/betaald` | Een verkoopfactuur op betaald zetten (status + betaaldatum). |
 | `/aangifte` | Een kwartaal-BTW-overzicht samenstellen (rubrieken 1a t/m 5g + ICP-opgaaf) ter voorbereiding van je aangifte. |
 
-> In het slash-menu heten de skills `boekhoud:factuur`, `boekhoud:bon`, enz. (de plugin-naam is de
+> In het slash-menu heten de skills `zzp-admin:factuur`, `zzp-admin:bon`, enz. (de plugin-naam is de
 > prefix). De korte vorm `/factuur` werkt ook gewoon — Claude herkent de bedoeling, ook midden in
 > een zin.
 
@@ -49,7 +49,7 @@ Eenmalig, in Claude Code:
 
 ```text
 /plugin marketplace add mathijs-oord/zzp-admin-skills
-/plugin install boekhoud@boekhoud-marketplace
+/plugin install zzp-admin@zzp-admin-skills
 ```
 
 Daarna:
@@ -73,10 +73,10 @@ Bij **third-party marketplaces staat auto-update standaard uit**. Twee opties:
 
 - **Handmatig** (altijd de nieuwste versie ophalen):
   ```text
-  /plugin marketplace update boekhoud-marketplace
+  /plugin marketplace update zzp-admin-skills
   ```
 - **Auto-update aanzetten**: open `/plugin` → tabblad **Marketplaces** → kies
-  `boekhoud-marketplace` → **Enable auto-update**. Updates komen dan bij het opstarten van Claude
+  `zzp-admin-skills` → **Enable auto-update**. Updates komen dan bij het opstarten van Claude
   Code binnen.
 
 Updates raken alleen de plugin-code/skills/regels — **nooit je data**. Je `data/`, `facturen/`,
@@ -90,7 +90,7 @@ Updates raken alleen de plugin-code/skills/regels — **nooit je data**. Je `dat
 zzp-admin-skills/
 ├── .claude-plugin/
 │   ├── marketplace.json     marketplace-definitie (deze repo = marketplace)
-│   └── plugin.json          plugin-manifest (naam: boekhoud)
+│   └── plugin.json          plugin-manifest (naam: zzp-admin)
 ├── skills/                  de skills: setup, factuur, zelffactuur, bon, betaald, aangifte
 ├── lib/admin.mjs            deterministische kern (factuurnr, BTW, FX, PDF, CSV-I/O)
 ├── templates/               HTML-templates voor de factuur- en aangifte-PDF's
@@ -111,7 +111,7 @@ zzp-admin-skills/
 
 ## Je data & privacy
 
-- Alles staat lokaal in je eigen map. Er gaat niets naar een externe boekhoud-dienst.
+- Alles staat lokaal in je eigen map. Er gaat niets naar een externe administratie-dienst.
 - De plugin-repo bevat **nooit** jouw administratie — alleen generieke code + lege templates.
 - Eén externe aanroep: bij vreemde valuta haalt `/bon` de ECB-dagkoers op via de open
   [frankfurter.app](https://www.frankfurter.app)-API.
@@ -138,7 +138,7 @@ git push
 ```
 
 Het `version`-veld is bewust **weggelaten** uit `plugin.json`, dus elke commit telt als een nieuwe
-versie. Gebruikers halen 'm op met `/plugin marketplace update boekhoud-marketplace` (of automatisch
+versie. Gebruikers halen 'm op met `/plugin marketplace update zzp-admin-skills` (of automatisch
 als ze auto-update aan hebben). Wil je later vaste releases (semver), zet dan `version` in
 `plugin.json` en hoog die per release op.
 
@@ -146,11 +146,11 @@ als ze auto-update aan hebben). Wil je later vaste releases (semver), zet dan `v
 
 ```text
 /plugin marketplace add /Users/<jij>/Documents/zzp-admin-skills
-/plugin install boekhoud@boekhoud-marketplace
+/plugin install zzp-admin@zzp-admin-skills
 ```
 
 Daarna in een lege testmap `/setup-zzp-admin` draaien. Pas je de plugin aan, herlaad met
-`/plugin marketplace update boekhoud-marketplace` (lokaal pad) en `/plugin reload-plugins`.
+`/plugin marketplace update zzp-admin-skills` (lokaal pad) en `/plugin reload-plugins`.
 
 **Validatie:**
 

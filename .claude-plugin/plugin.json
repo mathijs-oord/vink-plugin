@@ -1,6 +1,6 @@
 {
-  "name": "boekhoud",
-  "description": "Freelance-boekhouding voor ZZP'ers in Nederland — factuur, zelffactuur, bon, betaald en BTW-aangifte op platte bestanden. AI bepaalt WAT, deterministische code bepaalt HOE.",
+  "name": "zzp-admin",
+  "description": "Lichtgewicht ZZP-administratie voor freelancers in Nederland — factuur, zelffactuur, bon, betaald en BTW-aangifte op platte bestanden. AI bepaalt WAT, deterministische code bepaalt HOE.",
   "author": {
     "name": "AM Oord Consulting"
   },

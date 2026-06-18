@@ -1,8 +1,8 @@
-# Mijn administratie — ZZP-boekhouding
+# Mijn administratie — ZZP-admin
 
 Dit is **mijn eigen administratie-map**: facturen, bonnen en BTW-aangifte-voorbereiding voor
 freelance/ZZP-werk in Nederland. Alleen platte bestanden (CSV/JSON + PDF's). De skills die hierop
-werken komen uit de **`boekhoud`-plugin** (geïnstalleerd via Claude Code), niet uit deze map.
+werken komen uit de **`zzp-admin`-plugin** (geïnstalleerd via Claude Code), niet uit deze map.
 
 ## Kernprincipe
 
@@ -25,7 +25,7 @@ Voor de Read-tool heb je het letterlijke pad nodig — draai dan eerst `echo "$C
 
 Noemt de gebruiker `/setup-zzp-admin`, `/factuur`, `/zelffactuur`, `/bon`, `/betaald` of `/aangifte` (ook
 midden in een zin), roep direct de bijbehorende skill aan — niet om bevestiging vragen, niet
-uitleggen, invoke. (In het slash-menu heten ze `boekhoud:factuur` enz.; de korte vorm herken je
+uitleggen, invoke. (In het slash-menu heten ze `zzp-admin:factuur` enz.; de korte vorm herken je
 als intentie.)
 
 - `/setup-zzp-admin` — eenmalige onboarding: bedrijfsgegevens + betaaltermijn instellen.
@@ -51,7 +51,7 @@ aangiftes/                aangifte-PDF's
 
 ## Scope
 
-Boekhouding (facturen, bonnen, BTW-aangifte-voorbereiding). **Niet** in scope: inkomstenbelasting,
+Administratie (facturen, bonnen, BTW-aangifte-voorbereiding). **Niet** in scope: inkomstenbelasting,
 directe indiening bij de Belastingdienst, afschrijvingen, tijdregistratie. Het BTW-overzicht is ter
 voorbereiding; de daadwerkelijke aangifte doe je zelf op Mijn Belastingdienst Zakelijk.
 

@@ -6,7 +6,7 @@ allowed-tools: Bash, Read, Write
 
 # Setup / onboarding
 
-Help een nieuwe gebruiker zijn boekhoud-map in gebruik te nemen: initialiseer de map met lege
+Help een nieuwe gebruiker zijn administratie-map in gebruik te nemen: initialiseer de map met lege
 templates, vul de **afzendergegevens** (`data/business.json`) en de **standaard betaaltermijn** in,
 en geef een korte uitleg van de beschikbare skills. Dit is een eenmalige stap; daarna gebruikt de
 gebruiker `/factuur`, `/bon`, enz.
@@ -40,7 +40,7 @@ Lees `data/business.json`.
 - **Bestaat het niet** (alleen `data/business.example.json`)? Ga door naar stap 2.
 
 ### 2. Korte introductie
-Leg in 3-4 zinnen uit wat dit is: een lichtgewicht ZZP-boekhouding op platte bestanden, waar de
+Leg in 3-4 zinnen uit wat dit is: een lichtgewicht ZZP-administratie op platte bestanden, waar de
 AI redeneert en `lib/admin.mjs` deterministisch rekent en schrijft. Noem dat je nu eerst zijn
 bedrijfsgegevens nodig hebt om geldige facturen te kunnen maken (factuureisen Art. 35a Wet OB).
 

@@ -1,6 +1,6 @@
-# Boekhoud-plugin — broncode (maintainer)
+# ZZP-admin-plugin — broncode (maintainer)
 
-Dit is de **bron van de `boekhoud` Claude Code plugin** (tevens marketplace), niet een
+Dit is de **bron van de `zzp-admin` Claude Code plugin** (tevens marketplace), niet een
 werk-administratie. Hier ontwikkel en onderhoud ik de skills; gebruikers installeren de plugin en
 draaien 'm in hun eigen map. Zie `README.md` (sectie "Voor de maintainer") voor uitbrengen/testen.
 
@@ -20,7 +20,7 @@ Code/data-scheiding (cruciaal voor de plugin):
 
 ```
 .claude-plugin/marketplace.json   marketplace (deze repo) — plugin op source "./"
-.claude-plugin/plugin.json        plugin-manifest (naam: boekhoud, version bewust weggelaten)
+.claude-plugin/plugin.json        plugin-manifest (naam: zzp-admin, version bewust weggelaten)
 skills/<naam>/SKILL.md            de skills (auto-discovered)
 lib/admin.mjs                     deterministische CLI
 templates/                        HTML voor PDF-render
