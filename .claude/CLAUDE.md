@@ -1,6 +1,6 @@
-# ZZP-admin-plugin — broncode (maintainer)
+# Vink-plugin — broncode (maintainer)
 
-Dit is de **bron van de `zzp-admin` Claude Code plugin** (tevens marketplace), niet een
+Dit is de **bron van de `vink` Claude Code plugin** (tevens marketplace), niet een
 werk-administratie. Hier ontwikkel en onderhoud ik de skills; gebruikers installeren de plugin en
 draaien 'm in hun eigen map. Zie `README.md` (sectie "Voor de maintainer") voor uitbrengen/testen.
 
@@ -20,12 +20,12 @@ Code/data-scheiding (cruciaal voor de plugin):
 
 ```
 .claude-plugin/marketplace.json   marketplace (deze repo) — plugin op source "./"
-.claude-plugin/plugin.json        plugin-manifest (naam: zzp-admin, version bewust weggelaten)
+.claude-plugin/plugin.json        plugin-manifest (naam: vink, version bewust weggelaten)
 skills/<naam>/SKILL.md            de skills (auto-discovered)
 lib/admin.mjs                     deterministische CLI
 templates/                        HTML voor PDF-render
 rules/                            NL fiscale regels (kennisbron) — begin bij rules/INDEX.md
-seed/                             lege templates die /setup-zzp-admin naar de gebruikersmap kopieert
+seed/                             lege templates die /setup-vink naar de gebruikersmap kopieert
 ```
 
 ## admin.mjs — commando's

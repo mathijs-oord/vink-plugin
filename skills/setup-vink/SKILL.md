@@ -1,5 +1,5 @@
 ---
-name: setup-zzp-admin
+name: setup-vink
 description: Eenmalige onboarding — stelt de bedrijfsgegevens (afzender) en standaard betaaltermijn in door interactief data/business.json te vullen, en legt kort uit wat elke skill (/factuur, /zelffactuur, /bon, /betaald, /aangifte) doet. Roep aan bij eerste gebruik of als business.json nog ontbreekt.
 allowed-tools: Bash, Read, Write
 ---

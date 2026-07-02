@@ -1,14 +1,14 @@
 {
-  "name": "zzp-admin-skills",
+  "name": "vink-skills",
   "owner": {
     "name": "AM Oord Consulting"
   },
   "metadata": {
-    "description": "ZZP-administratie-skills voor freelancers — distributie + updates van de zzp-admin-plugin."
+    "description": "ZZP-administratie-skills voor freelancers — distributie + updates van de vink-plugin."
   },
   "plugins": [
     {
-      "name": "zzp-admin",
+      "name": "vink",
       "description": "ZZP-administratie: factuur, zelffactuur, bon, betaald, BTW-aangifte.",
       "source": "./"
     }

@@ -1,4 +1,4 @@
-# ZZP-admin — lichtgewicht ZZP-administratie met Claude Code
+# Vink — lichtgewicht ZZP-administratie met Claude Code
 
 Een lichtgewicht administratie voor Nederlandse ZZP'ers/freelancers, volledig op **platte
 bestanden** (CSV + JSON) en aangedreven door [Claude Code](https://claude.com/claude-code).
@@ -18,14 +18,14 @@ en blijft staan als de plugin een update krijgt.
 
 | Commando | Wat het doet |
 |---|---|
-| `/setup-zzp-admin` | Eenmalige onboarding: je map initialiseren + bedrijfsgegevens en standaard betaaltermijn instellen. |
+| `/setup-vink` | Eenmalige onboarding: je map initialiseren + bedrijfsgegevens en standaard betaaltermijn instellen. |
 | `/factuur` | Een verkoopfactuur maken (omzet). Vult tarief/omschrijving aan op basis van eerdere facturen, kent het juiste oplopende factuurnummer toe en genereert een PDF. |
 | `/zelffactuur` | Een factuur importeren die je opdrachtgever namens jou maakte (self-billing). Telt óók als omzet. |
 | `/bon` | Een bon of inkoopfactuur als kostenpost verwerken. Classificeert de BTW (aftrekbaar / verlegd / niet-aftrekbaar) en rekent vreemde valuta om op de ECB-dagkoers. |
 | `/betaald` | Een verkoopfactuur op betaald zetten (status + betaaldatum). |
 | `/aangifte` | Een kwartaal-BTW-overzicht samenstellen (rubrieken 1a t/m 5g + ICP-opgaaf) ter voorbereiding van je aangifte. |
 
-> In het slash-menu heten de skills `zzp-admin:factuur`, `zzp-admin:bon`, enz. (de plugin-naam is de
+> In het slash-menu heten de skills `vink:factuur`, `vink:bon`, enz. (de plugin-naam is de
 > prefix). De korte vorm `/factuur` werkt ook gewoon — Claude herkent de bedoeling, ook midden in
 > een zin.
 
@@ -48,15 +48,15 @@ en blijft staan als de plugin een update krijgt.
 Eenmalig, in Claude Code:
 
 ```text
-/plugin marketplace add mathijs-oord/zzp-admin-skills
-/plugin install zzp-admin@zzp-admin-skills
+/plugin marketplace add mathijs-oord/vink-skills
+/plugin install vink@vink-skills
 ```
 
 Daarna:
 
 1. **Maak (of kies) een map** voor je administratie, bv. `~/Administratie`, en **open die map in
    Claude Code** (`cd ~/Administratie` en start Claude Code daar). Hier komt jouw data te staan.
-2. Typ **`/setup-zzp-admin`**. Dat zet bij eerste gebruik de lege templates klaar in je map (`data/`-CSV's,
+2. Typ **`/setup-vink`**. Dat zet bij eerste gebruik de lege templates klaar in je map (`data/`-CSV's,
    `business.example.json`, een project-`CLAUDE.md` en de uitvoer-mappen) en vraagt vervolgens je
    bedrijfsgegevens (naam, adres, KvK, BTW-id, IBAN) + standaard betaaltermijn.
 3. **Probeer het uit**, bijvoorbeeld:
@@ -64,7 +64,7 @@ Daarna:
    - `/bon` → "Verwerk deze bon" (+ pad naar een PDF/foto).
    - `/aangifte` → "Stel de aangifte voor dit kwartaal samen."
 
-Werk je voor meerdere administraties? Maak per administratie een aparte map en draai `/setup-zzp-admin` in
+Werk je voor meerdere administraties? Maak per administratie een aparte map en draai `/setup-vink` in
 elk. De plugin is overal beschikbaar; de data blijft per map gescheiden.
 
 ## Updates ontvangen
@@ -73,10 +73,10 @@ Bij **third-party marketplaces staat auto-update standaard uit**. Twee opties:
 
 - **Handmatig** (altijd de nieuwste versie ophalen):
   ```text
-  /plugin marketplace update zzp-admin-skills
+  /plugin marketplace update vink-skills
   ```
 - **Auto-update aanzetten**: open `/plugin` → tabblad **Marketplaces** → kies
-  `zzp-admin-skills` → **Enable auto-update**. Updates komen dan bij het opstarten van Claude
+  `vink-skills` → **Enable auto-update**. Updates komen dan bij het opstarten van Claude
   Code binnen.
 
 Updates raken alleen de plugin-code/skills/regels — **nooit je data**. Je `data/`, `facturen/`,
@@ -87,22 +87,22 @@ Updates raken alleen de plugin-code/skills/regels — **nooit je data**. Je `dat
 **De plugin (deze repo — wordt geüpdatet):**
 
 ```
-zzp-admin-skills/
+vink-skills/
 ├── .claude-plugin/
 │   ├── marketplace.json     marketplace-definitie (deze repo = marketplace)
-│   └── plugin.json          plugin-manifest (naam: zzp-admin)
+│   └── plugin.json          plugin-manifest (naam: vink)
 ├── skills/                  de skills: setup, factuur, zelffactuur, bon, betaald, aangifte
 ├── lib/admin.mjs            deterministische kern (factuurnr, BTW, FX, PDF, CSV-I/O)
 ├── templates/               HTML-templates voor de factuur- en aangifte-PDF's
 ├── rules/                   Nederlandse BTW-regels in markdown — de kennisbron van de skills
-└── seed/                    lege templates die /setup-zzp-admin naar je eigen map kopieert
+└── seed/                    lege templates die /setup-vink naar je eigen map kopieert
 ```
 
 **Jouw map (per gebruiker — blijft van jou):**
 
 ```
 ~/Administratie/
-├── CLAUDE.md                projectconventies (door /setup-zzp-admin neergezet)
+├── CLAUDE.md                projectconventies (door /setup-vink neergezet)
 ├── data/                    je administratie (CSV's + business.json)
 ├── facturen/<YYYY-QN>/      gegenereerde + geïmporteerde factuur-PDF's, per kwartaal
 ├── bonnen/<YYYY-QN>/        kopie van je bonbestanden, per kwartaal (bewaarplicht)
@@ -138,19 +138,19 @@ git push
 ```
 
 Het `version`-veld is bewust **weggelaten** uit `plugin.json`, dus elke commit telt als een nieuwe
-versie. Gebruikers halen 'm op met `/plugin marketplace update zzp-admin-skills` (of automatisch
+versie. Gebruikers halen 'm op met `/plugin marketplace update vink-skills` (of automatisch
 als ze auto-update aan hebben). Wil je later vaste releases (semver), zet dan `version` in
 `plugin.json` en hoog die per release op.
 
 **Lokaal testen vóór je pusht** — in een aparte testmap, niet in deze repo:
 
 ```text
-/plugin marketplace add /Users/<jij>/Documents/zzp-admin-skills
-/plugin install zzp-admin@zzp-admin-skills
+/plugin marketplace add /Users/<jij>/Documents/vink-skills
+/plugin install vink@vink-skills
 ```
 
-Daarna in een lege testmap `/setup-zzp-admin` draaien. Pas je de plugin aan, herlaad met
-`/plugin marketplace update zzp-admin-skills` (lokaal pad) en `/plugin reload-plugins`.
+Daarna in een lege testmap `/setup-vink` draaien. Pas je de plugin aan, herlaad met
+`/plugin marketplace update vink-skills` (lokaal pad) en `/plugin reload-plugins`.
 
 **Validatie:**
 
