@@ -24,6 +24,7 @@ en blijft staan als de plugin een update krijgt.
 | `/bon` | Een bon of inkoopfactuur als kostenpost verwerken. Classificeert de BTW (aftrekbaar / verlegd / niet-aftrekbaar) en rekent vreemde valuta om op de ECB-dagkoers. |
 | `/betaald` | Een verkoopfactuur op betaald zetten (status + betaaldatum). |
 | `/aangifte` | Een kwartaal-BTW-overzicht samenstellen (rubrieken 1a t/m 5g + ICP-opgaaf) ter voorbereiding van je aangifte. |
+| `/dashboard` | Een HTML-dashboard met de stand van zaken: openstaande facturen (met dagen te laat/over datum), opbrengsten en kosten van het lopende kwartaal, en de eerstvolgende aangifte-deadline. |
 
 > In het slash-menu heten de skills `vink:factuur`, `vink:bon`, enz. (de plugin-naam is de
 > prefix). De korte vorm `/factuur` werkt ook gewoon — Claude herkent de bedoeling, ook midden in
@@ -91,9 +92,9 @@ vink-skills/
 ├── .claude-plugin/
 │   ├── marketplace.json     marketplace-definitie (deze repo = marketplace)
 │   └── plugin.json          plugin-manifest (naam: vink)
-├── skills/                  de skills: setup, factuur, zelffactuur, bon, betaald, aangifte
+├── skills/                  de skills: setup, factuur, zelffactuur, bon, betaald, aangifte, dashboard
 ├── lib/admin.mjs            deterministische kern (factuurnr, BTW, FX, PDF, CSV-I/O)
-├── templates/               HTML-templates voor de factuur- en aangifte-PDF's
+├── templates/               HTML-templates voor de factuur- en aangifte-PDF's + het dashboard
 ├── rules/                   Nederlandse BTW-regels in markdown — de kennisbron van de skills
 └── seed/                    lege templates die /setup-vink naar je eigen map kopieert
 ```

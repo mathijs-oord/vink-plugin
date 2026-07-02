@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stand van zaken</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Vink Design System — "Rapport": een printbaar statusvel op een bureaublad-achtergrond. */
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-variant-numeric: tabular-nums; -webkit-font-smoothing: antialiased;
+    background: #EAE5DC; color: #0A0A0B;
+  }
+  .desk { display: flex; justify-content: center; padding: 48px 24px; }
+  .sheet {
+    width: 880px; background: #FDFAF5; border: 1px solid #E5E5E8; border-radius: 12px;
+    overflow: hidden; box-shadow: 0 12px 32px rgba(0,0,0,0.07);
+  }
+  .body { padding: 32px; display: flex; flex-direction: column; gap: 24px; }
+
+  .header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+  .title { font-size: 24px; font-weight: 600; letter-spacing: -0.02em; color: #0A0A0B; line-height: 1.15; }
+  .subtitle { font-size: 14px; color: #62626B; margin-top: 6px; }
+  .stamp { font-size: 12px; color: #62626B; white-space: nowrap; padding-top: 4px; }
+
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .kpi { border: 1px solid #E5E5E8; border-radius: 8px; padding: 14px; background: #FDFAF5; display: flex; flex-direction: column; gap: 8px; }
+  .kpi .label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; color: #62626B; }
+  .kpi .value { font-size: 21px; font-weight: 600; color: #0A0A0B; letter-spacing: -0.01em; }
+  .kpi .lines { display: flex; flex-direction: column; gap: 2px; }
+  .kpi .lines div { font-size: 12px; }
+  .muted { color: #62626B; }
+  .red { color: #B91C1C; }
+
+  .strip { display: flex; justify-content: space-between; align-items: center; gap: 16px; background: #F7F3EB; border: 1px solid #E5E5E8; border-radius: 8px; padding: 14px 16px; }
+  .strip .lbl { font-size: 14px; color: #0A0A0B; }
+  .strip .val { font-size: 20px; font-weight: 600; color: #0A0A0B; }
+
+  .card { border: 1px solid #E5E5E8; border-radius: 8px; background: #FDFAF5; padding: 16px 18px; }
+  .chart-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+  .chart-title { font-size: 14px; font-weight: 600; color: #0A0A0B; }
+  .legend { display: flex; gap: 16px; font-size: 12px; color: #62626B; }
+  .legend .item { display: flex; align-items: center; gap: 6px; }
+  .swatch { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+  .plot { display: flex; align-items: flex-end; gap: 24px; height: 130px; border-bottom: 1px solid #E5E5E8; padding: 0 8px; }
+  .grp { flex: 1; display: flex; align-items: flex-end; justify-content: center; gap: 5px; height: 100%; }
+  .bar { width: 20px; border-radius: 3px 3px 0 0; }
+  .xlabels { display: flex; gap: 24px; padding: 8px 8px 0; }
+  .xlabels div { flex: 1; text-align: center; font-size: 12px; color: #62626B; }
+
+  .block { display: flex; flex-direction: column; }
+  .section-title { font-size: 16px; font-weight: 600; color: #0A0A0B; letter-spacing: -0.01em; margin-bottom: 10px; }
+  .tbl-wrap { border: 1px solid #E5E5E8; border-radius: 8px; overflow: hidden; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  thead tr { color: #62626B; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }
+  thead th { padding: 10px 16px; font-weight: 500; text-align: left; }
+  thead th.r { text-align: right; }
+  tbody td { padding: 13px 16px; border-top: 1px solid #E5E5E8; color: #0A0A0B; }
+  tbody td.r { text-align: right; }
+  tbody td.strong { font-weight: 600; }
+  tbody td.empty { text-align: center; color: #62626B; padding: 22px 16px; }
+  .qname { font-weight: 600; color: #0A0A0B; }
+  .qmonths { color: #62626B; margin-left: 4px; }
+  .nu { margin-left: 8px; font-size: 11px; color: #62626B; background: #EAE5DC; border-radius: 9999px; padding: 2px 8px; }
+  .status { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+  .dot { width: 8px; height: 8px; border-radius: 9999px; display: inline-block; flex: none; }
+
+  @media print {
+    body { background: #fff; }
+    .desk { padding: 0; }
+    .sheet { box-shadow: none; border: none; width: auto; }
+  }
+</style>
+</head>
+<body>
+  <div class="desk">
+    <div class="sheet">
+      <div class="body">
+        <div class="header">
+          <div>
+            <div class="title">Stand van zaken</div>
+            <div class="subtitle">{{BUSINESS_NAME}} · boekjaar {{YEAR}} · je zit nu in Q{{CURRENT_Q}}</div>
+          </div>
+          <div class="stamp">Gegenereerd op {{GENERATED_AT}}</div>
+        </div>
+
+        <div class="kpis">{{KPI_CARDS}}
+        </div>
+
+        <div class="strip">
+          <div class="lbl">Indicatief resultaat dit jaar <span class="muted">(omzet − kosten)</span></div>
+          <div class="val">{{RESULTAAT}}</div>
+        </div>
+
+        <div class="card">
+          <div class="chart-head">
+            <div class="chart-title">Omzet &amp; kosten per kwartaal</div>
+            <div class="legend">
+              <span class="item"><span class="swatch" style="background:#00C9A7"></span>Omzet</span>
+              <span class="item"><span class="swatch" style="background:#B7B1A6"></span>Kosten</span>
+            </div>
+          </div>
+          <div class="plot">{{CHART_BARS}}
+          </div>
+          <div class="xlabels">{{CHART_LABELS}}
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="section-title">Per kwartaal</div>
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Kwartaal</th>
+                  <th class="r">Omzet</th>
+                  <th class="r">Kosten</th>
+                  <th class="r">Resultaat</th>
+                  <th>BTW-aangifte</th>
+                </tr>
+              </thead>
+              <tbody>{{QUARTER_ROWS}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="section-title">Openstaande facturen</div>
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Factuur</th>
+                  <th>Klant</th>
+                  <th class="r">Bedrag</th>
+                  <th>Vervaldatum</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>{{INVOICE_ROWS}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
