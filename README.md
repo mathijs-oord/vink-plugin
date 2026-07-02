@@ -49,8 +49,8 @@ en blijft staan als de plugin een update krijgt.
 Eenmalig, in Claude Code:
 
 ```text
-/plugin marketplace add mathijs-oord/vink-skills
-/plugin install vink@vink-skills
+/plugin marketplace add mathijs-oord/vink-plugin
+/plugin install vink@vink-plugin
 ```
 
 Daarna:
@@ -74,10 +74,10 @@ Bij **third-party marketplaces staat auto-update standaard uit**. Twee opties:
 
 - **Handmatig** (altijd de nieuwste versie ophalen):
   ```text
-  /plugin marketplace update vink-skills
+  /plugin marketplace update vink-plugin
   ```
 - **Auto-update aanzetten**: open `/plugin` → tabblad **Marketplaces** → kies
-  `vink-skills` → **Enable auto-update**. Updates komen dan bij het opstarten van Claude
+  `vink-plugin` → **Enable auto-update**. Updates komen dan bij het opstarten van Claude
   Code binnen.
 
 Updates raken alleen de plugin-code/skills/regels — **nooit je data**. Je `data/`, `facturen/`,
@@ -88,7 +88,7 @@ Updates raken alleen de plugin-code/skills/regels — **nooit je data**. Je `dat
 **De plugin (deze repo — wordt geüpdatet):**
 
 ```
-vink-skills/
+vink-plugin/
 ├── .claude-plugin/
 │   ├── marketplace.json     marketplace-definitie (deze repo = marketplace)
 │   └── plugin.json          plugin-manifest (naam: vink)
@@ -139,19 +139,19 @@ git push
 ```
 
 Het `version`-veld is bewust **weggelaten** uit `plugin.json`, dus elke commit telt als een nieuwe
-versie. Gebruikers halen 'm op met `/plugin marketplace update vink-skills` (of automatisch
+versie. Gebruikers halen 'm op met `/plugin marketplace update vink-plugin` (of automatisch
 als ze auto-update aan hebben). Wil je later vaste releases (semver), zet dan `version` in
 `plugin.json` en hoog die per release op.
 
 **Lokaal testen vóór je pusht** — in een aparte testmap, niet in deze repo:
 
 ```text
-/plugin marketplace add /Users/<jij>/Documents/vink-skills
-/plugin install vink@vink-skills
+/plugin marketplace add /Users/<jij>/Documents/vink-plugin
+/plugin install vink@vink-plugin
 ```
 
 Daarna in een lege testmap `/setup-vink` draaien. Pas je de plugin aan, herlaad met
-`/plugin marketplace update vink-skills` (lokaal pad) en `/plugin reload-plugins`.
+`/plugin marketplace update vink-plugin` (lokaal pad) en `/plugin reload-plugins`.
 
 **Validatie:**
 
