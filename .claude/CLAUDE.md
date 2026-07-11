@@ -54,3 +54,9 @@ lege map (niet deze repo), of zet `ADMIN_DATA_DIR`. PDF-render gebruikt headless
 - Data-paden in skills (`data/`, `facturen/`, `bonnen/`, `aangiftes/`) blijven **relatief** — die
   horen in de map van de gebruiker.
 - Geen verwijder-acties via skills (bewuste veiligheidskeuze).
+- **Taal (i18n):** factuur- en dashboard-render zijn tweetalig (NL/EN) via de `STRINGS`-dictionary
+  in `admin.mjs`. Taal = `business.language` (default `nl`), per factuur te overriden met
+  `invoice.language`. Voeg je een zichtbare tekst toe aan `templates/factuur.html` of
+  `templates/dashboard.html`, maak er dan een `{{L_...}}`-placeholder van en vul die in beide talen
+  in `STRINGS`. `formatCurrency`/`formatDate` nemen een `lang`-argument. De **aangifte** blijft
+  bewust NL (officiële Belastingdienst-rubrieken) — niet vertalen.

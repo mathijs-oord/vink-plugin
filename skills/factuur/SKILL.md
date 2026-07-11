@@ -86,6 +86,13 @@ neem dus géén `subtotal`/`vat`/`total`/`due_date`/`amount` op in de JSON:
   "payment_term_days": 14
 }
 ```
+
+> **Factuurtaal.** De PDF wordt gerenderd in `business.language` (default `nl`). Wil je een **Engelse
+> factuur** — bv. voor een buitenlandse klant, of als de gebruiker daarom vraagt — zet dan
+> `"language": "en"` in het `invoice`-object. Dat vertaalt alle labels (INVOICE, Description, VAT,
+> betaalzin, …), de bedragen (`€1,234.56`) en de datums (`15 Mar 2026`); de bedragen/BTW zelf
+> veranderen niet. Bij een verlegde factuur aan een EU-klant ligt Engels voor de hand. Laat je het
+> veld weg, dan volgt de factuur de bedrijfs-default.
 Draai dan (vervang `<YYYY-QN>` door het kwartaal uit stap 4):
 ```
 node "$CLAUDE_PLUGIN_ROOT/lib/admin.mjs" record-invoice /tmp/factuur.json facturen/<YYYY-QN>/2026-0005.pdf

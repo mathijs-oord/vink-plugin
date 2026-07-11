@@ -11,5 +11,6 @@
   "vat_number": "NL000000000B00",
   "iban": "NL00BANK0000000000",
   "account_holder": "Jouw Bedrijfsnaam",
-  "payment_terms_days": 14
+  "payment_terms_days": 14,
+  "language": "nl"
 }

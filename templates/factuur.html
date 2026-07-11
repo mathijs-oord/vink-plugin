@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="{{LANG}}">
 <head>
 <meta charset="utf-8">
 <style>
@@ -69,13 +69,13 @@
     <div>{{BUSINESS_ADDRESS}}</div>
     <div>{{BUSINESS_POSTCODE_CITY}}</div>
     <div>{{BUSINESS_CONTACT}}</div>
-    <div>KvK: {{BUSINESS_KVK}}</div>
-    <div>BTW: {{BUSINESS_VAT}}</div>
+    <div>{{L_COC}}: {{BUSINESS_KVK}}</div>
+    <div>{{L_VAT}}: {{BUSINESS_VAT}}</div>
   </div>
 
   <div class="head">
     <div class="aan">
-      <div class="label">Aan</div>
+      <div class="label">{{L_TO}}</div>
       <div class="client">
         <div class="cname">{{CLIENT_NAME}}</div>
         {{CLIENT_ATTENTION}}
@@ -85,10 +85,10 @@
       </div>
     </div>
     <div class="meta">
-      <div class="title">FACTUUR</div>
-      <div class="meta-line">Nummer: {{INVOICE_NUMBER}}</div>
-      <div class="meta-line">Datum: {{INVOICE_DATE}}</div>
-      <div class="meta-line">Vervaldatum: {{INVOICE_DUE_DATE}}</div>
+      <div class="title">{{L_TITLE}}</div>
+      <div class="meta-line">{{L_NUMBER}}: {{INVOICE_NUMBER}}</div>
+      <div class="meta-line">{{L_DATE}}: {{INVOICE_DATE}}</div>
+      <div class="meta-line">{{L_DUE}}: {{INVOICE_DUE_DATE}}</div>
       {{REFERENCE_ROW}}
     </div>
   </div>
@@ -96,12 +96,12 @@
   <table class="items">
     <thead>
       <tr>
-        <th class="desc">Omschrijving</th>
-        <th class="num">Aantal</th>
-        <th>Eenheid</th>
-        <th class="num">Tarief</th>
+        <th class="desc">{{L_COL_DESC}}</th>
+        <th class="num">{{L_COL_QTY}}</th>
+        <th>{{L_COL_UNIT}}</th>
+        <th class="num">{{L_COL_RATE}}</th>
         {{VAT_HEADER}}
-        <th class="num">Bedrag</th>
+        <th class="num">{{L_COL_AMOUNT}}</th>
       </tr>
     </thead>
     <tbody>{{LINE_ITEMS}}
@@ -110,9 +110,9 @@
 
   <div class="totals">
     <table>
-      <tr><td class="t-label">Subtotaal</td><td class="t-val">{{SUBTOTAL}}</td></tr>
+      <tr><td class="t-label">{{L_SUBTOTAL}}</td><td class="t-val">{{SUBTOTAL}}</td></tr>
       {{VAT_ROWS}}
-      <tr class="grand"><td class="t-label">Totaal</td><td class="t-val">{{TOTAL}}</td></tr>
+      <tr class="grand"><td class="t-label">{{L_TOTAL}}</td><td class="t-val">{{TOTAL}}</td></tr>
     </table>
   </div>
 
@@ -120,8 +120,8 @@
   {{NOTES}}
 
   <div class="footer">
-    <div class="pay-box">Gelieve het bedrag {{PAYMENT_TERM}} over te maken op IBAN {{BUSINESS_IBAN}} t.n.v. {{ACCOUNT_HOLDER}} o.v.v. factuurnummer {{INVOICE_NUMBER}}.</div>
-    <div class="kvk-line">KvK: {{BUSINESS_KVK}} | BTW: {{BUSINESS_VAT}} | IBAN: {{BUSINESS_IBAN}}</div>
+    <div class="pay-box">{{PAY_INSTRUCTION}}</div>
+    <div class="kvk-line">{{L_COC}}: {{BUSINESS_KVK}} | {{L_VAT}}: {{BUSINESS_VAT}} | IBAN: {{BUSINESS_IBAN}}</div>
   </div>
 </body>
 </html>

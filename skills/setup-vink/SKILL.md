@@ -63,6 +63,10 @@ gebruiker ze in één keer kan plakken, maar maak duidelijk welke verplicht zijn
 - `country` — default `Nederland`
 - `phone`, `email`, `website` — komen op de factuur als ze ingevuld zijn (mogen leeg)
 - `payment_terms_days` — standaard betaaltermijn in dagen (zie stap 4)
+- `language` — standaardtaal voor factuur-PDF's én het dashboard: `nl` (default) of `en`. Vraag dit
+  kort: schrijft de gebruiker vooral aan Nederlandse klanten (`nl`) of ook aan buitenlandse (`en`)?
+  Dit is alléén de standaard — per factuur kan `/factuur` er alsnog een Engelse van maken (bv. voor
+  een buitenlandse klant). De **aangifte** blijft altijd Nederlands (officiële Belastingdienst-rubrieken).
 
 Wat de gebruiker leeg laat van de optionele velden: laat leeg ("") of gebruik de default. Vul
 **nooit** zelf een KvK-/BTW-nummer of IBAN in — dat moet de gebruiker aanleveren. Ontbreekt een

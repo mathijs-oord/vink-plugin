@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="{{LANG}}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Stand van zaken</title>
+<title>{{L_TITLE}}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -83,26 +83,26 @@
       <div class="body">
         <div class="header">
           <div>
-            <div class="title">Stand van zaken</div>
-            <div class="subtitle">{{BUSINESS_NAME}} · boekjaar {{YEAR}} · je zit nu in Q{{CURRENT_Q}}</div>
+            <div class="title">{{L_TITLE}}</div>
+            <div class="subtitle">{{SUBTITLE}}</div>
           </div>
-          <div class="stamp">Gegenereerd op {{GENERATED_AT}}</div>
+          <div class="stamp">{{STAMP}}</div>
         </div>
 
         <div class="kpis">{{KPI_CARDS}}
         </div>
 
         <div class="strip">
-          <div class="lbl">Indicatief resultaat dit jaar <span class="muted">(omzet − kosten)</span></div>
+          <div class="lbl">{{L_RESULT}} <span class="muted">{{L_RESULT_HINT}}</span></div>
           <div class="val">{{RESULTAAT}}</div>
         </div>
 
         <div class="card">
           <div class="chart-head">
-            <div class="chart-title">Omzet &amp; kosten per kwartaal</div>
+            <div class="chart-title">{{L_CHART_TITLE}}</div>
             <div class="legend">
-              <span class="item"><span class="swatch" style="background:#00C9A7"></span>Omzet</span>
-              <span class="item"><span class="swatch" style="background:#B7B1A6"></span>Kosten</span>
+              <span class="item"><span class="swatch" style="background:#00C9A7"></span>{{L_LEG_REV}}</span>
+              <span class="item"><span class="swatch" style="background:#B7B1A6"></span>{{L_LEG_COST}}</span>
             </div>
           </div>
           <div class="plot">{{CHART_BARS}}
@@ -112,16 +112,16 @@
         </div>
 
         <div class="block">
-          <div class="section-title">Per kwartaal</div>
+          <div class="section-title">{{L_SEC_QUARTER}}</div>
           <div class="tbl-wrap">
             <table>
               <thead>
                 <tr>
-                  <th>Kwartaal</th>
-                  <th class="r">Omzet</th>
-                  <th class="r">Kosten</th>
-                  <th class="r">Resultaat</th>
-                  <th>BTW-aangifte</th>
+                  <th>{{L_TH_QUARTER}}</th>
+                  <th class="r">{{L_TH_REVENUE}}</th>
+                  <th class="r">{{L_TH_COSTS}}</th>
+                  <th class="r">{{L_TH_RESULT}}</th>
+                  <th>{{L_TH_RETURN}}</th>
                 </tr>
               </thead>
               <tbody>{{QUARTER_ROWS}}
@@ -131,16 +131,16 @@
         </div>
 
         <div class="block">
-          <div class="section-title">Openstaande facturen</div>
+          <div class="section-title">{{L_SEC_OUTSTANDING}}</div>
           <div class="tbl-wrap">
             <table>
               <thead>
                 <tr>
-                  <th>Factuur</th>
-                  <th>Klant</th>
-                  <th class="r">Bedrag</th>
-                  <th>Vervaldatum</th>
-                  <th>Status</th>
+                  <th>{{L_TH_INVOICE}}</th>
+                  <th>{{L_TH_CLIENT}}</th>
+                  <th class="r">{{L_TH_AMOUNT}}</th>
+                  <th>{{L_TH_DUE}}</th>
+                  <th>{{L_TH_STATUS}}</th>
                 </tr>
               </thead>
               <tbody>{{INVOICE_ROWS}}
