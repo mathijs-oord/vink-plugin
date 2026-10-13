@@ -1,8 +1,11 @@
 {
   "name": "vink",
-  "description": "Lichtgewicht ZZP-administratie voor freelancers in Nederland — factuur, zelffactuur, bon, betaald, BTW-aangifte en jaaropgave op platte bestanden. AI bepaalt WAT, deterministische code bepaalt HOE.",
+  "description": "Lichtgewicht ZZP-administratie voor freelancers in Nederland — factuur, zelffactuur, bon, betaald, BTW-aangifte, dashboard en jaaropgave op platte bestanden. AI bepaalt WAT, deterministische code bepaalt HOE.",
   "author": {
     "name": "AM Oord Consulting"
   },
+  "homepage": "https://www.vinkapp.nl/",
+  "repository": "https://github.com/mathijs-oord/vink-plugin",
+  "license": "MIT",
   "keywords": ["boekhouding", "btw", "factuur", "zzp", "nederland", "administratie", "jaaropgave", "inkomstenbelasting"]
 }

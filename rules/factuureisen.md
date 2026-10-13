@@ -33,7 +33,7 @@ Art. 35a Wet op de Omzetbelasting 1968 (implementatie van Art. 226 EU BTW-richtl
 - **Doorlopend** over alle klanten heen (niet per klant)
 - **Opeenvolgend** — duplicaten niet toegestaan
 - **Gaten toegestaan** — factuur maken en niet versturen mag
-- **Format**: `YYYY-NNN` (bv. 2026-001, 2026-002)
+- **Format**: `YYYY-NNNN` (bv. 2026-0001, 2026-0002)
 - **Geen klant-prefix** — klantinfo hoort niet in het factuurnummer
 
 ## Bijzondere vermeldingen

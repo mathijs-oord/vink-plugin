@@ -9,7 +9,7 @@ Drie situaties die er hetzelfde uitzien ("geen BTW") maar juridisch anders werke
 | Situatie | BTW op factuur | Voorbelasting aftrekbaar? | BTW-aangifte |
 |----------|---------------|--------------------------|--------------|
 | **Nultarief (0%)** | 0% vermeld | Ja | Rubriek 1e |
-| **BTW verlegd** | Geen BTW, "BTW verlegd" | Ja | Rubriek 3a/3b |
+| **BTW verlegd** | Geen BTW, "BTW verlegd" | Ja | Rubriek 3b (EU-ondernemer) of 1e (binnenlands verlegd) |
 | **Vrijgesteld** | Geen BTW | **Nee** | Niet aangeven |
 
 ## Nultarief (0%)
@@ -18,7 +18,7 @@ Geldt voor beperkt aantal situaties:
 
 **Diensten**: internationaal personenvervoer (schepen/vliegtuigen), diensten bij in-/uitvoer goederen buiten EU, werk aan goederen bestemd voor buiten EU, bemiddeling bij vervoer/opslag/invoer.
 
-**Goederen**: export naar buiten EU, intracommunautaire levering goederen naar andere EU-lidstaat.
+**Goederen**: export naar buiten EU (rubriek 3a), intracommunautaire levering goederen naar andere EU-lidstaat (rubriek 3b).
 
 **Bewijslast**: transportdocumenten, orderbons etc. bewaren. Geen bewijs = naheffing + boete.
 
@@ -29,13 +29,14 @@ Dit is wat de meeste ZZP consultants/developers/designers gebruiken bij buitenla
 **Diensten aan EU-ondernemer:**
 - Factuur zonder BTW + vermelding "BTW verlegd"
 - BTW-nummer klant op factuur (verplicht)
-- BTW-aangifte: rubriek **3a**
-- **ICP-opgaaf verplicht** (zie zzp-icp-opgaaf.md)
+- BTW-aangifte: rubriek **3b**
+- **ICP-opgaaf verplicht** (zie icp-opgaaf.md)
 - Klant draagt zelf BTW af in zijn land
 
 **Diensten aan ondernemer buiten EU:**
 - Factuur zonder BTW
-- BTW-aangifte: rubriek **3b**
+- BTW-aangifte: **niet aangeven** als de dienst in het land van de afnemer belast is. Rubriek 3a is
+  alleen voor uitvoer van goederen
 - Geen ICP-opgaaf
 
 **Diensten aan EU-particulier (zonder BTW-nummer):**
@@ -71,4 +72,5 @@ Gevolgen: geen BTW rekenen, **geen voorbelasting aftrekken**. Niet relevant voor
 - [Belastingdienst — Goederen 0% BTW](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/tarieven_en_vrijstellingen/goederen_0_btw/goederen_met_0_btw)
 - [Belastingdienst — Vrijstellingen](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/tarieven_en_vrijstellingen/vrijstellingen/vrijstellingen)
 - [Belastingdienst — Diensten aan EU-afnemers](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/zakendoen_met_het_buitenland/goederen_en_diensten_naar_andere_eu_landen/btw_berekenen_bij_diensten/btw_berekenen_bij_diensten_aan_afnemers_in_andere_eu_landen)
+- [Belastingdienst — Aangifte bij diensten aan afnemers buiten de EU](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/zakendoen_met_het_buitenland/zakendoen_buiten_de_eu/aangifte_doen_als_u_zakendoet_buiten_de_eu/aangifte_doen_als_u_diensten_levert_aan_afnemers_in_niet_eu_landen)
 - [Belastingdienst — Aantonen 0%-tarief](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/tarieven_en_vrijstellingen/goederen_0_btw/aantonen_van_terechte_toepassing_0_tarief)

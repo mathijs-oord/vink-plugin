@@ -11,7 +11,7 @@ stelt ze samen uit de verkoopfacturen en bonnen van één boekjaar: van omzet na
 uit onderneming**, in de volgorde van de aangifte inkomstenbelasting. De gebruiker geeft een jaar op
 (bv. "2026", "vorig jaar", "dit jaar tot nu toe").
 
-Achtergrond en bronnen: `$CLAUDE_PLUGIN_ROOT/rules/jaaropgave.md`.
+Achtergrond en bronnen: `${CLAUDE_PLUGIN_ROOT}/rules/jaaropgave.md`.
 
 ## Stappen
 
@@ -21,7 +21,7 @@ een **voorlopige** stand (handig om tussentijds de winst te peilen); de code mar
 
 ### 2. Eerste berekening (deterministisch, read-only)
 ```
-node "$CLAUDE_PLUGIN_ROOT/lib/admin.mjs" jaaropgave 2026
+node "${CLAUDE_PLUGIN_ROOT}/lib/admin.mjs" jaaropgave 2026
 ```
 Dit leest `invoices.csv`, `invoice_items.csv`, `receipts.csv`, `clients.csv`, `aangiftes.csv` en (als
 het bestaat) `assets.csv`, en geeft JSON terug met:
@@ -71,7 +71,7 @@ Apparatuur-bonnen (categorie `equipment`) van € 450 of meer excl. btw herkent 
 investering — daar hoef je niets voor te doen. Alleen bedrijfsmiddelen zónder bon in `receipts.csv`
 zet je in `data/assets.csv`:
 ```
-node "$CLAUDE_PLUGIN_ROOT/lib/admin.mjs" append data/assets.csv '{"description":"Bureau","purchase_date":"2024-03-01","cost_eur":800,"residual_value_eur":0,"years":5,"kia":"false","notes":"gekocht vóór Vink","created_at":"2026-01-15"}'
+node "${CLAUDE_PLUGIN_ROOT}/lib/admin.mjs" append data/assets.csv '{"description":"Bureau","purchase_date":"2024-03-01","cost_eur":800,"residual_value_eur":0,"years":5,"kia":"false","notes":"gekocht vóór Vink","created_at":"2026-01-15"}'
 ```
 `cost_eur` = aanschafprijs excl. btw (of de waarde bij inbreng uit privé); `years` = gebruiksduur
 (minimaal 5); `kia` = `false` bij inbreng uit privé en bij aanschaf in een eerder jaar. Toon de regel
@@ -94,7 +94,7 @@ als de code het al uit de facturen haalde; alleen meegeven als de gebruiker het 
 ```
 `soort` is `kosten` of `opbrengst`; `bedrag` is altijd positief en excl. btw. Draai dan:
 ```
-node "$CLAUDE_PLUGIN_ROOT/lib/admin.mjs" jaaropgave 2026 /tmp/jaaropgave-opties.json > /tmp/jaaropgave-calc.json
+node "${CLAUDE_PLUGIN_ROOT}/lib/admin.mjs" jaaropgave 2026 /tmp/jaaropgave-opties.json > /tmp/jaaropgave-calc.json
 ```
 
 ### 5. Toon het overzicht → bevestiging
@@ -113,7 +113,7 @@ Bouw `/tmp/jaaropgave.json`:
 ```
 Draai dan:
 ```
-node "$CLAUDE_PLUGIN_ROOT/lib/admin.mjs" record-jaaropgave /tmp/jaaropgave.json jaaropgaven/2026-jaaropgave.pdf
+node "${CLAUDE_PLUGIN_ROOT}/lib/admin.mjs" record-jaaropgave /tmp/jaaropgave.json jaaropgaven/2026-jaaropgave.pdf
 ```
 Dit rendert de PDF **en** schrijft de `jaaropgaven.csv`-rij weg, rechtstreeks uit de berekende JSON —
 je tikt geen bedrag over. Open de PDF: `open jaaropgaven/2026-jaaropgave.pdf`.

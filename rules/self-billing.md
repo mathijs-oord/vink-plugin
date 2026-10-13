@@ -23,15 +23,6 @@ Een self-billing factuur is juridisch een **verkoopfactuur**. Het is inkomen met
 - Freelancer mag **niet** ook zelf een factuur sturen voor dezelfde levering
 - Factuurnummer is van de intermediair, niet jouw eigen reeks
 
-## Concurrentie-analyse
-
-**Geen enkele concurrent** (Moneybird, e-Boekhouden, Informer, FreshBooks, Jortt) biedt native self-billing support:
-- Moneybird: handmatig als verkoopfactuur invoeren
-- e-Boekhouden: via journaalposten
-- Anderen: helemaal niet
-
-Dit is een differentiatie-kans voor Vink.
-
 ## Bronnen
 
 - Art. 35a Wet OB (factuureisen self-billing)

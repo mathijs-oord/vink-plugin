@@ -1,5 +1,11 @@
 # Vink — lichtgewicht ZZP-administratie met Claude Code
 
+> **English:** Vink is a Claude Code plugin for Dutch freelancers (ZZP'ers): invoices, receipts,
+> quarterly VAT returns and year-end figures, kept as plain CSV/JSON files in your own folder. The
+> skills decide *what* to record; a deterministic Node CLI does the invoice numbering, VAT math,
+> currency conversion and PDF rendering. Docs and skills are in Dutch; invoices and the dashboard
+> render in Dutch or English.
+
 Een lichtgewicht administratie voor Nederlandse ZZP'ers/freelancers, volledig op **platte
 bestanden** (CSV + JSON) en aangedreven door [Claude Code](https://claude.com/claude-code).
 Je praat in gewone taal ("maak een factuur voor klant X", "verwerk deze bon"); de skills
@@ -24,7 +30,7 @@ en blijft staan als de plugin een update krijgt.
 | `/bon` | Een bon of inkoopfactuur als kostenpost verwerken. Classificeert de BTW (aftrekbaar / verlegd / niet-aftrekbaar) en rekent vreemde valuta om op de ECB-dagkoers. |
 | `/betaald` | Een verkoopfactuur op betaald zetten (status + betaaldatum). |
 | `/aangifte` | Een kwartaal-BTW-overzicht samenstellen (rubrieken 1a t/m 5g + ICP-opgaaf) ter voorbereiding van je aangifte. |
-| `/dashboard` | Een HTML-dashboard met de stand van zaken: openstaande facturen (met dagen te laat/over datum), opbrengsten en kosten van het lopende kwartaal, en de eerstvolgende aangifte-deadline. |
+| `/dashboard` | Een HTML-dashboard met de stand van zaken: openstaande facturen (met dagen te laat/over datum), omzet en kosten van dit jaar en per kwartaal, en de eerstvolgende aangifte-deadline. |
 | `/jaaropgave` | Je jaarcijfers ter voorbereiding van de aangifte inkomstenbelasting: winst-en-verliesrekening, afschrijvingen, KIA, ondernemersaftrek en MKB-winstvrijstelling tot de belastbare winst, plus BTW-jaaroverzicht en balansposten. |
 
 > In het slash-menu heten de skills `vink:factuur`, `vink:bon`, enz. (de plugin-naam is de
@@ -44,6 +50,8 @@ en blijft staan als de plugin een update krijgt.
   ```bash
   export ADMIN_CHROME="/Applications/Chromium.app/Contents/MacOS/Chromium"
   ```
+- **macOS.** Vink is gebouwd en getest op de Mac. Op Linux en Windows werkt het rekenwerk, maar moet
+  je `ADMIN_CHROME` zelf zetten en opent een PDF niet vanzelf (de skills gebruiken `open`).
 
 ## Installeren (voor gebruikers)
 
@@ -148,12 +156,13 @@ als ze auto-update aan hebben). Wil je later vaste releases (semver), zet dan `v
 **Lokaal testen vóór je pusht** — in een aparte testmap, niet in deze repo:
 
 ```text
-/plugin marketplace add /Users/<jij>/Documents/vink-plugin
+/plugin marketplace add /pad/naar/deze/repo
 /plugin install vink@vink-plugin
 ```
 
-Daarna in een lege testmap `/setup-vink` draaien. Pas je de plugin aan, herlaad met
-`/plugin marketplace update vink-plugin` (lokaal pad) en `/plugin reload-plugins`.
+Daarna in een lege testmap `/setup-vink` draaien. Een marketplace op een lokaal pad laadt de plugin
+rechtstreeks uit je werkmap: wijzigingen (ook ongecommitte) zijn actief na `/reload-plugins` of bij
+een nieuwe sessie — committen of `marketplace update` is daarvoor niet nodig.
 
 **Validatie:**
 
@@ -161,8 +170,13 @@ Daarna in een lege testmap `/setup-vink` draaien. Pas je de plugin aan, herlaad 
 claude plugin validate .
 ```
 
+**Gebruikscijfers:** een install is een git clone van deze repo. De workflow
+`.github/workflows/clone-stats.yml` schrijft de clone-cijfers van GitHub (die maar 14 dagen bewaard
+blijven) elke maandag bij in `clones.csv` op de losse branch `stats`. Vereist het repo-secret
+`TRAFFIC_TOKEN`: een fine-grained PAT met *Administration: read* op deze repo.
+
 **Architectuur kort:** code/skills/regels/templates leven in de plugin en worden via
-`$CLAUDE_PLUGIN_ROOT` aangeroepen; data wordt door `lib/admin.mjs` weggeschreven relatief aan de
+`${CLAUDE_PLUGIN_ROOT}` aangeroepen; data wordt door `lib/admin.mjs` weggeschreven relatief aan de
 map waar Claude Code draait (`process.cwd()` / `CLAUDE_PROJECT_DIR`, te overriden met
 `ADMIN_DATA_DIR`). Zo overleeft gebruikersdata elke plugin-update.
 

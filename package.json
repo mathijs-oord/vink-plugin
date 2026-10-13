@@ -3,5 +3,5 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Lichtgewicht ZZP-administratie voor freelancers met Claude Code — factuur / zelffactuur / bon / betaald / aangifte. AI bepaalt WAT, deterministische code bepaalt HOE."
+  "description": "Lichtgewicht ZZP-administratie voor freelancers met Claude Code — factuur / zelffactuur / bon / betaald / aangifte / dashboard / jaaropgave. AI bepaalt WAT, deterministische code bepaalt HOE."
 }

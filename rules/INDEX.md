@@ -1,6 +1,7 @@
 # ZZP Boekhouding — Kennisbank
 
-Lokale kennisbank voor de `/business` skill. Wordt automatisch bijgewerkt met nieuwe inzichten.
+Kennisbank van de Vink-skills: de skills lezen deze bestanden als ze twijfelen over een fiscale regel.
+De bestanden horen bij de plugin — gebruikers krijgen nieuwe versies via een plugin-update.
 
 ## Bestanden
 
@@ -19,12 +20,12 @@ Lokale kennisbank voor de `/business` skill. Wordt automatisch bijgewerkt met ni
 | `afschrijving-investeringen.md` | €450 drempel, afschrijving, KIA 2026, herzieningsregel |
 | `aanloopkosten.md` | Kosten voor bedrijfsstart, BTW terugvragen, Art. 15 Wet OB |
 
-## Gebruik
+## Onderhoud (maintainer)
 
-De `/business` skill:
-1. Leest eerst deze bestanden (als relevant voor de vraag)
-2. Gaat alleen naar het web als het onderwerp niet gedekt is of data >6 maanden oud
-3. Werkt bestanden bij als er nieuwe info wordt gevonden
+- Is een bestand ouder dan 6 maanden, of begint er een nieuw belastingjaar: opnieuw verifiëren tegen
+  de bronnen onderaan het bestand en de datum bijwerken.
+- Raakt een wijziging het rekenwerk (tarieven, rubrieken, jaarbedragen), pas dan ook `lib/admin.mjs` aan.
+- Skills schrijven hier niet naar: een plugin-update vervangt deze map.
 
 ## Naamconventie
 

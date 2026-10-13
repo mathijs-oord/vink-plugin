@@ -32,7 +32,7 @@ bepaalt HOE). **Nooit zelf de CSV bewerken** — altijd via het commando hierond
 
 ### 3. Zet op betaald
 ```bash
-node "$CLAUDE_PLUGIN_ROOT/lib/admin.mjs" mark-paid <factuurnummer> [YYYY-MM-DD]
+node "${CLAUDE_PLUGIN_ROOT}/lib/admin.mjs" mark-paid <factuurnummer> [YYYY-MM-DD]
 ```
 - Zonder datum-argument → `paid_at` wordt vandaag.
 - Het commando voegt de `paid_at`-kolom toe als die nog niet bestaat, zet `status=paid` en

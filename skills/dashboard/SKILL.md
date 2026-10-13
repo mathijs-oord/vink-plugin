@@ -1,20 +1,20 @@
 ---
 name: dashboard
-description: Toon de huidige stand van zaken in een net HTML-dashboard — welke facturen nog openstaan (en hoeveel dagen te laat of nog te gaan), de opbrengsten en kosten van het lopende kwartaal, het indicatieve resultaat, en wanneer de eerstvolgende BTW-aangifte moet. Read-only momentopname uit facturen en bonnen.
+description: Toon de huidige stand van zaken in een net HTML-dashboard — welke facturen nog openstaan (en hoeveel dagen te laat of nog te gaan), de omzet en kosten van dit jaar en per kwartaal, het indicatieve resultaat, en wanneer de eerstvolgende BTW-aangifte moet. Read-only momentopname uit facturen en bonnen.
 allowed-tools: Bash, Read, Write
 ---
 
 # Dashboard — stand van zaken
 
 Genereer een overzichtelijk HTML-dashboard met de actuele stand: openstaande facturen, omzet en
-kosten van het lopende kwartaal, en de eerstvolgende BTW-aangifte-deadline. Alles wordt
+kosten van dit jaar (totaal en per kwartaal), en de eerstvolgende BTW-aangifte-deadline. Alles wordt
 deterministisch uit de CSV's berekend; deze skill wijzigt niets aan de administratie.
 
 ## Stappen
 
 ### 1. Bereken de stand (deterministisch, read-only)
 ```
-node "$CLAUDE_PLUGIN_ROOT/lib/admin.mjs" dashboard
+node "${CLAUDE_PLUGIN_ROOT}/lib/admin.mjs" dashboard
 ```
 Dit leest `invoices.csv`, `receipts.csv` en `aangiftes.csv` en geeft JSON terug met:
 - `year`, `current_quarter`, `generated_at`.
@@ -25,22 +25,27 @@ Dit leest `invoices.csv`, `receipts.csv` en `aangiftes.csv` en geeft JSON terug 
 - `outstanding` — openstaande facturen (status `sent`): `total`, `count`, `overdue_count`,
   `overdue_total`, en `invoices[]` met per factuur `days_overdue` (>0 = te laat, ≤0 = nog te gaan),
   gesorteerd met de meest te late bovenaan.
-- `next_aangifte` — het zojuist afgelopen kwartaal (het eerstvolgende dat je moet indienen):
-  `quarter`, `deadline_date`, `deadline_days` (>0 = nog te gaan), `recorded`.
+- `next_aangifte` — de eerstvolgende aangifte: `quarter`, `deadline_date`, `deadline_days` (>0 = nog
+  te gaan), `recorded`, `quarter_ended`. Dat is het zojuist afgelopen kwartaal (`quarter_ended: true`,
+  nu in te dienen), óf — als dat al met `/aangifte` is vastgelegd — het lopende kwartaal
+  (`quarter_ended: false`, kan nog niet worden ingediend).
 - `warnings` — bv. facturen over de vervaldatum, aangifte-deadline nabij/verlopen, concept-facturen.
 
 De datum-, dagen- en geldberekeningen komen allemaal uit de code — niets zelf narekenen.
 
 ### 2. Genereer het HTML-dashboard
-Lees de bedrijfsnaam uit `data/business.json` en bouw `/tmp/dashboard.json`:
+Lees `data/business.json` en bouw `/tmp/dashboard.json`:
 ```json
-{ "business": { "name": "…uit business.json…" }, "dashboard": <de volledige JSON uit stap 1> }
+{ "business": { …het hele object uit business.json… }, "dashboard": <de volledige JSON uit stap 1> }
 ```
+Neem `business` in zijn geheel over: de naam komt in de kop en `language` (`nl`/`en`) bepaalt de taal
+van het dashboard.
 Draai dan:
 ```
-node "$CLAUDE_PLUGIN_ROOT/lib/admin.mjs" render-dashboard /tmp/dashboard.json dashboard.html
+node "${CLAUDE_PLUGIN_ROOT}/lib/admin.mjs" render-dashboard /tmp/dashboard.json dashboard.html
 ```
-Dit schrijft `dashboard.html` (KPI-tegels + tabel openstaande facturen, met licht/donker-thema).
+Dit schrijft `dashboard.html` (KPI-tegels, staafgrafiek en tabel per kwartaal, tabel openstaande
+facturen).
 Open het: `open dashboard.html`.
 
 ### 3. Vat de stand kort samen
@@ -61,7 +66,7 @@ vastgelegd.
 - Omzet is **ex btw** (de omzet die telt voor de zzp'er); de tegel toont het incl.-btw-bedrag erbij.
   Kosten zijn de **totaalbedragen** (incl. btw) van de bonnen — het is een liquiditeits-blik, geen
   winstberekening. Vandaar "indicatief resultaat".
-- De "volgende BTW-aangifte" is het **vorige** kwartaal (dat je nu moet indienen), niet het lopende.
-  Bij twijfel over de exacte cijfers: draai `/aangifte` voor de volledige rubrieken.
+- De "volgende BTW-aangifte" is het **vorige** kwartaal (dat je nu moet indienen) zolang dat nog niet
+  is vastgelegd; daarna springt de tegel naar het lopende kwartaal ("loopt nog"). Bij twijfel over de exacte cijfers: draai `/aangifte` voor de volledige rubrieken.
 - `dashboard.html` schrijft de code naar de map van de gebruiker (relatief pad) — prima om te
   overschrijven; het is een wegwerpoverzicht dat je zo vaak kunt regenereren als je wilt.

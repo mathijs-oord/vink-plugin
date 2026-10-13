@@ -22,15 +22,10 @@ Lees de PDF/afbeelding en extraheer:
 Vraag de gebruiker alleen wat je écht niet uit het document haalt (bv. categorie, of het
 zakelijk percentage bij telefoon/internet).
 
-### 2. Valuta → euro (alleen als ≠ EUR)
-Niet-EUR bon? Haal de ECB-dagkoers op:
-```
-node "$CLAUDE_PLUGIN_ROOT/lib/admin.mjs" fx USD 2026-03-15        # geeft {"rate":0.92,"rate_date":"2026-03-14"}
-```
-Gebruik de **bon-datum**. Weekend/feestdag → de CLI geeft automatisch de vorige beursdag terug
-in `rate_date`. Bereken `amount_eur = original_amount * rate` en `vat_amount_eur = original_vat * rate`
-(`round2`). Bewaar `original_currency`, `original_amount`, `original_vat_amount`, `exchange_rate`,
-`exchange_rate_date`.
+### 2. Valuta
+Noteer de **valuta van de bon** en neem de bedragen over zoals ze erop staan. **Reken zelf niets
+om** — de omrekening naar euro (ECB-dagkoers op de bon-datum; in het weekend de vorige beursdag)
+doet de code in stap 7–8.
 
 ### 3. Categorie
 Kies één: `office, travel, software, phone_internet, insurance, marketing, education,
@@ -43,44 +38,74 @@ Eerste match wint (port van Vink `vat-classification.ts`):
 1. **Categorie `food_drinks` of `insurance`** → `non_deductible`
    (horeca-BTW uitgesloten, Art. 1 BUA; verzekering vrijgesteld, Art. 11).
 2. **NL-leverancier (BTW-nr begint met NL) + BTW > 0** → `deductible` (rubriek 5b).
-3. **EU-leverancier (niet-NL EU-prefix) + geen BTW óf verleggingstekst** → `reverse_charge_eu`
+3. **Buitenlandse leverancier die btw van zijn eigen land rekent** (bv. een Duits hotel met Duitse
+   btw) → `non_deductible`. Buitenlandse btw trek je niet af in de Nederlandse aangifte; terugvragen
+   kan apart, met een teruggaafverzoek voor btw uit andere EU-landen.
+4. **EU-leverancier (niet-NL EU-prefix) + geen BTW óf verleggingstekst** → `reverse_charge_eu`
    (rubriek 4b + 5b, netto €0).
-4. **Niet-EU leverancier + geen BTW óf verleggingstekst** → `reverse_charge_non_eu`
+5. **Niet-EU leverancier + geen BTW óf verleggingstekst** → `reverse_charge_non_eu`
    (rubriek 4a + 5b, netto €0).
-5. **Jouw eigen BTW-nr op de factuur + geen BTW geheven** → `reverse_charge_non_eu` (best guess;
+6. **Jouw eigen BTW-nr op de factuur + geen BTW geheven** → `reverse_charge_non_eu` (best guess;
    typisch buitenlandse SaaS zoals Anthropic/OpenAI). Bij EU-aanwijzing → `reverse_charge_eu`.
-6. **Geen BTW op het document, geen andere signalen** → `non_deductible`
+7. **Geen BTW op het document, geen andere signalen** → `non_deductible`
    (waarschijnlijk KOR-leverancier of vrijgesteld — geen aftrek).
-7. **BTW wél geheven, maar geen leveranciers-BTW-nr** → `deductible`
-   (vereenvoudigde factuur ≤€100, Art. 35b — aangenomen NL).
+8. **Nederlandse BTW geheven (21%/9%), maar geen leveranciers-BTW-nr** → `deductible`
+   (vereenvoudigde factuur ≤€100, Art. 35b — een Nederlandse kassabon).
 
-Twijfel? Lees `$CLAUDE_PLUGIN_ROOT/rules/kosten-voorbelasting.md` en `$CLAUDE_PLUGIN_ROOT/rules/nultarief-verlegd-vrijgesteld.md`.
+**Bij `reverse_charge_*`:** `vat_amount` = 0 (er staat geen btw op de bon) en `vat_percentage` = 21 —
+het Nederlandse tarief dat je zelf aangeeft in 4a/4b, niet de 0% van de bon. Alleen 9 als de dienst
+onder het verlaagde tarief valt. De code weigert een verlegde bon met een btw-bedrag: staat er wél btw
+op, dan is het regel 3 (`non_deductible`).
+
+Twijfel? Lees `${CLAUDE_PLUGIN_ROOT}/rules/kosten-voorbelasting.md` en `${CLAUDE_PLUGIN_ROOT}/rules/nultarief-verlegd-vrijgesteld.md`.
 Bij echte ambiguïteit kies de **fiscaal veilige** optie (`non_deductible`) en meld het.
 
 ### 5. Meerdere BTW-tarieven op één bon (bv. horeca 9% + 21%)
-Zet `vat_breakdown` als JSON-string: `[{"percentage":9,"amount":2.10},{"percentage":21,"amount":4.20}]`.
-`vat_amount_eur` = som van alle entries; `vat_percentage` = het dominante (hoogste-bedrag) tarief.
+Geef `vat_breakdown` mee als lijst, in de valuta van de bon:
+`[{"percentage":9,"amount":2.10},{"percentage":21,"amount":4.20}]`.
+`vat_amount` = som van alle entries; `vat_percentage` = het dominante (hoogste-bedrag) tarief.
 
 ### 6. BTW-periode
-`vat_period` = kwartaal van de bon-datum in formaat `YYYY-QN` (Q1=jan–mrt, Q2=apr–jun,
-Q3=jul–sep, Q4=okt–dec). Bv. datum 2026-03-15 → `2026-Q1`.
+Het btw-kwartaal (`vat_period`, `YYYY-QN`) leidt de code zelf af uit de bon-datum. Geef `vat_period`
+alleen mee als de bon in een **later** kwartaal moet meetellen — een vergeten bon uit een kwartaal
+waarvan de aangifte al is ingediend zet je op het lopende kwartaal.
 
 ### 7. Preview (compact) → bevestiging
-Toon beknopt: leverancier, datum, bedrag (en originele valuta indien geconverteerd), BTW-bedrag,
-`vat_status` + één regel waarom, categorie, kwartaal. Vraag bevestiging.
+Bouw `/tmp/bon.json` — alléén de **WAT**, met de bedragen zoals ze op de bon staan:
+```json
+{
+  "date": "2026-04-15",
+  "supplier_name": "Figma", "supplier_vat_number": "IE3557088SH", "supplier_invoice_number": "INV-1234",
+  "description": "Figma Professional april",
+  "category": "software",
+  "currency": "USD", "amount": 45.00, "vat_amount": 0, "vat_percentage": 21,
+  "vat_status": "reverse_charge_eu",
+  "business_pct": "", "notes": ""
+}
+```
+`amount` = het **totaalbedrag incl. btw**, `vat_amount` = het btw-bedrag, beide in `currency` (default
+`EUR`). Draai dan:
+```
+node "${CLAUDE_PLUGIN_ROOT}/lib/admin.mjs" compute-receipt /tmp/bon.json
+```
+Dit rekent om naar euro en bepaalt het kwartaal, zonder iets weg te schrijven. Toon beknopt uit die
+output: leverancier, datum, bedrag in euro (en het originele bedrag + koers indien omgerekend),
+BTW-bedrag, `vat_status` + één regel waarom, categorie, kwartaal. Vraag bevestiging.
 
-### 8. Na bevestiging: schrijf weg + bewaar origineel
+### 8. Na bevestiging: bewaar origineel + leg vast
 1. **Kopieer het bronbestand** naar het kwartaalmapje `bonnen/<vat_period>/` (bewaarplicht
-   Art. 52 AWR — origineel is het wettelijke bewijs). Maak het mapje eerst aan en kopieer dan:
-   `mkdir -p bonnen/<vat_period>`. Gebruik `vat_period` uit stap 6 als mapnaam en een nette
+   Art. 52 AWR — origineel is het wettelijke bewijs). Maak het mapje eerst aan:
+   `mkdir -p bonnen/<vat_period>`. Gebruik de `vat_period` uit stap 7 als mapnaam en een nette
    bestandsnaam: `bonnen/<vat_period>/YYYY-MM-DD-leverancier.pdf` (bv.
-   `bonnen/2026-Q2/2026-04-15-apple.pdf`). Zet `file_path` op dat volledige pad.
-2. **receipts.csv:** `node "$CLAUDE_PLUGIN_ROOT/lib/admin.mjs" append data/receipts.csv '<row>'` met kolommen:
-   `date, supplier_name, supplier_vat_number, supplier_invoice_number, description, category,
-   amount_eur, vat_amount_eur, vat_percentage, vat_status, vat_breakdown, business_pct,
-   vat_period, original_currency, original_amount, original_vat_amount, exchange_rate,
-   exchange_rate_date, file_path, notes, created_at` (vandaag).
-   Laat valuta-velden leeg voor EUR-bonnen; laat `vat_breakdown` leeg bij één tarief.
+   `bonnen/2026-Q2/2026-04-15-apple.pdf`). Zet dat pad als `file_path` in `/tmp/bon.json`.
+2. **Leg vast:**
+   ```
+   node "${CLAUDE_PLUGIN_ROOT}/lib/admin.mjs" record-receipt /tmp/bon.json
+   ```
+   Dit rekent opnieuw om en schrijft de rij naar `receipts.csv`. **Je tikt zelf geen eurobedrag,
+   koers of kwartaal over.** Het commando print de weggeschreven rij terug — gebruik die in je
+   melding. Staat dezelfde inkoopfactuur (leverancier + factuurnummer) er al in, dan stopt het
+   commando en schrijft het niets.
 
 Meld kort: leverancier, bedrag, classificatie, kwartaal.
 
@@ -91,12 +116,15 @@ Meld kort: leverancier, bedrag, classificatie, kwartaal.
   voor de IB. We boeken 'm als `non_deductible` (telt niet mee in BTW-aangifte).
 - **Gemengd gebruik** (telefoon/internet, soms reiskosten): `business_pct` bepaalt het aftrekbare
   deel van de voorbelasting.
-- **Valuta:** converteer op de **bon-datum**, niet op vandaag.
+- **Valuta:** de code converteert op de **bon-datum**, niet op vandaag — geef dus de juiste datum mee.
+- **Binnenlands verlegd** (Nederlandse leverancier, "btw verlegd" — bv. onderaanneming in de bouw):
+  hoort in rubriek 2a en wordt **niet ondersteund**. Meld het en boek de bon niet als
+  `reverse_charge_*`; de gebruiker vult 2a zelf in.
 - **Self-billing** (een opdrachtgever maakt een factuur namens jou): dat is **omzet**, geen kost —
-  hoort als verkoopfactuur in `invoices.csv`, niet hier. Zie `$CLAUDE_PLUGIN_ROOT/rules/self-billing.md`.
+  hoort als verkoopfactuur in `invoices.csv`, niet hier. Zie `${CLAUDE_PLUGIN_ROOT}/rules/self-billing.md`.
 - **Investering ≥ €450 excl. BTW** (laptop, dure apparatuur): BTW is dit kwartaal volledig
   aftrekbaar (gewoon `deductible`), maar voor de **IB** moet je afschrijven — flag dit even naar
-  de gebruiker. Zie `$CLAUDE_PLUGIN_ROOT/rules/afschrijving-investeringen.md`. Boek het bedrijfsmiddel
+  de gebruiker. Zie `${CLAUDE_PLUGIN_ROOT}/rules/afschrijving-investeringen.md`. Boek het bedrijfsmiddel
   onder categorie `equipment`: `/jaaropgave` herkent `equipment` ≥ €450 als investering en schrijft
   'm af. Eén bon met meerdere losse spullen onder €450 per stuk is géén investering → `office`.
 - **KOR-leverancier:** geen BTW op de factuur → niets af te trekken (`non_deductible`).

@@ -33,7 +33,7 @@ eerdere facturen voor dezelfde klant.
 - Bepaal voor **elke regel afzonderlijk** het juiste tarief (`vat_percentage`); regels op één
   factuur mogen verschillen. Voor de meeste diensten (consultancy/development/design) is dat
   **21%**, maar classificeer naar de aard van de regel: **voedsel, boeken, medicijnen, kapper,
-  fietsenmaker → 9%** (zie `$CLAUDE_PLUGIN_ROOT/rules/btw-tarieven.md`). Twijfel je over een
+  fietsenmaker → 9%** (zie `${CLAUDE_PLUGIN_ROOT}/rules/btw-tarieven.md`). Twijfel je over een
   regel, of valt 'n product mogelijk onder het verlaagde tarief? Lees de regels en/of leg het
   kort aan de gebruiker voor in de preview — gok niet stilzwijgend op 21%.
 - De code splitst gemengde facturen automatisch: de PDF toont dan een **BTW-kolom per regel** +
@@ -41,21 +41,22 @@ eerdere facturen voor dezelfde klant.
   Bij één uniform tarief blijft de BTW-kolom weg (tarief staat dan onderaan).
 - **Uitzondering — verlegd** (`vat_reverse_charged: true`): alléén als je een **buitenlandse
   zakelijke klant** factureert (BTW-nummer begint niet met `NL`). Dan geen BTW op de factuur +
-  automatische verleggings-zin op de PDF, en het telt in rubriek 3a/3b + ICP. Zeldzaam — bij
-  NL-klanten nooit. Twijfel? Lees `$CLAUDE_PLUGIN_ROOT/rules/nultarief-verlegd-vrijgesteld.md`.
+  automatische verleggings-zin op de PDF. Een EU-ondernemer (met btw-nummer in `clients.csv`) telt
+  in rubriek 3b + ICP; omzet aan een afnemer buiten de EU komt niet in de aangifte. Zeldzaam — bij
+  NL-klanten nooit. Twijfel? Lees `${CLAUDE_PLUGIN_ROOT}/rules/nultarief-verlegd-vrijgesteld.md`.
 
 ### 4. Nummer, datum, betaaltermijn & kwartaal
-- Factuurnummer: `node "$CLAUDE_PLUGIN_ROOT/lib/admin.mjs" next-invoice-number` → `YYYY-NNNN`. **Nooit zelf verzinnen.**
+- Factuurnummer: `node "${CLAUDE_PLUGIN_ROOT}/lib/admin.mjs" next-invoice-number` → `YYYY-NNNN`. **Nooit zelf verzinnen.**
 - Datum: vandaag, tenzij anders opgegeven.
 - Betaaltermijn (`payment_term_days`): `client.payment_terms` (kolom in clients.csv) als die gevuld
   is, anders `business.payment_terms_days` (14). **De vervaldatum reken je niet zelf uit** — die
   berekent `record-invoice` deterministisch uit datum + termijn.
 - **Kwartaal** uit de factuurdatum: `YYYY-QN` (Q1=jan–mrt, Q2=apr–jun, Q3=jul–sep, Q4=okt–dec).
   De PDF gaat in het kwartaalmapje `facturen/<YYYY-QN>/` (bv. datum 2026-05-08 → `facturen/2026-Q2/`).
-  Het mapje wordt automatisch aangemaakt door `render-invoice` als het nog niet bestaat.
+  Het mapje wordt automatisch aangemaakt door `record-invoice` als het nog niet bestaat.
 
 ### 5. Preview (compact) → bevestiging
-Bouw de invoice-JSON en draai `node "$CLAUDE_PLUGIN_ROOT/lib/admin.mjs" compute-invoice <pad.json>` om subtotaal/BTW/
+Bouw de invoice-JSON en draai `node "${CLAUDE_PLUGIN_ROOT}/lib/admin.mjs" compute-invoice <pad.json>` om subtotaal/BTW/
 totaal deterministisch te krijgen. Toon een **compacte** preview met alleen beslis-relevante data:
 
 ```
@@ -75,7 +76,7 @@ neem dus géén `subtotal`/`vat`/`total`/`due_date`/`amount` op in de JSON:
 ```json
 {
   "business": { …uit business.json… },
-  "client":   { "id": "c_001", …name, attention, address, postal_code, city, vat_number… },
+  "client":   { "id": "c_001", …name, attention, address, postal_code, city, country, vat_number… },
   "invoice": {
     "number": "2026-0005", "date": "2026-06-05",
     "vat_reverse_charged": false, "reference": "", "notes": "",
@@ -93,9 +94,13 @@ neem dus géén `subtotal`/`vat`/`total`/`due_date`/`amount` op in de JSON:
 > betaalzin, …), de bedragen (`€1,234.56`) en de datums (`15 Mar 2026`); de bedragen/BTW zelf
 > veranderen niet. Bij een verlegde factuur aan een EU-klant ligt Engels voor de hand. Laat je het
 > veld weg, dan volgt de factuur de bedrijfs-default.
+>
+> **Buitenlandse klant.** Geef `country` mee in `client` (zoals in `clients.csv`). Is dat niet
+> Nederland, dan zet de code het land onder het klantadres én onder je eigen adres.
+
 Draai dan (vervang `<YYYY-QN>` door het kwartaal uit stap 4):
 ```
-node "$CLAUDE_PLUGIN_ROOT/lib/admin.mjs" record-invoice /tmp/factuur.json facturen/<YYYY-QN>/2026-0005.pdf
+node "${CLAUDE_PLUGIN_ROOT}/lib/admin.mjs" record-invoice /tmp/factuur.json facturen/<YYYY-QN>/2026-0005.pdf
 ```
 Dit berekent regels/subtotaal/BTW/totaal **en** de vervaldatum, rendert de PDF, en schrijft in één
 keer `invoices.csv` + `invoice_items.csv` weg (kwartaalmapje wordt automatisch aangemaakt). **Je tikt
@@ -111,7 +116,7 @@ Open daarna de PDF: `open facturen/<YYYY-QN>/2026-0005.pdf`. Meld kort: nummer, 
 ## Factuureisen (Art. 35a Wet OB) — afgedwongen
 Afzender naam/adres/BTW-nr/KvK/IBAN, klantnaam + adres, oplopend factuurnummer, factuurdatum,
 ≥1 regel met omschrijving/aantal/tarief, BTW-bedrag (of verleggings-vermelding). Ontbreekt er
-iets bij afzender of klant → vul aan vóór je genereert. Details: `$CLAUDE_PLUGIN_ROOT/rules/factuureisen.md`.
+iets bij afzender of klant → vul aan vóór je genereert. Details: `${CLAUDE_PLUGIN_ROOT}/rules/factuureisen.md`.
 
 ## Belangrijk
 - `status` van een nieuwe factuur = `sent` (hij telt dan mee in de BTW-aangifte). Gebruik

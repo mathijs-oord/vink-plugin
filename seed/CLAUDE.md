@@ -8,18 +8,20 @@ werken komen uit de **`vink`-plugin** (geïnstalleerd via Claude Code), niet uit
 
 **"AI bepaalt WAT, deterministische code bepaalt HOE."** Alle harde correctheid (factuurnummer,
 BTW-rekenwerk, koersconversie, PDF-render, CSV-schrijven) loopt via de plugin-code
-(`$CLAUDE_PLUGIN_ROOT/lib/admin.mjs`). De skills redeneren en stellen voor; `admin.mjs` rekent en
+(`lib/admin.mjs` in de plugin). De skills redeneren en stellen voor; `admin.mjs` rekent en
 schrijft. Nooit zelf bedragen of factuurnummers uitrekenen — altijd via `admin.mjs`.
 
 ## Code vs. data
 
-- **Code/skills/regels/templates** → in de plugin (`$CLAUDE_PLUGIN_ROOT/...`). Worden door updates
-  van de plugin ververst; daar verander ik niets aan.
+- **Code/skills/regels/templates** → in de plugin-map. Worden door updates van de plugin ververst;
+  daar verander ik niets aan.
 - **Mijn data** → in déze map (`data/*.csv`, `data/business.json`, `facturen/`, `bonnen/`,
-  `aangiftes/`). Blijft van mij, overleeft plugin-updates, is van mij om te backuppen/delen.
+  `aangiftes/`, `jaaropgaven/`). Blijft van mij, overleeft plugin-updates, is van mij om te
+  backuppen/delen.
 
-`$CLAUDE_PLUGIN_ROOT` is een omgevingsvariabele die Claude Code zet als een plugin-skill draait.
-Voor de Read-tool heb je het letterlijke pad nodig — draai dan eerst `echo "$CLAUDE_PLUGIN_ROOT"`.
+Het pad naar de plugin-map staat uitgeschreven in elke skill: Claude Code vult het in zodra de skill
+laadt. Het is géén omgevingsvariabele in de shell — neem het pad dus over uit de skill-tekst (voor
+`node …/lib/admin.mjs` en voor het lezen van `…/rules/*.md`).
 
 ## Slash-command detectie
 

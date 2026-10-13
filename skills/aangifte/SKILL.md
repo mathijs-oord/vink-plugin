@@ -1,6 +1,6 @@
 ---
 name: aangifte
-description: Stel de kwartaal-BTW-aangifte samen uit de facturen en bonnen — berekent alle rubrieken (1a t/m 5g) en de ICP-opgaaf, genereert een PDF-overzicht en schrijft een regel weg naar aangiftes.csv. Ter voorbereiding van de aangifte op Mijn Belastingdienst Zakelijk.
+description: Stel de kwartaal-BTW-aangifte samen uit de facturen en bonnen — berekent de rubrieken voor een dienstverlenende zzp'er (1a, 1b, 1e, 3b, 4a, 4b, 5a, 5b, 5g) en de ICP-opgaaf, genereert een PDF-overzicht en schrijft een regel weg naar aangiftes.csv. Ter voorbereiding van de aangifte op Mijn Belastingdienst Zakelijk.
 allowed-tools: Bash, Read, Write
 ---
 
@@ -17,13 +17,17 @@ Reken om naar `YYYY-QN`. "Dit kwartaal" / "vorig kwartaal" → leid af van vanda
 
 ### 2. Bereken de rubrieken (deterministisch)
 ```
-node "$CLAUDE_PLUGIN_ROOT/lib/admin.mjs" aangifte 2026-Q2
+node "${CLAUDE_PLUGIN_ROOT}/lib/admin.mjs" aangifte 2026-Q2
 ```
 Dit leest `invoices.csv` (alleen `status` sent/paid in het kwartaal) + `receipts.csv`
 (`vat_period` = kwartaal) + `clients.csv`, en geeft JSON terug met:
-- `rubrieken[]` — 1a (21%), 1b (9%), 1e (overig/0%), 3a (buiten EU), 3b (binnen EU, verlegd),
+- `rubrieken[]` — 1a (21%), 1b (9%), 1e (0% of niet bij jou belast, o.a. binnenlands verlegd),
+  3a (uitvoer van goederen — altijd € 0, zie hieronder), 3b (diensten aan EU-ondernemers, verlegd),
   4a (inkoop buiten EU, verlegd), 4b (inkoop binnen EU, verlegd), 5a (verschuldigd),
   5b (voorbelasting), 5g (saldo).
+- `omzet_buiten_eu` — verlegde omzet aan afnemers **buiten de EU**. Die staat bewust in géén rubriek:
+  diensten die in het land van de afnemer belast zijn geef je niet aan in de btw-aangifte, en 3a is
+  alleen voor uitvoer van goederen. Er komt een waarschuwing bij met bedrag en klantnamen — meld die.
 - `icpEntries[]` + `icp_total` — intracommunautaire prestaties per EU-klant.
 - `summary` (verschuldigd / voorbelasting / saldo), `saldo_richting`, `deadline`, `warnings`, `counts`.
 
@@ -43,7 +47,7 @@ Bouw `/tmp/aangifte.json`:
 ```
 Draai dan:
 ```
-node "$CLAUDE_PLUGIN_ROOT/lib/admin.mjs" record-aangifte /tmp/aangifte.json aangiftes/2026-Q2-btw-aangifte.pdf
+node "${CLAUDE_PLUGIN_ROOT}/lib/admin.mjs" record-aangifte /tmp/aangifte.json aangiftes/2026-Q2-btw-aangifte.pdf
 ```
 Dit rendert de PDF **en** schrijft de `aangiftes.csv`-rij weg, rechtstreeks uit de berekende JSON —
 **je tikt geen enkele rubriekwaarde over** (alle 18 kolommen mapt de code zelf). Het commando print
@@ -52,12 +56,15 @@ Open de PDF: `open aangiftes/2026-Q2-btw-aangifte.pdf`.
 
 Meld kort: kwartaal, saldo (te betalen/terug), deadline, pad naar de PDF. Als er ICP-regels zijn,
 herinner de gebruiker dat er naast de BTW-aangifte ook een **ICP-opgaaf** moet (zie
-`$CLAUDE_PLUGIN_ROOT/rules/icp-opgaaf.md`).
+`${CLAUDE_PLUGIN_ROOT}/rules/icp-opgaaf.md`).
 
 ## Belangrijk
 - Dit is een **voorbereidend overzicht**, geen ingediende aangifte. De gebruiker neemt de
   rubrieken over op Mijn Belastingdienst Zakelijk.
 - Alleen facturen met `status` sent/paid tellen mee; concepten niet.
+- **Niet ondersteund** — vult de gebruiker zo nodig zelf in: 1c (overige tarieven), 1d (privégebruik,
+  bv. auto), 2a (binnenlands verlegde inkoop), 3a (uitvoer van goederen), 3c en 5d (KOR). Speelt een
+  daarvan, zeg het erbij.
 - Bonnen tellen mee op hun `vat_period`, niet op datum — zo kun je een vergeten bon in een al
   betaald kwartaal alsnog in het eerstvolgende kwartaal meenemen (geen suppletie nodig).
 - Een al ingediend kwartaal opnieuw draaien geeft simpelweg een nieuwe PDF + extra CSV-regel; dat

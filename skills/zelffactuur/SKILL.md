@@ -11,7 +11,7 @@ opdrachtgever of intermediair (bv. een detacheerder/bemiddelaar zoals Yacht, Hay
 heeft die namens hem uitgereikt op basis van goedgekeurde uren. Dit is **omzet**
 (verkoopfactuur), géén kost.
 
-Belangrijk onderscheid (zie `$CLAUDE_PLUGIN_ROOT/rules/self-billing.md`):
+Belangrijk onderscheid (zie `${CLAUDE_PLUGIN_ROOT}/rules/self-billing.md`):
 | | Verkoopfactuur (`/factuur`) | Self-billing (`/zelffactuur`) | Inkoopfactuur (`/bon`) |
 |--|--|--|--|
 | Richting | uitgaand, ik maak 'm | inkomend, afnemer maakt 'm | inkomend |
@@ -63,13 +63,16 @@ en "self-billing: ja/nee". Vraag bevestiging.
    `facturen/2026-Q2/IRB172600055.pdf`. Heb je alleen het pad naar het bronbestand van de
    gebruiker → kopieer dat hierheen. Zet `pdf_path` op dat volledige pad. (Geen PDF genereren —
    die bestaat al.)
-2. **invoices.csv:** `node "$CLAUDE_PLUGIN_ROOT/lib/admin.mjs" append data/invoices.csv '<row>'` met:
+2. **invoices.csv:** `node "${CLAUDE_PLUGIN_ROOT}/lib/admin.mjs" append data/invoices.csv '<row>'` met:
    `number` (van opdrachtgever)`, date, due_date, client_id, client_name, subtotal,
    vat_percentage, vat_amount, total, vat_reverse_charged="false", status="sent",
    source="imported", self_billing` (true/false)`, reference, notes, pdf_path, created_at` (vandaag).
 3. **invoice_items.csv:** per regel een append met
    `invoice_number, line_no, description, quantity, unit, rate, amount, vat_percentage`.
    Eenheid: "uren"/"normale uren" → `hours`; anders kies de passende `unit`.
+
+Gebruik exact deze kolomnamen: `append` stopt met een fout (en schrijft niets) als een gevuld veld
+geen kolom heeft in het CSV-bestand.
 
 Meld kort: factuurnummer, opdrachtgever, totaal, dat het als omzet is geboekt (rubriek 1a/1b),
 en dat het origineel in `facturen/<YYYY-QN>/` staat. Het telt automatisch mee in `/aangifte`.

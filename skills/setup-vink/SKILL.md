@@ -11,7 +11,7 @@ templates, vul de **afzendergegevens** (`data/business.json`) en de **standaard 
 en geef een korte uitleg van de beschikbare skills. Dit is een eenmalige stap; daarna gebruikt de
 gebruiker `/factuur`, `/bon`, enz.
 
-De **code/skills/regels/templates** komen uit de plugin (`$CLAUDE_PLUGIN_ROOT/...`); de **data**
+De **code/skills/regels/templates** komen uit de plugin (`${CLAUDE_PLUGIN_ROOT}/...`); de **data**
 komt in de huidige map (waar Claude Code draait) — die blijft van de gebruiker en overleeft
 plugin-updates.
 
@@ -19,18 +19,24 @@ plugin-updates.
 
 ### 0. Initialiseer de map (alleen wat ontbreekt)
 Zet bij eerste gebruik de lege template-bestanden klaar. `-n`/`-Rn` overschrijft niets wat er al
-staat, dus dit is veilig om altijd te draaien:
+staat, dus dit is veilig om altijd te draaien (`|| true`: `cp -n` meldt een fout-status als een
+bestand al bestaat — dat is hier juist de bedoeling):
 
 ```bash
 mkdir -p data facturen bonnen aangiftes jaaropgaven
-cp -Rn "$CLAUDE_PLUGIN_ROOT/seed/data/." data/
-cp -n  "$CLAUDE_PLUGIN_ROOT/seed/business.example.json" data/business.example.json
-cp -n  "$CLAUDE_PLUGIN_ROOT/seed/CLAUDE.md" CLAUDE.md
+cp -Rn "${CLAUDE_PLUGIN_ROOT}/seed/data/." data/ || true
+cp -n  "${CLAUDE_PLUGIN_ROOT}/seed/business.example.json" data/business.example.json || true
+cp -n  "${CLAUDE_PLUGIN_ROOT}/seed/CLAUDE.md" CLAUDE.md || true
 ```
 
 Dit maakt (indien nog niet aanwezig): de lege CSV-templates in `data/`, een voorbeeld
 `business.example.json`, een project-`CLAUDE.md` met de mapconventies, en de uitvoer-mappen.
 Bestaat alles al → er verandert niets en je gaat door naar stap 1.
+
+**Bestond `CLAUDE.md` al?** Vergelijk 'm met de versie uit de plugin:
+`diff -q "${CLAUDE_PLUGIN_ROOT}/seed/CLAUDE.md" CLAUDE.md`. Verschilt hij, dan is de plugin sindsdien
+bijgewerkt (bv. een nieuwe skill) of heeft de gebruiker 'm zelf aangepast. Meld dat en vraag of je 'm
+mag vervangen; zo ja, bewaar eerst de oude als `CLAUDE.md.bak`. Nooit ongevraagd overschrijven.
 
 ### 1. Check of er al een setup is
 Lees `data/business.json`.
@@ -83,8 +89,8 @@ Toon de samengestelde `business.json` compact (alle velden) en vraag bevestiging
 feedback en toon opnieuw.
 
 ### 6. Schrijf weg
-Schrijf het JSON-object naar `data/business.json` (met de Write-tool, nette indentatie). Dit
-bestand staat in `.gitignore` — het wordt niet meegedeeld als de gebruiker de map als repo deelt.
+Schrijf het JSON-object naar `data/business.json` (met de Write-tool, nette indentatie). Het
+bestand blijft in de map van de gebruiker; de plugin zelf bevat alleen het lege voorbeeld.
 
 ### 7. Korte uitleg van de skills
 Sluit af met een compacte uitleg (één regel per skill) zodat de gebruiker weet wat hij heeft:
@@ -97,7 +103,7 @@ Sluit af met een compacte uitleg (één regel per skill) zodat de gebruiker weet
 - **/dashboard** — stand van zaken: openstaande facturen, omzet/kosten, eerstvolgende aangifte-deadline.
 - **/jaaropgave** — jaarcijfers (omzet → belastbare winst) ter voorbereiding van je aangifte inkomstenbelasting.
 
-Noem ook even: de map `$CLAUDE_PLUGIN_ROOT/rules/` bevat de Nederlandse fiscale regels die de skills raadplegen, en dat
+Noem ook even: de map `${CLAUDE_PLUGIN_ROOT}/rules/` bevat de Nederlandse fiscale regels die de skills raadplegen, en dat
 dit een **voorbereidend** hulpmiddel is — de feitelijke aangiftes (BTW en inkomstenbelasting) doet de
 gebruiker zelf bij de Belastingdienst. Stel voor om als eerste een `/factuur` of `/bon` te proberen.
 

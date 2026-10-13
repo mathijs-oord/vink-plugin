@@ -11,10 +11,11 @@ BTW-rekenwerk, koersconversie, PDF-render, CSV-schrijven) loopt via `lib/admin.m
 (markdown) orkestreren alleen.
 
 Code/data-scheiding (cruciaal voor de plugin):
-- **Code/skills/regels/templates** → in de plugin, aangeroepen via `$CLAUDE_PLUGIN_ROOT/...`.
+- **Code/skills/regels/templates** → in de plugin, aangeroepen via `${CLAUDE_PLUGIN_ROOT}/...`.
   Worden vervangen bij elke update.
-- **Data** → in de map van de gebruiker. `lib/admin.mjs` schrijft relatief aan `process.cwd()`
-  (resp. `CLAUDE_PROJECT_DIR`, of `ADMIN_DATA_DIR` als override). `TEMPLATES` blijft bij de code.
+- **Data** → in de map van de gebruiker. `lib/admin.mjs` schrijft data én uitvoer (PDF's,
+  dashboard) relatief aan `process.cwd()` (resp. `CLAUDE_PROJECT_DIR`, of `ADMIN_DATA_DIR` als
+  override). `TEMPLATES` blijft bij de code.
 
 ## Repo-layout
 
@@ -36,24 +37,32 @@ node lib/admin.mjs fx USD 2026-03-15
 node lib/admin.mjs compute-invoice <inv.json>          # preview (read-only)
 node lib/admin.mjs render-invoice <inv.json> facturen/2026-Q2/2026-0005.pdf
 node lib/admin.mjs record-invoice <inv.json> facturen/2026-Q2/2026-0005.pdf   # compute+due_date+PDF+CSV's
+node lib/admin.mjs compute-receipt <bon.json>          # bon → euro + btw-kwartaal (preview, read-only)
+node lib/admin.mjs record-receipt <bon.json>           # compute + duplicaat-guard + receipts.csv-rij
+node lib/admin.mjs dashboard                           # stand van zaken (read-only)
+node lib/admin.mjs render-dashboard <dashboard.json> dashboard.html
 node lib/admin.mjs aangifte 2026-Q2
 node lib/admin.mjs render-aangifte <aangifte.json> aangiftes/2026-Q2-btw-aangifte.pdf
 node lib/admin.mjs record-aangifte <aangifte.json> aangiftes/2026-Q2-btw-aangifte.pdf  # PDF+CSV-rij
 node lib/admin.mjs jaaropgave 2026 [opties.json]        # jaarcijfers → belastbare winst (read-only)
 node lib/admin.mjs render-jaaropgave <jaaropgave.json> jaaropgaven/2026-jaaropgave.pdf
 node lib/admin.mjs record-jaaropgave <jaaropgave.json> jaaropgaven/2026-jaaropgave.pdf  # PDF+CSV-rij
-node lib/admin.mjs append data/receipts.csv <row.json>
+node lib/admin.mjs append data/invoices.csv <row.json>  # onbekende kolom = fout, niets geschreven
 node lib/admin.mjs mark-paid 2026-0006 2026-06-10
 ```
 
-Data-paden (`data/...`, `facturen/...`, `jaaropgaven/...`) resolven relatief aan de cwd. Test dus vanuit een aparte
-lege map (niet deze repo), of zet `ADMIN_DATA_DIR`. PDF-render gebruikt headless Chrome
+Data- en uitvoerpaden (`data/...`, `facturen/...`, `jaaropgaven/...`) resolven relatief aan de cwd. Test dus vanuit een aparte
+lege map (niet deze repo), of zet `ADMIN_DATA_DIR` (verplaatst beide). PDF-render gebruikt headless Chrome
 (`ADMIN_CHROME` om het pad te overriden).
 
 ## Belangrijk bij wijzigingen
 
-- Skills roepen `admin.mjs` aan als `node "$CLAUDE_PLUGIN_ROOT/lib/admin.mjs" ...` en verwijzen naar
-  regels als `$CLAUDE_PLUGIN_ROOT/rules/...`. Houd dat zo bij nieuwe skill-edits.
+- Skills roepen `admin.mjs` aan als `node "${CLAUDE_PLUGIN_ROOT}/lib/admin.mjs" ...` en verwijzen naar
+  regels als `${CLAUDE_PLUGIN_ROOT}/rules/...`. **Altijd mét accolades**: Claude Code vervangt alleen
+  `${CLAUDE_PLUGIN_ROOT}` in de skill-tekst door het echte pad bij het laden; de variabele bestaat
+  níet in de omgeving van de Bash-tool, dus `$CLAUDE_PLUGIN_ROOT` (zonder accolades) blijft leeg.
+  `seed/CLAUDE.md` is geen plugin-component en wordt niet gesubstitueerd — gebruik de variabele daar niet.
+- De skills zijn geschreven voor macOS (`open`, standaardpad van Chrome, `/tmp`).
 - Data-paden in skills (`data/`, `facturen/`, `bonnen/`, `aangiftes/`, `jaaropgaven/`) blijven
   **relatief** — die horen in de map van de gebruiker.
 - Geen verwijder-acties via skills (bewuste veiligheidskeuze).
