@@ -155,6 +155,10 @@ Wijkt het af (bv. een factuur of bon later toegevoegd of gecorrigeerd):
   en uiterlijk binnen 8 weken na ontdekking.
 - Corrigeren kan tot 5 jaar na het jaar waarop de correctie betrekking heeft.
 
+De btw-bedragen per kwartaal staan in hele euro's, in je voordeel afgerond (zie `btw-tarieven.md`).
+Een aangifte die nog mét centen is vastgelegd, vergelijkt de jaaropgave met het exacte saldo, zodat
+de afronding zelf geen verschil oplevert.
+
 De omzet in je IB-aangifte hoort aan te sluiten op de omzet in je btw-aangiftes van hetzelfde jaar;
 de code controleert dat en waarschuwt bij een verschil.
 

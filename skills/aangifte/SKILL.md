@@ -34,9 +34,17 @@ Dit leest `invoices.csv` (alleen `status` sent/paid in het kwartaal) + `receipts
   alleen voor uitvoer van goederen. Er komt een waarschuwing bij met bedrag en klantnamen — meld die.
 - `icpEntries[]` + `icp_total` — intracommunautaire prestaties per EU-klant.
 - `summary` (verschuldigd / voorbelasting / saldo), `saldo_richting`, `deadline`, `warnings`, `counts`.
+- `exact` — omzet, verschuldigd, voorbelasting en saldo op centen, vóór afronding. Alleen ter
+  verklaring als de gebruiker vraagt waarom een bedrag afwijkt van de facturen; niet om in te vullen.
 
-De rekenregels (port van Vink `calculateBtw`): 5a = BTW van 1a+1b+4a+4b; 5b = voorbelasting +
-4a-BTW + 4b-BTW (verlegging netto €0); 5g = 5a − 5b. Niets zelf narekenen — gebruik deze output.
+**Alle rubrieken zijn hele euro's**, zoals het aangifteformulier vraagt. Btw-bedragen zijn in het
+voordeel van de ondernemer afgerond (verschuldigd per rubriek naar beneden, voorbelasting naar boven),
+omzet rekenkundig. Toon de bedragen ook zonder centen. Zie
+`${CLAUDE_PLUGIN_ROOT}/rules/btw-tarieven.md` (sectie "Afronden op hele euro's").
+
+De rekenregels (port van Vink `calculateBtw`): 5a = BTW van 1a+1b+4a+4b (de afgeronde rubrieken
+opgeteld); 5b = voorbelasting + 4a-BTW + 4b-BTW, als totaal afgerond; 5g = 5a − 5b. Door de
+afronding kan verlegde btw netto € 1 schelen. Niets zelf narekenen — gebruik deze output.
 
 ### 3. Toon het overzicht + waarschuwingen
 Presenteer de rubrieken beknopt, het saldo (te betalen of terug te vragen) en de deadline.

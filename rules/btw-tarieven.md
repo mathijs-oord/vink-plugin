@@ -39,6 +39,26 @@ in de btw-aangifte — ze horen in geen enkele rubriek.
 | **5b** | Voorbelasting (BTW op al je zakelijke kosten) |
 | **5g** | Totaal te betalen of terug te vragen (5a − 5b; 5c is het subtotaal vóór KOR-vermindering en schattingen) |
 
+### Afronden op hele euro's
+
+*Geverifieerd: 13 oktober 2026*
+
+De aangifte vul je in **hele euro's** in. Voor de btw-bedragen geldt: "In de btw-aangifte rondt u de
+btw-bedragen af op hele euro's. Dit mag u in uw voordeel doen." (Belastingdienst). Vink past dat zo toe:
+
+| Bedrag | Afronding |
+|--------|-----------|
+| Verschuldigde btw per rubriek (1a, 1b, 4a, 4b) | naar beneden |
+| Voorbelasting (5b) | naar boven |
+| Omzet per rubriek | rekenkundig (geen btw-bedrag, dus geen voordeel-afronding) |
+| 5a | som van de afgeronde rubrieken, zoals het formulier zelf optelt |
+| 5g | 5a − 5b |
+| ICP per afnemer | rekenkundig; rubriek 3b is de som daarvan, want ICP-totaal en 3b moeten gelijk zijn |
+
+Voorbeeld: btw 1a € 2.100,60 en voorbelasting € 210,40 → 1a € 2.100, 5b € 211, te betalen € 1.889
+(exact € 1.890,20). Op de **factuur** blijft de btw rekenkundig op centen afgerond; dit gaat alleen
+over de aangifte.
+
 ### Kort gezegd
 
 1a = wat je NL-klanten factureerde, 5b = BTW op je kosten, het verschil betaal je.
@@ -76,6 +96,7 @@ BTW-aangifte:
 
 - [Belastingdienst — BTW-tarieven](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/btw_berekenen_aan_uw_klanten/btw_berekenen/btw_tarief/btw_tarief)
 - [Belastingdienst — BTW-aangifte invullen](https://www.belastingdienst.nl/wps/wcm/connect/nl/btw/content/ik-moet-btw-aangifte-doen-hoe-vul-ik-die-in)
+- [Belastingdienst — Btw-bedrag afronden](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/administratie_bijhouden/facturen_maken/btw-bedrag_afronden)
 - [Belastingdienst — Deadlines](https://www.belastingdienst.nl/wps/wcm/connect/nl/btw/content/uiterste-aangifte-en-betaaldatums)
 - [Belastingdienst — Boete bij geen of te late aangifte](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/btw_aangifte_doen_en_betalen/boetes/u_doet_geen_of_te_laat_aangifte)
 - [Belastingdienst — Aangifte bij diensten aan afnemers buiten de EU](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/zakendoen_met_het_buitenland/zakendoen_buiten_de_eu/aangifte_doen_als_u_zakendoet_buiten_de_eu/aangifte_doen_als_u_diensten_levert_aan_afnemers_in_niet_eu_landen)
