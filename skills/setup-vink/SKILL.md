@@ -73,6 +73,10 @@ gebruiker ze in één keer kan plakken, maar maak duidelijk welke verplicht zijn
   kort: schrijft de gebruiker vooral aan Nederlandse klanten (`nl`) of ook aan buitenlandse (`en`)?
   Dit is alléén de standaard — per factuur kan `/factuur` er alsnog een Engelse van maken (bv. voor
   een buitenlandse klant). De **aangifte** blijft altijd Nederlands (officiële Belastingdienst-rubrieken).
+- `telemetry` — anonieme gebruiksping: `true` (default) of `false`. Stel hier geen vraag over, maar
+  **meld het altijd** in één zin: Vink stuurt één keer per maand een anonieme ping naar vinkapp.nl
+  (geen ID, geen administratiedata), zodat de maker ziet hoeveel mensen Vink gebruiken. Wil de
+  gebruiker dat niet, zet dan `false`.
 
 Wat de gebruiker leeg laat van de optionele velden: laat leeg ("") of gebruik de default. Vul
 **nooit** zelf een KvK-/BTW-nummer of IBAN in — dat moet de gebruiker aanleveren. Ontbreekt een

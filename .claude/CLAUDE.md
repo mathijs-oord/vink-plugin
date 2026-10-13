@@ -72,6 +72,11 @@ lege map (niet deze repo), of zet `ADMIN_DATA_DIR` (verplaatst beide). PDF-rende
   `templates/dashboard.html`, maak er dan een `{{L_...}}`-placeholder van en vul die in beide talen
   in `STRINGS`. `formatCurrency`/`formatDate` nemen een `lang`-argument. De **aangifte** en de
   **jaaropgave** blijven bewust NL (officiële Belastingdienst-rubrieken) — niet vertalen.
+- **Gebruiksping:** `usagePing()` in `admin.mjs` stuurt na een geslaagd commando één anonieme POST
+  per maand per administratie-map naar `vinkapp.nl/api/ping` (telpunt in de `vink-website`-repo,
+  marker in `data/.vink-ping`, uit met `"telemetry": false` in `business.json`). Zet bij testen
+  `VINK_TELEMETRY=0`, anders telt elke testmap als nieuwe gebruiker. Er gaat nooit een ID of
+  administratiedata mee; verandert wat er meegaat, werk dan ook de privacyverklaring op de site bij.
 - **Jaarbedragen IB:** de jaaropgave rekent met `IB_PARAMS` in `admin.mjs` (zelfstandigenaftrek,
   startersaftrek, MKB-winstvrijstelling, KIA-tabel, km-tarief). Voeg elk jaar het nieuwe jaar toe zodra
   de Belastingdienst de bedragen publiceert, en werk de tabel in `rules/jaaropgave.md` bij. Een jaar

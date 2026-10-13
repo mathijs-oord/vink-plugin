@@ -124,8 +124,12 @@ vink-plugin/
 
 - Alles staat lokaal in je eigen map. Er gaat niets naar een externe administratie-dienst.
 - De plugin-repo bevat **nooit** jouw administratie — alleen generieke code + lege templates.
-- Eén externe aanroep: bij vreemde valuta haalt `/bon` de ECB-dagkoers op via de open
-  [frankfurter.app](https://www.frankfurter.app)-API.
+- Twee externe aanroepen. Bij vreemde valuta haalt `/bon` de ECB-dagkoers op via de open
+  [frankfurter.app](https://www.frankfurter.app)-API. En één keer per maand stuurt de plugin een
+  **anonieme ping** naar vinkapp.nl, zodat de maker ziet hoeveel mensen Vink gebruiken: geen ID en
+  niets uit je administratie, alleen of het de eerste keer is.
+- De ping uitzetten: zet `"telemetry": false` in `data/business.json`, of gebruik de
+  omgevingsvariabele `VINK_TELEMETRY=0` of `DO_NOT_TRACK=1`.
 
 ## Veiligheid by design
 
@@ -170,10 +174,10 @@ een nieuwe sessie — committen of `marketplace update` is daarvoor niet nodig.
 claude plugin validate .
 ```
 
-**Gebruikscijfers:** een install is een git clone van deze repo. De workflow
-`.github/workflows/clone-stats.yml` schrijft de clone-cijfers van GitHub (die maar 14 dagen bewaard
-blijven) elke maandag bij in `clones.csv` op de losse branch `stats`. Vereist het repo-secret
-`TRAFFIC_TOKEN`: een fine-grained PAT met *Administration: read* op deze repo.
+**Gebruikscijfers:** `lib/admin.mjs` stuurt per administratie-map één anonieme ping per maand naar
+`/api/ping` op vinkapp.nl (het telpunt staat in de `vink-website`-repo). De tellers lees je uit via
+`https://www.vinkapp.nl/api/stats?token=…`. Zet bij het testen `VINK_TELEMETRY=0` in je shell,
+anders telt elke testmap mee als nieuwe gebruiker.
 
 **Architectuur kort:** code/skills/regels/templates leven in de plugin en worden via
 `${CLAUDE_PLUGIN_ROOT}` aangeroepen; data wordt door `lib/admin.mjs` weggeschreven relatief aan de

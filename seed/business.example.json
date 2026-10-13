@@ -12,5 +12,6 @@
   "iban": "NL00BANK0000000000",
   "account_holder": "Jouw Bedrijfsnaam",
   "payment_terms_days": 14,
-  "language": "nl"
+  "language": "nl",
+  "telemetry": true
 }

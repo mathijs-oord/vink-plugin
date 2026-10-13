@@ -43,6 +43,7 @@ als intentie.)
 
 ```
 data/business.json        afzender (1 record) — maak je met /setup-vink
+data/.vink-ping           marker van de anonieme maandping (uitzetten: "telemetry": false in business.json)
 data/clients.csv          klanten
 data/invoices.csv         factuur-headers (status draft|sent|paid, source created|imported)
 data/invoice_items.csv    factuurregels
