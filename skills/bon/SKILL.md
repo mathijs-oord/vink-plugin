@@ -1,7 +1,12 @@
 ---
 name: bon
 description: Verwerk een bon of inkoopfactuur als kostenpost — leest het document, classificeert de BTW (aftrekbaar / verlegd EU / verlegd niet-EU / niet-aftrekbaar), converteert vreemde valuta naar euro op de ECB-dagkoers, en schrijft alles weg naar receipts.csv voor de BTW-aangifte.
-allowed-tools: Bash, Read, Write
+allowed-tools:
+  - Bash(node "${CLAUDE_PLUGIN_ROOT}/lib/admin.mjs" *)
+  - Bash(mkdir -p bonnen/*)
+  - Bash(cp * bonnen/*)
+  - Read
+  - Write
 ---
 
 # Bon / kosten verwerken

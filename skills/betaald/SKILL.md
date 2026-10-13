@@ -1,7 +1,9 @@
 ---
 name: betaald
 description: Zet een verkoopfactuur op betaald — werkt voor zowel zelf-gemaakte facturen (/factuur) als geïmporteerde zelffacturen (/zelffactuur). Zet status op `paid` en legt de betaaldatum vast in `paid_at`. Verandert niets aan de BTW-aangifte (sent én paid tellen al mee).
-allowed-tools: Bash, Read
+allowed-tools:
+  - Bash(node "${CLAUDE_PLUGIN_ROOT}/lib/admin.mjs" *)
+  - Read
 ---
 
 # Factuur op betaald zetten

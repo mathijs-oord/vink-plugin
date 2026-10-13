@@ -1,7 +1,12 @@
 ---
 name: zelffactuur
 description: Importeer een verkoopfactuur die je opdrachtgever namens jou heeft gemaakt (self-billing / "factuur uitgereikt door afnemer"). Telt als omzet — net als /factuur — maar je maakt 'm niet zelf en genereert geen PDF; je neemt het bestaande document over met zijn eigen factuurnummer.
-allowed-tools: Bash, Read, Write
+allowed-tools:
+  - Bash(node "${CLAUDE_PLUGIN_ROOT}/lib/admin.mjs" *)
+  - Bash(mkdir -p facturen/*)
+  - Bash(cp * facturen/*)
+  - Read
+  - Write
 ---
 
 # Zelffactuur / self-billing importeren

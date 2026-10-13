@@ -1,7 +1,11 @@
 ---
 name: dashboard
 description: Toon de huidige stand van zaken in een net HTML-dashboard — welke facturen nog openstaan (en hoeveel dagen te laat of nog te gaan), de omzet en kosten van dit jaar en per kwartaal, het indicatieve resultaat, en wanneer de eerstvolgende BTW-aangifte moet. Read-only momentopname uit facturen en bonnen.
-allowed-tools: Bash, Read, Write
+allowed-tools:
+  - Bash(node "${CLAUDE_PLUGIN_ROOT}/lib/admin.mjs" *)
+  - Bash(open dashboard.html)
+  - Read
+  - Write
 ---
 
 # Dashboard — stand van zaken

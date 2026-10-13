@@ -1,7 +1,11 @@
 ---
 name: factuur
 description: Maak een verkoopfactuur voor een klant — vult uurprijs/omschrijving/aantal aan op basis van eerdere facturen, kent het juiste oplopende factuurnummer toe (YYYY-NNNN), genereert een PDF in het vaste Vink-format en schrijft alles weg naar de CSV's voor de BTW-aangifte.
-allowed-tools: Bash, Read, Write
+allowed-tools:
+  - Bash(node "${CLAUDE_PLUGIN_ROOT}/lib/admin.mjs" *)
+  - Bash(open facturen/*)
+  - Read
+  - Write
 ---
 
 # Factuur maken

@@ -1,7 +1,11 @@
 ---
 name: jaaropgave
 description: Stel de jaaropgave (jaaroverzicht) van je onderneming samen uit de facturen en bonnen — winst-en-verliesrekening, afschrijvingen, investeringsaftrek, ondernemersaftrek en MKB-winstvrijstelling tot en met de belastbare winst, plus een BTW-jaaroverzicht en de balansposten. Genereert een PDF en schrijft een regel weg naar jaaropgaven.csv. Ter voorbereiding van de aangifte inkomstenbelasting (winst uit onderneming).
-allowed-tools: Bash, Read, Write
+allowed-tools:
+  - Bash(node "${CLAUDE_PLUGIN_ROOT}/lib/admin.mjs" *)
+  - Bash(open jaaropgaven/*)
+  - Read
+  - Write
 ---
 
 # Jaaropgave samenstellen

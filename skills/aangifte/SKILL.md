@@ -1,7 +1,11 @@
 ---
 name: aangifte
 description: Stel de kwartaal-BTW-aangifte samen uit de facturen en bonnen — berekent de rubrieken voor een dienstverlenende zzp'er (1a, 1b, 1e, 3b, 4a, 4b, 5a, 5b, 5g) en de ICP-opgaaf, genereert een PDF-overzicht en schrijft een regel weg naar aangiftes.csv. Ter voorbereiding van de aangifte op Mijn Belastingdienst Zakelijk.
-allowed-tools: Bash, Read, Write
+allowed-tools:
+  - Bash(node "${CLAUDE_PLUGIN_ROOT}/lib/admin.mjs" *)
+  - Bash(open aangiftes/*)
+  - Read
+  - Write
 ---
 
 # BTW-aangifte samenstellen
