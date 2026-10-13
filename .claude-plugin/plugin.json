@@ -5,6 +5,7 @@
     "name": "AM Oord Consulting"
   },
   "homepage": "https://www.vinkapp.nl/",
+  "privacyPolicyUrl": "https://www.vinkapp.nl/privacy",
   "repository": "https://github.com/mathijs-oord/vink-plugin",
   "license": "MIT",
   "keywords": ["boekhouding", "btw", "factuur", "zzp", "nederland", "administratie", "jaaropgave", "inkomstenbelasting"]

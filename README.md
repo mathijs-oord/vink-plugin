@@ -130,6 +130,7 @@ vink-plugin/
   niets uit je administratie, alleen of het de eerste keer is.
 - De ping uitzetten: zet `"telemetry": false` in `data/business.json`, of gebruik de
   omgevingsvariabele `VINK_TELEMETRY=0` of `DO_NOT_TRACK=1`.
+- De volledige privacyverklaring: [Privacy](https://www.vinkapp.nl/privacy).
 
 ## Veiligheid by design
 
