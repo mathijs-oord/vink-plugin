@@ -13,6 +13,7 @@ node_modules/
 /facturen/
 /bonnen/
 /aangiftes/
+/jaaropgaven/
 
 # seed/ blijft expliciet wél getrackt (templates voor nieuwe gebruikers).
 !/seed/

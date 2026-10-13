@@ -39,11 +39,14 @@ node lib/admin.mjs record-invoice <inv.json> facturen/2026-Q2/2026-0005.pdf   # 
 node lib/admin.mjs aangifte 2026-Q2
 node lib/admin.mjs render-aangifte <aangifte.json> aangiftes/2026-Q2-btw-aangifte.pdf
 node lib/admin.mjs record-aangifte <aangifte.json> aangiftes/2026-Q2-btw-aangifte.pdf  # PDF+CSV-rij
+node lib/admin.mjs jaaropgave 2026 [opties.json]        # jaarcijfers → belastbare winst (read-only)
+node lib/admin.mjs render-jaaropgave <jaaropgave.json> jaaropgaven/2026-jaaropgave.pdf
+node lib/admin.mjs record-jaaropgave <jaaropgave.json> jaaropgaven/2026-jaaropgave.pdf  # PDF+CSV-rij
 node lib/admin.mjs append data/receipts.csv <row.json>
 node lib/admin.mjs mark-paid 2026-0006 2026-06-10
 ```
 
-Data-paden (`data/...`, `facturen/...`) resolven relatief aan de cwd. Test dus vanuit een aparte
+Data-paden (`data/...`, `facturen/...`, `jaaropgaven/...`) resolven relatief aan de cwd. Test dus vanuit een aparte
 lege map (niet deze repo), of zet `ADMIN_DATA_DIR`. PDF-render gebruikt headless Chrome
 (`ADMIN_CHROME` om het pad te overriden).
 
@@ -51,12 +54,16 @@ lege map (niet deze repo), of zet `ADMIN_DATA_DIR`. PDF-render gebruikt headless
 
 - Skills roepen `admin.mjs` aan als `node "$CLAUDE_PLUGIN_ROOT/lib/admin.mjs" ...` en verwijzen naar
   regels als `$CLAUDE_PLUGIN_ROOT/rules/...`. Houd dat zo bij nieuwe skill-edits.
-- Data-paden in skills (`data/`, `facturen/`, `bonnen/`, `aangiftes/`) blijven **relatief** — die
-  horen in de map van de gebruiker.
+- Data-paden in skills (`data/`, `facturen/`, `bonnen/`, `aangiftes/`, `jaaropgaven/`) blijven
+  **relatief** — die horen in de map van de gebruiker.
 - Geen verwijder-acties via skills (bewuste veiligheidskeuze).
 - **Taal (i18n):** factuur- en dashboard-render zijn tweetalig (NL/EN) via de `STRINGS`-dictionary
   in `admin.mjs`. Taal = `business.language` (default `nl`), per factuur te overriden met
   `invoice.language`. Voeg je een zichtbare tekst toe aan `templates/factuur.html` of
   `templates/dashboard.html`, maak er dan een `{{L_...}}`-placeholder van en vul die in beide talen
-  in `STRINGS`. `formatCurrency`/`formatDate` nemen een `lang`-argument. De **aangifte** blijft
-  bewust NL (officiële Belastingdienst-rubrieken) — niet vertalen.
+  in `STRINGS`. `formatCurrency`/`formatDate` nemen een `lang`-argument. De **aangifte** en de
+  **jaaropgave** blijven bewust NL (officiële Belastingdienst-rubrieken) — niet vertalen.
+- **Jaarbedragen IB:** de jaaropgave rekent met `IB_PARAMS` in `admin.mjs` (zelfstandigenaftrek,
+  startersaftrek, MKB-winstvrijstelling, KIA-tabel, km-tarief). Voeg elk jaar het nieuwe jaar toe zodra
+  de Belastingdienst de bedragen publiceert, en werk de tabel in `rules/jaaropgave.md` bij. Een jaar
+  zonder parameters rekent t/m de fiscale winst en waarschuwt.

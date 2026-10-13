@@ -25,6 +25,8 @@ Wijzigingen t.o.v. 2025:
 
 Aftrekvoordeel berekend tegen tarief van 37,56% (2026).
 
+Bedragen 2025, de KIA-tabel en de volledige rekenvolgorde (zoals `/jaaropgave` die toepast): zie `jaaropgave.md`.
+
 ## Rekenvoorbeeld
 
 ```

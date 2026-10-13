@@ -25,13 +25,14 @@ en blijft staan als de plugin een update krijgt.
 | `/betaald` | Een verkoopfactuur op betaald zetten (status + betaaldatum). |
 | `/aangifte` | Een kwartaal-BTW-overzicht samenstellen (rubrieken 1a t/m 5g + ICP-opgaaf) ter voorbereiding van je aangifte. |
 | `/dashboard` | Een HTML-dashboard met de stand van zaken: openstaande facturen (met dagen te laat/over datum), opbrengsten en kosten van het lopende kwartaal, en de eerstvolgende aangifte-deadline. |
+| `/jaaropgave` | Je jaarcijfers ter voorbereiding van de aangifte inkomstenbelasting: winst-en-verliesrekening, afschrijvingen, KIA, ondernemersaftrek en MKB-winstvrijstelling tot de belastbare winst, plus BTW-jaaroverzicht en balansposten. |
 
 > In het slash-menu heten de skills `vink:factuur`, `vink:bon`, enz. (de plugin-naam is de
 > prefix). De korte vorm `/factuur` werkt ook gewoon — Claude herkent de bedoeling, ook midden in
 > een zin.
 
 > ⚠️ Dit is een **voorbereidend** hulpmiddel. De skills berekenen en ordenen; de daadwerkelijke
-> BTW-aangifte dien je zelf in op **Mijn Belastingdienst Zakelijk**. Geen vervanging voor een
+> aangiftes (BTW en inkomstenbelasting) dien je zelf in bij de **Belastingdienst**. Geen vervanging voor een
 > boekhouder of fiscaal advies — controleer de uitkomsten.
 
 ## Vereisten
@@ -81,7 +82,7 @@ Bij **third-party marketplaces staat auto-update standaard uit**. Twee opties:
   Code binnen.
 
 Updates raken alleen de plugin-code/skills/regels — **nooit je data**. Je `data/`, `facturen/`,
-`bonnen/` en `aangiftes/` blijven onaangeroerd.
+`bonnen/`, `aangiftes/` en `jaaropgaven/` blijven onaangeroerd.
 
 ## Hoe het is opgebouwd
 
@@ -92,10 +93,10 @@ vink-plugin/
 ├── .claude-plugin/
 │   ├── marketplace.json     marketplace-definitie (deze repo = marketplace)
 │   └── plugin.json          plugin-manifest (naam: vink)
-├── skills/                  de skills: setup, factuur, zelffactuur, bon, betaald, aangifte, dashboard
+├── skills/                  de skills: setup, factuur, zelffactuur, bon, betaald, aangifte, dashboard, jaaropgave
 ├── lib/admin.mjs            deterministische kern (factuurnr, BTW, FX, PDF, CSV-I/O)
-├── templates/               HTML-templates voor de factuur- en aangifte-PDF's + het dashboard
-├── rules/                   Nederlandse BTW-regels in markdown — de kennisbron van de skills
+├── templates/               HTML-templates voor de factuur-, aangifte- en jaaropgave-PDF's + het dashboard
+├── rules/                   Nederlandse BTW- en IB-regels in markdown — de kennisbron van de skills
 └── seed/                    lege templates die /setup-vink naar je eigen map kopieert
 ```
 
@@ -107,7 +108,8 @@ vink-plugin/
 ├── data/                    je administratie (CSV's + business.json)
 ├── facturen/<YYYY-QN>/      gegenereerde + geïmporteerde factuur-PDF's, per kwartaal
 ├── bonnen/<YYYY-QN>/        kopie van je bonbestanden, per kwartaal (bewaarplicht)
-└── aangiftes/               de aangifte-PDF's per kwartaal
+├── aangiftes/               de aangifte-PDF's per kwartaal
+└── jaaropgaven/             de jaaropgave-PDF's per jaar
 ```
 
 ## Je data & privacy

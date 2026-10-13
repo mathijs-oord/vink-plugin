@@ -1,8 +1,8 @@
 {
   "name": "vink",
-  "description": "Lichtgewicht ZZP-administratie voor freelancers in Nederland — factuur, zelffactuur, bon, betaald en BTW-aangifte op platte bestanden. AI bepaalt WAT, deterministische code bepaalt HOE.",
+  "description": "Lichtgewicht ZZP-administratie voor freelancers in Nederland — factuur, zelffactuur, bon, betaald, BTW-aangifte en jaaropgave op platte bestanden. AI bepaalt WAT, deterministische code bepaalt HOE.",
   "author": {
     "name": "AM Oord Consulting"
   },
-  "keywords": ["boekhouding", "btw", "factuur", "zzp", "nederland", "administratie"]
+  "keywords": ["boekhouding", "btw", "factuur", "zzp", "nederland", "administratie", "jaaropgave", "inkomstenbelasting"]
 }

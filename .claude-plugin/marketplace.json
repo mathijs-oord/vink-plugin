@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "vink",
-      "description": "ZZP-administratie: factuur, zelffactuur, bon, betaald, BTW-aangifte.",
+      "description": "ZZP-administratie: factuur, zelffactuur, bon, betaald, BTW-aangifte, dashboard, jaaropgave.",
       "source": "./"
     }
   ]

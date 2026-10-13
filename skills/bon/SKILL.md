@@ -94,9 +94,11 @@ Meld kort: leverancier, bedrag, classificatie, kwartaal.
 - **Valuta:** converteer op de **bon-datum**, niet op vandaag.
 - **Self-billing** (een opdrachtgever maakt een factuur namens jou): dat is **omzet**, geen kost —
   hoort als verkoopfactuur in `invoices.csv`, niet hier. Zie `$CLAUDE_PLUGIN_ROOT/rules/self-billing.md`.
-- **Investering > €450 excl. BTW** (laptop, dure apparatuur): BTW is dit kwartaal volledig
+- **Investering ≥ €450 excl. BTW** (laptop, dure apparatuur): BTW is dit kwartaal volledig
   aftrekbaar (gewoon `deductible`), maar voor de **IB** moet je afschrijven — flag dit even naar
-  de gebruiker. Zie `$CLAUDE_PLUGIN_ROOT/rules/afschrijving-investeringen.md`. (Afschrijving zelf is buiten scope.)
+  de gebruiker. Zie `$CLAUDE_PLUGIN_ROOT/rules/afschrijving-investeringen.md`. Boek het bedrijfsmiddel
+  onder categorie `equipment`: `/jaaropgave` herkent `equipment` ≥ €450 als investering en schrijft
+  'm af. Eén bon met meerdere losse spullen onder €450 per stuk is géén investering → `office`.
 - **KOR-leverancier:** geen BTW op de factuur → niets af te trekken (`non_deductible`).
 
 ## Belangrijk

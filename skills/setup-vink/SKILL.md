@@ -1,6 +1,6 @@
 ---
 name: setup-vink
-description: Eenmalige onboarding — stelt de bedrijfsgegevens (afzender) en standaard betaaltermijn in door interactief data/business.json te vullen, en legt kort uit wat elke skill (/factuur, /zelffactuur, /bon, /betaald, /aangifte) doet. Roep aan bij eerste gebruik of als business.json nog ontbreekt.
+description: Eenmalige onboarding — stelt de bedrijfsgegevens (afzender) en standaard betaaltermijn in door interactief data/business.json te vullen, en legt kort uit wat elke skill (/factuur, /zelffactuur, /bon, /betaald, /aangifte, /dashboard, /jaaropgave) doet. Roep aan bij eerste gebruik of als business.json nog ontbreekt.
 allowed-tools: Bash, Read, Write
 ---
 
@@ -22,7 +22,7 @@ Zet bij eerste gebruik de lege template-bestanden klaar. `-n`/`-Rn` overschrijft
 staat, dus dit is veilig om altijd te draaien:
 
 ```bash
-mkdir -p data facturen bonnen aangiftes
+mkdir -p data facturen bonnen aangiftes jaaropgaven
 cp -Rn "$CLAUDE_PLUGIN_ROOT/seed/data/." data/
 cp -n  "$CLAUDE_PLUGIN_ROOT/seed/business.example.json" data/business.example.json
 cp -n  "$CLAUDE_PLUGIN_ROOT/seed/CLAUDE.md" CLAUDE.md
@@ -94,10 +94,12 @@ Sluit af met een compacte uitleg (één regel per skill) zodat de gebruiker weet
 - **/bon** — bon/inkoopfactuur als kosten verwerken; classificeert de BTW en converteert vreemde valuta.
 - **/betaald** — een verkoopfactuur op betaald zetten (status + betaaldatum).
 - **/aangifte** — kwartaal-BTW-overzicht samenstellen ter voorbereiding van je aangifte.
+- **/dashboard** — stand van zaken: openstaande facturen, omzet/kosten, eerstvolgende aangifte-deadline.
+- **/jaaropgave** — jaarcijfers (omzet → belastbare winst) ter voorbereiding van je aangifte inkomstenbelasting.
 
-Noem ook even: de map `$CLAUDE_PLUGIN_ROOT/rules/` bevat de Nederlandse BTW-regels die de skills raadplegen, en dat
-dit een **voorbereidend** hulpmiddel is — de feitelijke aangifte doet de gebruiker zelf op Mijn
-Belastingdienst Zakelijk. Stel voor om als eerste een `/factuur` of `/bon` te proberen.
+Noem ook even: de map `$CLAUDE_PLUGIN_ROOT/rules/` bevat de Nederlandse fiscale regels die de skills raadplegen, en dat
+dit een **voorbereidend** hulpmiddel is — de feitelijke aangiftes (BTW en inkomstenbelasting) doet de
+gebruiker zelf bij de Belastingdienst. Stel voor om als eerste een `/factuur` of `/bon` te proberen.
 
 ## Belangrijk
 - Vul nooit zelf fiscale identifiers (KvK, BTW-nummer, IBAN) in — alleen de gebruiker levert die.

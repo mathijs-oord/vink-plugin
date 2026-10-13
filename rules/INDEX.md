@@ -11,6 +11,7 @@ Lokale kennisbank voor de `/business` skill. Wordt automatisch bijgewerkt met ni
 | `icp-opgaaf.md` | ICP: wanneer, hoe, deadlines, boetes |
 | `factuureisen.md` | Art. 35a Wet OB, verplichte velden, nummering, e-facturatie |
 | `inkomstenbelasting.md` | Schijven 2026, aftrekposten, rekenvoorbeeld |
+| `jaaropgave.md` | Jaarcijfers zzp'er: W&V + balans, van omzet naar belastbare winst, jaarbedragen 2025/2026, BTW-jaarcontrole |
 | `kor.md` | Kleineondernemersregeling, drempel, voor/nadelen |
 | `kosten-voorbelasting.md` | Aftrekbare kosten, bon vs inkoopfactuur, buitenlandse inkoop |
 | `self-billing.md` | Self-billing facturen, verschil met inkoopfactuur |

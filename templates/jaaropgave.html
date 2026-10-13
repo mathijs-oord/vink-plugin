@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<style>
+  @page { size: A4; margin: 18mm 18mm 16mm 18mm; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #000; font-size: 9.5pt; line-height: 1.45;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  h1 { font-size: 18pt; font-weight: 700; margin: 0 0 2px; }
+  .badge {
+    display: inline-block; vertical-align: middle; margin-left: 10px; padding: 2px 7px;
+    background: #fff8ec; color: #7a5b1e; border-radius: 3px;
+    font-size: 7.5pt; font-weight: 700; letter-spacing: 0.3px; text-transform: uppercase;
+  }
+  .sub { color: #666; font-size: 9pt; }
+  .biz { margin-top: 4px; font-size: 9pt; color: #444; }
+  .deadline-box {
+    margin-top: 20px; background: #fafaf9; border-radius: 3px;
+    padding: 10px 12px; font-size: 9pt; color: #444;
+  }
+
+  h2 { font-size: 11pt; font-weight: 700; margin: 26px 0 8px; break-after: avoid; }
+  .section { break-inside: avoid; }
+  .note { font-size: 8pt; color: #888; margin: -4px 0 8px; }
+
+  table.t { width: 100%; border-collapse: collapse; }
+  table.t thead th {
+    font-size: 7pt; font-weight: 700; color: #999; letter-spacing: 0.3px;
+    text-transform: uppercase; text-align: left; padding: 0 0 6px; border-bottom: 1px solid #000;
+  }
+  table.t th.num, table.t td.num { text-align: right; white-space: nowrap; }
+  table.t td { padding: 5px 0; font-size: 9pt; border-bottom: 1px solid #f0f0f0; vertical-align: top; }
+  table.t td.num { min-width: 95px; padding-left: 12px; }
+  table.t td.hint { color: #999; font-size: 8pt; padding-left: 12px; white-space: nowrap; }
+  table.t td.status { color: #666; font-size: 8pt; padding-left: 16px; }
+  table.t td.empty { color: #999; }
+  table.t tr.group td { font-size: 7pt; font-weight: 700; color: #999; letter-spacing: 0.3px; text-transform: uppercase; padding-top: 10px; border-bottom: 1px solid #000; }
+  table.t tr.item td.l { padding-left: 10px; }
+  table.t tr.subtotal td { font-weight: 700; border-bottom: 1px solid #f0f0f0; }
+  table.t tr.total-row td { font-weight: 700; border-top: 1px solid #000; border-bottom: none; }
+  .todo { color: #999; font-style: italic; }
+
+  .cols { display: flex; gap: 32px; }
+  .cols > div { flex: 1; }
+  .cols > div.wide { flex: 1.6; }
+
+  .saldo {
+    margin-top: 14px; border-top: 2px solid #000; padding-top: 12px;
+    display: flex; justify-content: space-between; align-items: baseline; break-inside: avoid;
+  }
+  .saldo .lbl { font-size: 11pt; font-weight: 700; }
+  .saldo .val { font-size: 16pt; font-weight: 700; }
+
+  .warnings { margin-top: 24px; background: #fff8ec; border-radius: 3px; padding: 10px 12px; font-size: 8.5pt; color: #7a5b1e; break-inside: avoid; }
+  .warnings ul { margin: 6px 0 0; padding-left: 18px; }
+  .warnings li { margin: 2px 0; }
+
+  .disclaimer { margin-top: 30px; font-size: 7.5pt; color: #aaa; border-top: 0.5px solid #eee; padding-top: 8px; break-inside: avoid; }
+</style>
+</head>
+<body>
+  <h1>Jaaropgave {{YEAR}}{{BADGE}}</h1>
+  <div class="sub">Jaaroverzicht onderneming &mdash; voorbereiding aangifte inkomstenbelasting</div>
+  <div class="biz">{{BUSINESS_NAME}} &middot; BTW: {{BUSINESS_VAT}} &middot; KvK: {{BUSINESS_KVK}}</div>
+
+  <div class="deadline-box">Aangifte inkomstenbelasting {{YEAR}} indienen v&oacute;&oacute;r <strong>{{IB_DEADLINE}}</strong> &mdash; neem de cijfers hieronder over bij <em>Winst uit onderneming</em>.</div>
+
+  <div class="section">
+    <h2>Winst-en-verliesrekening</h2>
+    <table class="t">
+      <tbody>{{WV_ROWS}}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>Van winst naar belastbare winst</h2>
+    <table class="t">
+      <tbody>{{FISCAAL_ROWS}}
+      </tbody>
+    </table>
+    <div class="saldo">
+      <div class="lbl">{{RESULT_LABEL}}</div>
+      <div class="val">{{RESULT_VALUE}}</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Omzet</h2>
+    <div class="cols">
+      <div>
+        <table class="t"><thead><tr><th>Kwartaal</th><th class="num">Facturen</th><th class="num">Omzet</th></tr></thead>
+        <tbody>{{QUARTER_ROWS}}</tbody></table>
+      </div>
+      <div class="wide">
+        <table class="t"><thead><tr><th>Opdrachtgever</th><th class="num">Facturen</th><th class="num">Omzet</th><th class="num">Aandeel</th></tr></thead>
+        <tbody>{{CLIENT_ROWS}}</tbody></table>
+      </div>
+    </div>
+  </div>
+
+  {{ASSETS_BLOCK}}
+
+  <div class="section">
+    <h2>BTW-jaaroverzicht</h2>
+    <table class="t">
+      <thead><tr><th>Kwartaal</th><th class="num">Verschuldigd (5a)</th><th class="num">Voorbelasting (5b)</th><th class="num">Saldo (5g)</th><th style="padding-left:16px">Aangifte</th></tr></thead>
+      <tbody>{{BTW_ROWS}}</tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>Balansposten per {{PEILDATUM}}</h2>
+    <div class="note">Alleen wat uit facturen en bonnen volgt. Vul zelf aan: openstaande inkoopfacturen, leningen, en het ondernemingsvermogen op 1 januari en 31 december.</div>
+    <table class="t">
+      <tbody>{{BALANS_ROWS}}</tbody>
+    </table>
+  </div>
+
+  {{WARNINGS_BLOCK}}
+
+  <div class="disclaimer">Dit overzicht is gegenereerd uit de eigen administratie (facturen + bonnen) en dient ter voorbereiding van de aangifte inkomstenbelasting. Het is geen fiscaal advies, geen jaarrekening met accountantsverklaring en geen ingediende aangifte. Controleer de cijfers en raadpleeg bij twijfel een boekhouder.</div>
+</body>
+</html>

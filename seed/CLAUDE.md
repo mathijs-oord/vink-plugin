@@ -1,7 +1,7 @@
 # Mijn administratie — Vink
 
-Dit is **mijn eigen administratie-map**: facturen, bonnen en BTW-aangifte-voorbereiding voor
-freelance/ZZP-werk in Nederland. Alleen platte bestanden (CSV/JSON + PDF's). De skills die hierop
+Dit is **mijn eigen administratie-map**: facturen, bonnen, BTW-aangifte-voorbereiding en jaarcijfers
+voor freelance/ZZP-werk in Nederland. Alleen platte bestanden (CSV/JSON + PDF's). De skills die hierop
 werken komen uit de **`vink`-plugin** (geïnstalleerd via Claude Code), niet uit deze map.
 
 ## Kernprincipe
@@ -23,8 +23,8 @@ Voor de Read-tool heb je het letterlijke pad nodig — draai dan eerst `echo "$C
 
 ## Slash-command detectie
 
-Noemt de gebruiker `/setup-vink`, `/factuur`, `/zelffactuur`, `/bon`, `/betaald` of `/aangifte` (ook
-midden in een zin), roep direct de bijbehorende skill aan — niet om bevestiging vragen, niet
+Noemt de gebruiker `/setup-vink`, `/factuur`, `/zelffactuur`, `/bon`, `/betaald`, `/aangifte`,
+`/dashboard` of `/jaaropgave` (ook midden in een zin), roep direct de bijbehorende skill aan — niet om bevestiging vragen, niet
 uitleggen, invoke. (In het slash-menu heten ze `vink:factuur` enz.; de korte vorm herken je
 als intentie.)
 
@@ -34,6 +34,8 @@ als intentie.)
 - `/bon` — inkoopfactuur/bon als kosten verwerken.
 - `/betaald` — een verkoopfactuur op betaald zetten (status=paid + paid_at).
 - `/aangifte` — kwartaal-BTW-aangifte samenstellen.
+- `/dashboard` — stand van zaken (openstaand, omzet/kosten, eerstvolgende deadline).
+- `/jaaropgave` — jaarcijfers: van omzet naar belastbare winst, voor de aangifte inkomstenbelasting.
 
 ## Map-conventies (in déze map)
 
@@ -44,16 +46,21 @@ data/invoices.csv         factuur-headers (status draft|sent|paid, source create
 data/invoice_items.csv    factuurregels
 data/receipts.csv         bonnen/kosten
 data/aangiftes.csv        kwartaal-aangiftes
+data/assets.csv           bedrijfsmiddelen zonder bon (van vóór Vink / ingebracht uit privé)
+data/jaaropgaven.csv      vastgelegde jaaropgaven
 facturen/<YYYY-QN>/       gegenereerde + geïmporteerde factuur-PDF's, per kwartaal
 bonnen/<YYYY-QN>/         kopie van bron-bonbestanden, per kwartaal (bewaarplicht Art. 52 AWR)
 aangiftes/                aangifte-PDF's
+jaaropgaven/              jaaropgave-PDF's
 ```
 
 ## Scope
 
-Administratie (facturen, bonnen, BTW-aangifte-voorbereiding). **Niet** in scope: inkomstenbelasting,
-directe indiening bij de Belastingdienst, afschrijvingen, tijdregistratie. Het BTW-overzicht is ter
-voorbereiding; de daadwerkelijke aangifte doe je zelf op Mijn Belastingdienst Zakelijk.
+Administratie (facturen, bonnen) en de voorbereiding van de BTW-aangifte en de jaarcijfers voor de
+inkomstenbelasting (winst uit onderneming, incl. eenvoudige lineaire afschrijving). **Niet** in scope:
+het berekenen van de inkomstenbelasting zelf (schijven, heffingskortingen, Zvw), het privédeel van de
+aangifte, directe indiening bij de Belastingdienst, tijdregistratie. Alle overzichten zijn ter
+voorbereiding; de daadwerkelijke aangiftes doe je zelf bij de Belastingdienst.
 
 ## Stijl
 
