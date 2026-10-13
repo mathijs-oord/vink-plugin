@@ -131,7 +131,12 @@ Zvw-bijdrage berekent de Belastingdienst uit je hele aangifte — die rekent Vin
 **Ondernemersaftrek**
 - **Urencriterium**: minimaal 1.225 uur per kalenderjaar aan het feitelijk drijven van je
   onderneming, én meer tijd aan de onderneming dan aan ander werk. De 1.225 uur wordt niet naar rato
-  verlaagd als je halverwege het jaar start. De code vraagt dit uit; uren worden niet geregistreerd.
+  verlaagd als je halverwege het jaar start. Alle uren voor de onderneming tellen, ook
+  niet-declarabele (acquisitie, administratie, reistijd, scholing).
+- De code telt de **gefactureerde uren** uit de factuurregels (eenheid uren; een dag = 8 uur). Dat is
+  een ondergrens: halen die alleen al de 1.225, dan geldt het criterium als gehaald en vraagt de skill
+  er niet naar. Zit je eronder, dan vraagt de skill één keer of je er met niet-declarabele uren wél
+  komt. De tweede voorwaarde (meer tijd dan aan ander werk) is niet uit de administratie af te leiden.
 - **Zelfstandigenaftrek** kan niet hoger zijn dan de winst vóór ondernemersaftrek, tenzij je ook
   startersaftrek krijgt. Het niet-gerealiseerde deel schuift door naar de volgende 9 jaar.
 - **Startersaftrek**: in de 5 voorgaande jaren minstens 1 jaar geen ondernemer, en in die periode

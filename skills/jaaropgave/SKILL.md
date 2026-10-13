@@ -30,29 +30,37 @@ het bestaat) `assets.csv`, en geeft JSON terug met:
 - `activa[]` + `afschrijvingen` — bedrijfsmiddelen met afschrijving dit jaar en boekwaarde per 31-12.
 - `fiscaal` — de stappen van `winst` naar `belastbare_winst` (niet-aftrekbaar deel, KIA,
   zelfstandigenaftrek, startersaftrek, MKB-winstvrijstelling).
+- `uren` — `gefactureerd` (uren uit de factuurregels; een dag = 8 uur), `norm` (1.225),
+  `urencriterium` (`true` / `false` / `null` = niet vast te stellen) en `bron` (`facturen` / `opgegeven`).
 - `btw` — de vier kwartalen herberekend, naast wat met `/aangifte` is vastgelegd (`verschil`).
 - `balans` — vaste activa, debiteuren, btw vierde kwartaal, banksaldo.
 - `provisional`, `ib_deadline`, `warnings`.
 
 Niets zelf narekenen — gebruik deze output.
 
-### 3. Vraag wat niet in de administratie staat
-De CSV's weten dit niet. Vraag het **gegroepeerd, in één keer**:
+### 3. Vraag alleen wat niet in de administratie staat
+**Vraag niets wat de output van stap 2 al beantwoordt.** Kijk eerst, vraag dan de rest **gegroepeerd,
+in één keer**.
 
-1. **Urencriterium** — heb je in dat jaar minstens 1.225 uur aan je onderneming besteed, én meer tijd
-   dan aan ander werk (bv. loondienst)? Zo ja → zelfstandigenaftrek.
-2. **Startersaftrek** — was je in de 5 jaar daarvoor minstens 1 jaar géén ondernemer, en heb je de
-   zelfstandigenaftrek in die periode hooguit 2 keer gehad? (Alleen relevant bij urencriterium = ja.)
-3. **Zakelijke kilometers met je privéauto/-fiets** — hoeveel km? De code rekent met het vaste
+**Urencriterium — kijk naar `uren`:**
+- `bron` = `facturen` → de gefactureerde uren halen de 1.225 al. **Niet naar vragen**; de
+  zelfstandigenaftrek is toegepast. Meld het aantal uren als feit.
+- `urencriterium` = `null` → de facturen komen niet aan 1.225. Niet-declarabele uren (acquisitie,
+  administratie, reistijd, scholing) tellen ook mee, en die staan nergens. Stel dan één gerichte
+  vraag mét het getal: "Je factureerde 798 uur. Kom je met je niet-declarabele uren erbij op 1.225 of
+  meer?" Weet de gebruiker het niet zeker: reken zónder zelfstandigenaftrek (de fiscaal veilige kant)
+  en meld dat. Vul nooit zelf "ja" in.
+
+**Wat de administratie nooit weet** (sla over wat in de vraag van de gebruiker al beantwoord is):
+1. **Startersaftrek** — alleen vragen als het urencriterium gehaald is: was je in de 5 jaar daarvoor
+   minstens 1 jaar géén ondernemer, en heb je de zelfstandigenaftrek in die periode hooguit 2 keer gehad?
+2. **Zakelijke kilometers met je privéauto/-fiets** — hoeveel km? De code rekent met het vaste
    bedrag per km van dat jaar.
-4. **Posten zonder bon of factuur** — werk dat in het jaar is gedaan maar pas daarna gefactureerd
+3. **Posten zonder bon of factuur** — werk dat in het jaar is gedaan maar pas daarna gefactureerd
    (hoort bij dit jaar), bankkosten, betaalde rente, kosten waarvan geen bon is ingevoerd.
-5. **Bedrijfsmiddelen die niet als bon in de administratie staan** — gekocht vóór je Vink gebruikte
+4. **Bedrijfsmiddelen die niet als bon in de administratie staan** — gekocht vóór je Vink gebruikte
    en nog niet afgeschreven, of ingebracht vanuit privé (zie hieronder).
-6. **Banksaldo van de zakelijke rekening op 31 december** (optioneel; komt op de balans).
-
-Weet de gebruiker het urencriterium niet zeker: reken zónder zelfstandigenaftrek (de fiscaal veilige
-kant) en meld dat. Vul nooit zelf "ja" in.
+5. **Banksaldo van de zakelijke rekening op 31 december** (optioneel; komt op de balans).
 
 Loop ook de `warnings` uit stap 2 na vóór je verder gaat — met name ontbrekende BTW-aangiftes,
 concept-facturen en bonnen die nog ingevoerd moeten worden. Mist er zichtbaar data (wel omzet, nauwelijks
@@ -70,7 +78,8 @@ node "$CLAUDE_PLUGIN_ROOT/lib/admin.mjs" append data/assets.csv '{"description":
 en vraag bevestiging vóór je wegschrijft.
 
 ### 4. Herbereken met de opties
-Schrijf `/tmp/jaaropgave-opties.json` (laat weg wat niet van toepassing is):
+Schrijf `/tmp/jaaropgave-opties.json` (laat weg wat niet van toepassing is — ook `urencriterium`
+als de code het al uit de facturen haalde; alleen meegeven als de gebruiker het zelf opgaf):
 ```json
 {
   "urencriterium": true,
@@ -126,6 +135,10 @@ suppletie).
 - **Investeringen**: `equipment`-bon ≥ € 450 excl. btw → geen kosten in één keer, maar lineair
   afgeschreven over 5 jaar (restwaarde € 0), tijdsevenredig vanaf de aanschafmaand. Het
   investeringsbedrag van het jaar telt voor de **KIA**.
+- **Urencriterium**: gefactureerde uren (factuurregels met eenheid uren; een dag = 8 uur) ≥ 1.225 →
+  gehaald, zonder vragen. Een expliciete opgave van de gebruiker gaat altijd voor. De tweede
+  voorwaarde (meer tijd aan de onderneming dan aan ander werk) ziet de code niet; die staat als
+  aandachtspunt in de output.
 - **Volgorde**: winst → + niet-aftrekbaar deel → − KIA → winst vóór ondernemersaftrek →
   − zelfstandigenaftrek/startersaftrek → − MKB-winstvrijstelling → belastbare winst.
 
