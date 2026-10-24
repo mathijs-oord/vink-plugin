@@ -25,19 +25,13 @@ laadt. Het is géén omgevingsvariabele in de shell — neem het pad dus over ui
 
 ## Slash-command detectie
 
-Noemt de gebruiker `/setup-vink`, `/factuur`, `/zelffactuur`, `/bon`, `/betaald`, `/aangifte`,
-`/dashboard` of `/jaaropgave` (ook midden in een zin), roep direct de bijbehorende skill aan — niet om bevestiging vragen, niet
-uitleggen, invoke. (In het slash-menu heten ze `vink:factuur` enz.; de korte vorm herken je
-als intentie.)
+Noemt de gebruiker een Vink-skill met een slash (bv. `/factuur` of `/aangifte`, ook midden in een
+zin), roep direct de bijbehorende skill aan — niet om bevestiging vragen, niet uitleggen, invoke.
+In het slash-menu heten ze `vink:factuur` enz.; de korte vorm herken je als intentie.
 
-- `/setup-vink` — eenmalige onboarding: bedrijfsgegevens + betaaltermijn instellen.
-- `/factuur` — ik maak zelf een verkoopfactuur (omzet, genereert PDF).
-- `/zelffactuur` — opdrachtgever maakt de factuur namens mij (self-billing, ook omzet, importeert).
-- `/bon` — inkoopfactuur/bon als kosten verwerken.
-- `/betaald` — een verkoopfactuur op betaald zetten (status=paid + paid_at).
-- `/aangifte` — kwartaal-BTW-aangifte samenstellen.
-- `/dashboard` — stand van zaken (openstaand, omzet/kosten, eerstvolgende deadline).
-- `/jaaropgave` — jaarcijfers: van omzet naar belastbare winst, voor de aangifte inkomstenbelasting.
+Welke skills er zijn en wat ze doen, komt uit de plugin zelf (de beschrijving van elke skill). Die
+lijst staat bewust niet in dit bestand: deze kopie wordt bij plugin-updates niet ververst, dus een
+lijst hier zou nieuwe skills missen.
 
 ## Map-conventies (in déze map)
 

@@ -5,6 +5,7 @@ allowed-tools:
   - Bash(mkdir -p *)
   - Bash(cp -n *)
   - Bash(cp -Rn *)
+  - Bash(diff -q *)
   - Read
   - Write
 ---
@@ -40,7 +41,7 @@ Bestaat alles al → er verandert niets en je gaat door naar stap 1.
 
 **Bestond `CLAUDE.md` al?** Vergelijk 'm met de versie uit de plugin:
 `diff -q "${CLAUDE_PLUGIN_ROOT}/seed/CLAUDE.md" CLAUDE.md`. Verschilt hij, dan is de plugin sindsdien
-bijgewerkt (bv. een nieuwe skill) of heeft de gebruiker 'm zelf aangepast. Meld dat en vraag of je 'm
+bijgewerkt (bv. nieuwe map-conventies) of heeft de gebruiker 'm zelf aangepast. Meld dat en vraag of je 'm
 mag vervangen; zo ja, bewaar eerst de oude als `CLAUDE.md.bak`. Nooit ongevraagd overschrijven.
 
 ### 1. Check of er al een setup is
