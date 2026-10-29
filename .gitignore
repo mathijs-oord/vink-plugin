@@ -20,6 +20,7 @@ node_modules/
 
 # --- Privé maintainer-notities (nooit delen via git) ---
 *.local.md
+/plannen/
 
 # --- Vink-website is een eigen repo (github.com/mathijs-oord/vink-website) ---
 # Staat toevallig in deze map maar heeft eigen git-historie + Vercel-deploy. Bewust géén
