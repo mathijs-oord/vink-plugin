@@ -1,6 +1,6 @@
 # ICP-opgaaf (Intracommunautaire Prestaties)
 
-*Laatst geverifieerd: 20 februari 2026*
+*Laatst geverifieerd: 14 november 2026*
 
 ## Wat is het?
 
@@ -27,6 +27,10 @@ Per EU-klant één regel:
 
 Totaal moet overeenkomen met **rubriek 3b** van je BTW-aangifte.
 
+**In welk tijdvak?** Goederen geef je op in het tijdvak van de factuurdatum, diensten in het tijdvak
+waarin je de dienst hebt verricht. Vink boekt op factuurdatum. Factureer je werk uit het ene kwartaal
+pas in het volgende, dan hoort die dienst voor 3b en de ICP dus bij het eerdere kwartaal.
+
 ## Hoe indienen?
 
 1. Inloggen op **Mijn Belastingdienst Zakelijk** (DigiD)
@@ -41,8 +45,8 @@ Maximum 100 klanten via portaal. Meer → boekhoudsoftware.
 | Frequentie | Voorwaarde | Deadline |
 |------------|-----------|----------|
 | **Per kwartaal** | Standaard | Laatste dag van de maand na het kwartaal |
-| **Per maand** | >€50.000 goederen/kwartaal | Laatste dag volgende maand |
-| **Per jaar** | Op aanvraag, ≤€15.000 totaal/jaar | Na afloop van het jaar |
+| **Per maand** | Verplicht bij >€50.000 goederen per kwartaal; mag altijd | Laatste dag volgende maand |
+| **Per jaar** | Alleen met vergunning, op verzoek (eenmanszaak of samenwerkingsverband van natuurlijke personen) | Na afloop van het jaar |
 
 Kwartaaldeadlines 2026 (zelfde als BTW-aangifte):
 
@@ -55,8 +59,9 @@ Kwartaaldeadlines 2026 (zelfde als BTW-aangifte):
 
 ## Consequenties vergeten
 
-- **Boete**: €82 per verzuim
-- **Coulancetermijn**: 7 kalenderdagen na deadline
+- **Boete**: niet, te laat, onvolledig of onjuist indienen is een verzuim waarvoor een bestuurlijke boete
+  kan volgen (art. 40 Wet OB, ten hoogste de derde categorie). De € 82 en de coulancetermijn van
+  7 dagen gelden voor de btw-aangifte, niet voor de opgaaf ICP
 - **Ernstiger**: bij herhaaldelijk verzuim kan Belastingdienst recht op verleggingsregeling ontzeggen → dan 21% NL BTW rekenen aan EU-klanten
 
 ## Correcties
@@ -67,4 +72,4 @@ Fouten corrigeer je in de **volgende** ICP-opgaaf. Geen apart correctieformulier
 
 - [Belastingdienst — Opgaaf ICP](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/zakendoen_met_het_buitenland/goederen_en_diensten_naar_andere_eu_landen/opgaaf_icp/opgaaf_icp)
 - [Belastingdienst — Tijdvak ICP](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/zakendoen_met_het_buitenland/goederen_en_diensten_naar_andere_eu_landen/opgaaf_icp/tijdvak_opgaaf_icp/tijdvak_opgaaf_icp)
-- [Belastingdienst — Boete te laat aangifte](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/btw_aangifte_doen_en_betalen/boetes/u_doet_geen_of_te_laat_aangifte)
+- Art. 37a Wet OB (opgaaf, termijn) en art. 40 Wet OB (verzuimboete)

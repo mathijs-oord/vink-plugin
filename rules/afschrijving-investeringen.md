@@ -1,6 +1,6 @@
 # Afschrijving & investeringen
 
-*Laatst geverifieerd: 20 februari 2026*
+*Laatst geverifieerd: 14 november 2026*
 
 ## Drempelbedrag: €450
 
@@ -25,7 +25,7 @@ Bedrijfsmiddelen < €450 tellen NIET mee voor de KIA.
 
 ### Willekeurige afschrijving (starters)
 
-Startende ondernemers (recht op startersaftrek, max 3x in eerste 5 jaar) mogen willekeurig afschrijven: volledige aanschafprijs in één keer afschrijven als ze willen.
+Startende ondernemers (recht op startersaftrek, max 3x in eerste 5 jaar) mogen willekeurig afschrijven: volledige aanschafprijs in één keer afschrijven als ze willen. Alleen voor bedrijfsmiddelen die voor investeringsaftrek in aanmerking komen, tot het maximumbedrag van de KIA per jaar; het minimumbedrag van de KIA geldt hier niet. Vervalt volgens het Belastingplan 2027 per 2028, samen met de startersaftrek.
 
 ## Kleinschaligheidsinvesteringsaftrek (KIA) 2026
 

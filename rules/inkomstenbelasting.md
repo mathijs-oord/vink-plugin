@@ -1,6 +1,6 @@
 # Inkomstenbelasting ZZP'er (2026)
 
-*Laatst geverifieerd: 20 februari 2026*
+*Laatst geverifieerd: 14 november 2026*
 
 ## Belastingschijven Box 1 (2026)
 
@@ -46,7 +46,8 @@ Belastbaar inkomen                       €60.062
 
 - Minimaal **1.225 uur per jaar** aan je onderneming(en) besteden
 - Geldt voor: zelfstandigenaftrek, startersaftrek, meewerkaftrek
-- Alleen directe uren tellen (niet: administratie voor een andere baan)
+- Alle uren voor je onderneming tellen, ook niet-declarabele (acquisitie, administratie, reistijd, scholing). Uren voor een andere baan tellen niet
+- Besteed je ook tijd aan ander werk (bv. loondienst), dan moet meer dan de helft van je totale werktijd naar de onderneming gaan
 
 ## Deadlines
 

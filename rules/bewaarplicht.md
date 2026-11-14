@@ -1,6 +1,6 @@
 # Bewaarplicht (Art. 52 AWR)
 
-*Laatst geverifieerd: 20 februari 2026*
+*Laatst geverifieerd: 14 november 2026*
 
 ## Termijnen
 
@@ -16,7 +16,7 @@ Termijn start na afloop van het boekjaar. Factuur uit 2026 → bewaren t/m 2033.
 
 ## Digitaal bewaren
 
-- Papieren bonnen scannen/fotograferen mag (sinds 2014)
+- Papieren bonnen scannen/fotograferen mag, mits alle gegevens en echtheidskenmerken zijn overgenomen en de scan de hele bewaartermijn te tonen is. Bij twijfel (bv. contant betaalde kassabonnen): bewaar ook het papier
 - PDF ontvangen = PDF bewaren (niet uitprinten en weer scannen)
 - Kwaliteit moet goed genoeg zijn om alles te lezen
 

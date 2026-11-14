@@ -1,6 +1,6 @@
 # Zakelijke kosten & voorbelasting
 
-*Laatst geverifieerd: 20 februari 2026*
+*Laatst geverifieerd: 14 november 2026*
 
 ## Kostencategorieën — BTW-behandeling
 
@@ -9,7 +9,7 @@
 | Categorie                | BTW                              | Toelichting                                                   |
 | ------------------------ | -------------------------------- | ------------------------------------------------------------- |
 | Kantoorkosten            | 21%, volledig                    | Standaard zakelijke kosten                                    |
-| Reiskosten               | 9% (OV) / 21% (overig), volledig | Woon-werkverkeer niet aftrekbaar (IB), maar BTW wel           |
+| Reiskosten               | 9% (OV) / 21% (overig), volledig | Woon-werkverkeer telt voor de IB als zakelijk. Voor de btw is woon-werk met de auto privégebruik: over die kilometers geen aftrek |
 | Software/SaaS            | 21%, volledig                    | Buitenlandse SaaS: zie "Buitenlandse inkoop" hieronder         |
 | Marketing                | 21%, volledig                    | Reclame, advertenties, website, drukwerk                      |
 | Boekhouder/administratie | 21%, volledig                    | Boekhoudkosten, fiscaal advies, KVK-kosten                    |
@@ -19,7 +19,7 @@
 
 | Categorie             | Waarom          | Details                                                                                                               |
 | --------------------- | --------------- | --------------------------------------------------------------------------------------------------------------------- |
-| **Eten & drinken**    | Art. 1 BUA      | Horeca-BTW uitgesloten van aftrek. Kosten zelf wel 80% aftrekbaar voor IB                                             |
+| **Eten & drinken**    | Art. 15 lid 5 Wet OB | Horeca-BTW uitgesloten van aftrek. Kosten zelf wel 80% aftrekbaar voor IB                                             |
 | **Verzekeringen**     | BTW-vrijgesteld | Er wordt geen BTW maar assurantiebelasting (21%) gerekend — niet aftrekbaar als voorbelasting                         |
 | **Relatiegeschenken** | BUA-drempel     | >€227 per relatie per jaar (excl. BTW): BTW niet aftrekbaar op totaal voor die relatie. Onder drempel: wél aftrekbaar |
 | Boetes                | Niet aftrekbaar | Nooit                                                                                                                 |
@@ -46,8 +46,8 @@ Beide → voorbelasting (rubriek 5b).
 
 **Uitzonderingen op de inkoopfactuur-eis boven €100:**
 
-* **Personenvervoer** (NS, GVB, taxi, etc.) — vervoersbewijs of transactieoverzicht geldt als factuur (Art. 34g Uitv.besch. OB). BTW-nummer leverancier niet vereist.
-* **Parkeerautomaten en tolheffing** — idem Art. 34g.
+* **Personenvervoer** (NS, GVB, taxi, etc.) — het vervoersbewijs geldt als factuur (art. 33 lid 1 onder a Uitvoeringsbeschikking OB). BTW-nummer leverancier niet vereist.
+* **Parkeerbonnen en tol** — tot € 100 volstaat de bon als vereenvoudigde factuur (art. 34d Wet OB).
 * **Self-billing** — factuur komt van de opdrachtgever, zie `self-billing.md`.
 * **Formeel gebrek vs. materieel recht** — ontbrekend BTW-nummer van leverancier blokkeert aftrek niet zolang materiële voorwaarden vervuld zijn en de uitgave aantoonbaar zakelijk is (HvJ EU Barlis 06 C-516/14, Senatex C-518/14). In de praktijk: vraag bij reguliere leveranciers alsnog een correcte factuur op; bij OV/parkeren hoeft dat dus niet.
 
@@ -57,7 +57,11 @@ Beide → voorbelasting (rubriek 5b).
 | --------------------- | -------------------------- | ----------------- |
 | NL (bv. TransIP)      | BTW op factuur → aftrekken | 5b                |
 | EU (bv. Figma, Slack) | Verleggen                  | 4b + 5b = netto 0 |
-| Buiten EU (bv. AWS)   | Verleggen                  | 4a + 5b = netto 0 |
+| Buiten EU (bv. Notion) | Verleggen                 | 4a + 5b = netto 0 |
+
+Bepalend is de **entiteit op de factuur** (adres en btw-nummer), niet de merknaam. Veel Amerikaanse
+leveranciers factureren EU-klanten vanuit Ierland of Luxemburg (→ 4b). Sommige factureren via een
+Nederlands filiaal mét 21% Nederlandse btw (bv. AWS): dat is gewone voorbelasting (5b), geen verlegging.
 
 **Let op: B2C-facturen van buitenlandse SaaS (OSS/MOSS)**
 

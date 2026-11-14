@@ -1,6 +1,6 @@
 # Factuureisen Nederland
 
-*Laatst geverifieerd: 20 februari 2026*
+*Laatst geverifieerd: 14 november 2026*
 
 ## Wettelijke basis
 
@@ -9,13 +9,13 @@ Art. 35a Wet op de Omzetbelasting 1968 (implementatie van Art. 226 EU BTW-richtl
 ## Harde vereisten (factuur fiscaal ongeldig zonder)
 
 ### Van jezelf (leverancier)
-- Naam en adres (Art. 35a lid 1 sub d)
+- Naam en adres (Art. 35a lid 1 sub e)
 - BTW-identificatienummer (Art. 35a lid 1 sub c)
-- KVK-nummer (Handelsregisterwet Art. 25 — apart wetsartikel, verplicht op "uitgaande stukken")
+- KVK-nummer (Handelsregisterwet 2007 art. 27 — apart wetsartikel, verplicht op uitgaande brieven, orders, facturen en offertes)
 
 ### Van de klant (afnemer)
 - Naam en adres (Art. 35a lid 1 sub e)
-- BTW-nummer: alleen verplicht bij intracommunautaire levering / verleggingsregeling
+- BTW-nummer: alleen verplicht bij intracommunautaire levering / verleggingsregeling (Art. 35a lid 1 sub d)
 
 ### Op de factuur
 - Factuurdatum (Art. 35a lid 1 sub a)
@@ -40,10 +40,10 @@ Art. 35a Wet op de Omzetbelasting 1968 (implementatie van Art. 226 EU BTW-richtl
 
 | Situatie | Vermelding | Wettelijke basis |
 |----------|-----------|------------------|
-| EU-klant (BTW verlegd) | "BTW verlegd naar de ontvanger op grond van artikel 44 Btw-richtlijn" | Art. 35a lid 1 sub k-l, Art. 37c |
-| KOR | "Vrijgesteld van omzetbelasting op grond van artikel 25 Wet OB" | Art. 25 Wet OB |
-| Creditfactuur | Verwijzing naar originele factuur | Art. 35a |
-| Self-billing | "Factuur uitgereikt door de afnemer" | Art. 35a |
+| EU-klant (BTW verlegd) | "BTW verlegd" (verplicht); Vink zet erbij: "naar de ontvanger op grond van artikel 44 Btw-richtlijn" | Art. 35a lid 1 sub m (+ btw-nummer afnemer: sub d) |
+| KOR | "Vrijgesteld van omzetbelasting op grond van artikel 25a Wet OB" | Art. 25a Wet OB, art. 35a lid 1 sub l |
+| Creditfactuur | Verwijzing naar originele factuur | Art. 35a lid 2 sub e |
+| Self-billing | "Factuur uitgereikt door afnemer" | Art. 35a lid 1 sub k |
 
 ## Niet wettelijk verplicht maar praktisch essentieel
 
@@ -61,9 +61,9 @@ Bij BTW-verlegd (reverse charge) naar EU-afnemers:
 2. Vermelding "BTW verlegd" op factuur
 3. Referentie Art. 44 Btw-richtlijn
 
-## Vereenvoudigde factuur (Art. 35b)
+## Vereenvoudigde factuur (Art. 34d en 35a lid 2)
 
-Voor bedragen ≤ €100 incl. BTW gelden vereenvoudigde regels: alleen datum, naam leverancier, omschrijving, bedrag incl. BTW en BTW-tarief vereist. Veel kassabonnen vallen hieronder. Niet relevant voor dienstverlenende ZZP'ers (facturen typisch > €1.000).
+Voor bedragen ≤ €100 incl. BTW gelden vereenvoudigde regels: alleen datum, naam leverancier, omschrijving en het btw-bedrag (of de gegevens om het te berekenen, zoals bedrag incl. BTW en tarief) zijn vereist. Veel kassabonnen vallen hieronder. Niet relevant voor dienstverlenende ZZP'ers (facturen typisch > €1.000).
 
 ## Inkoopfactuur — vereisten voor BTW-aftrek
 
@@ -77,16 +77,16 @@ Voor het aftrekken van voorbelasting (rubriek 5b) moet je een inkoopfactuur hebb
 ## E-facturatie (Peppol)
 
 - **B2G**: Al verplicht sinds 2017 (leveranciers aan Rijksoverheid)
-- **B2B NL**: Nog niet verplicht (2026), maar waarschijnlijk **verplicht per 1 juli 2030** (EU ViDA-initiatief)
-- **België B2B**: Verplicht per 1 jan 2026 via Peppol — relevant voor NL ZZP'ers met Belgische klanten
+- **B2B NL**: Nog niet verplicht (2026). Het kabinet wil e-facturatie per **1 juli 2030** verplichten voor alle B2B-facturen, binnenlands en grensoverschrijdend (voornemen van september 2026, in lijn met EU ViDA; wetgeving volgt nog)
+- **België B2B**: Verplicht per 1 jan 2026 via Peppol voor in België gevestigde btw-plichtigen. Voor een NL ZZP'er zonder Belgische vestiging geen plicht, maar Belgische klanten kunnen om een Peppol-factuur vragen
 - **Formaat**: Peppol BIS Billing 3.0 (UBL 2.1 XML), NL-specifiek: SI-UBL 2.0 met NLCIUS
 
 ## Bronnen
 
 - [Belastingdienst — Factuureisen BTW](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/administratie_bijhouden/)
 - Art. 35a Wet op de Omzetbelasting 1968
-- Art. 35b Wet OB (vereenvoudigde factuur)
-- Art. 37c Wet OB (vermelding BTW-verlegd)
-- Art. 25 Handelsregisterwet (KVK op uitgaande stukken)
+- Art. 34d Wet OB (wanneer een vereenvoudigde factuur volstaat)
+- Art. 35b Wet OB (elektronische facturering) en art. 35c Wet OB (bewaren van facturen)
+- Art. 27 Handelsregisterwet 2007 (KVK op uitgaande stukken)
 - Art. 52 AWR (administratie- en bewaarplicht)
 - EU BTW-richtlijn 2006/112/EG, Art. 226

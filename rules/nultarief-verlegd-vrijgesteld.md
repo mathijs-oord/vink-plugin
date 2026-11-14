@@ -1,6 +1,6 @@
 # BTW: Nultarief, Verlegd & Vrijgesteld
 
-*Laatst geverifieerd: 20 februari 2026*
+*Laatst geverifieerd: 14 november 2026*
 
 Drie situaties die er hetzelfde uitzien ("geen BTW") maar juridisch anders werken.
 
@@ -51,7 +51,12 @@ Buitenlandse SaaS/diensten die jij als ZZP'er afneemt:
 |-------------|-------------|--------------|
 | NL (bv. TransIP) | BTW op factuur → aftrekken | 5b |
 | EU (bv. Figma, Slack) | Verleggen | 4b (afdragen) + 5b (aftrekken) = netto 0 |
-| Buiten EU (bv. AWS) | Verleggen | 4a (afdragen) + 5b (aftrekken) = netto 0 |
+| Buiten EU (bv. Notion) | Verleggen | 4a (afdragen) + 5b (aftrekken) = netto 0 |
+
+Kijk naar de entiteit en het btw-nummer op de factuur, niet naar de merknaam: een Amerikaanse
+leverancier die vanuit Ierland of Luxemburg factureert valt onder 4b, en een leverancier die via een
+Nederlands filiaal 21% btw rekent (bv. AWS) is gewone voorbelasting. Bij gemengd gebruik is de verlegde
+btw volledig verschuldigd, maar alleen het zakelijke deel aftrekbaar.
 
 ## Vrijgesteld
 

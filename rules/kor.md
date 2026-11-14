@@ -1,6 +1,6 @@
 # KOR (Kleineondernemersregeling)
 
-*Laatst geverifieerd: 20 februari 2026*
+*Laatst geverifieerd: 14 november 2026*
 
 ## Wat is het?
 
@@ -8,7 +8,8 @@ Vrijwillige regeling: als je <€20.000 omzet per jaar hebt, hoef je geen BTW te
 
 ## Voorwaarden
 
-- Jaaromzet excl. BTW ≤ **€20.000** (huidig + vorig jaar)
+- Omzet in Nederland excl. BTW ≤ **€20.000** per kalenderjaar (art. 25a lid 1 Wet OB). Kom je erboven, dan
+  vervalt de regeling vanaf de factuur waarmee je de grens overschrijdt
 - EU-drempel: totale jaaromzet in EU ≤ **€100.000** (EU-KOR, sinds 2025)
 - Afmelden kan op elk moment — de verplichte deelname van 3 jaar is per 1 januari 2025 vervallen.
   Na afmelding kun je je de rest van dat kalenderjaar en het hele volgende jaar niet opnieuw aanmelden

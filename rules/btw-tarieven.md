@@ -1,6 +1,6 @@
 # BTW-tarieven en -aangifte (2026)
 
-*Laatst geverifieerd: 20 februari 2026*
+*Laatst geverifieerd: 14 november 2026*
 
 ## Tarieven
 
@@ -25,7 +25,7 @@ Als ZZP consultant/developer/designer: vrijwel altijd **21%** BTW.
 | **1e** | Omzet tegen 0% of niet bij jou belast | Nultarief (bv. internationaal vervoer), binnenlands verlegde omzet |
 | **3a** | Uitvoer van **goederen** naar landen buiten de EU | Niet voor diensten |
 | **3b** | Leveringen naar / diensten aan ondernemers in andere EU-landen | BTW verlegd + ICP-opgaaf |
-| **4a** | Diensten afgenomen van buiten EU | bv. AWS, Notion (verleggen) |
+| **4a** | Diensten afgenomen van buiten EU | bv. Notion (verleggen) |
 | **4b** | Diensten/goederen afgenomen uit EU | bv. Figma, Slack (verleggen) |
 
 Diensten aan afnemers **buiten de EU** die in het land van de afnemer belast zijn, geef je niet aan

@@ -1,6 +1,6 @@
 # Aanloopkosten (kosten voor bedrijfsstart)
 
-*Laatst geverifieerd: 20 februari 2026*
+*Laatst geverifieerd: 14 november 2026*
 
 ## De regels
 

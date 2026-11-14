@@ -1,6 +1,6 @@
 # Jaaropgave zzp'er — van administratie naar belastbare winst
 
-*Laatst geverifieerd: 13 oktober 2026*
+*Laatst geverifieerd: 14 november 2026*
 
 Kennisbron voor de `/jaaropgave`-skill. De rekenregels hieronder zijn geïmplementeerd in
 `lib/admin.mjs` (`computeJaaropgave`); de jaarbedragen staan daar in `IB_PARAMS`.
@@ -73,7 +73,7 @@ Zvw-bijdrage berekent de Belastingdienst uit je hele aangifte — die rekent Vin
 
 ## Jaarbedragen
 
-| | 2025 | 2026 | 2027 (voorstel) |
+| | 2025 | 2026 | 2027 (Belastingplan 2027) |
 |---|---|---|---|
 | Zelfstandigenaftrek | € 2.470 | € 1.200 | € 900 |
 | Startersaftrek | € 2.123 | € 2.123 | € 10, afgeschaft per 2028 |
@@ -84,14 +84,16 @@ Zvw-bijdrage berekent de Belastingdienst uit je hele aangifte — die rekent Vin
 | KIA: vast bedrag | € 19.769 (t/m € 130.744) | € 20.072 (t/m € 132.746) | — |
 | KIA: afbouw 7,56% boven | € 130.744 (tot € 392.230) | € 132.746 (tot € 398.236) | — |
 | Drempel beperkt aftrekbare kosten | € 5.700 (of 80%) | € 5.700 (of 80%) | — |
-| Zakelijke km privévervoermiddel | € 0,23 | € 0,25 | — |
+| Zakelijke km privévervoermiddel | € 0,23 | € 0,25 | € 0,25 |
 | Zvw-bijdrage zelfstandigen | 5,26% | 4,85% (max. bijdrage-inkomen € 79.409) | — |
 
-- **2027** komt uit het Belastingplan 2027 (Prinsjesdag, 15 september 2026) en is bij het schrijven
-  nog niet door het parlement aangenomen. Staat daarom **niet** in `IB_PARAMS`. Toevoegen zodra de
-  Belastingdienst de bedragen publiceert.
+- **2027** komt uit het Belastingplan 2027 (Prinsjesdag, 15 september 2026). De Tweede Kamer nam het op
+  12 november 2026 aan; de Eerste Kamer stemt naar verwachting in december. Staat daarom nog **niet** in
+  `IB_PARAMS`. Toevoegen zodra de wet is aangenomen en de Belastingdienst de bedragen publiceert
+  (inclusief de KIA-tabel 2027).
 - De € 0,25 per km over 2026 volgt uit het beleidsbesluit van 17 mei 2026 (Stcrt. 2026, 18302), met
-  terugwerkende kracht tot 1 januari 2026. Het besluit vervalt per 1 januari 2027.
+  terugwerkende kracht tot 1 januari 2026. Het besluit vervalt per 1 januari 2027; het Belastingplan 2027
+  legt de € 0,25 wettelijk vast, zodat het bedrag ook in 2027 geldt.
 - Bij AOW-leeftijd aan het begin van het jaar gelden halve bedragen voor zelfstandigen- en
   startersaftrek (2026: € 600 / € 1.062). Niet geïmplementeerd.
 
@@ -190,5 +192,7 @@ bedrijfskosten).
 - [Staatscourant 2026, 18302 — Beleidsbesluit fiscale maatregelen n.a.v. de energieschok (€ 0,25/km)](https://zoek.officielebekendmakingen.nl/stcrt-2026-18302.html)
 - [Belastingdienst — Btw-aangifte corrigeren (suppletie)](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/btw_aangifte_doen_en_betalen/aangifte_corrigeren/)
 - [Moore DRV — Prinsjesdag 2026: fiscale wijzigingen voor ondernemers (Belastingplan 2027)](https://www.moore-drv.nl/belastingplan-2027-top-10-mkb/)
+- [Taxence — Tweede Kamer stemt voor Belastingplan 2027](https://www.taxence.nl/nieuws/tweede-kamer-stemt-voor-belastingplan-2027/)
+- [ZZP Nederland — Kilometeraftrek voor ondernemers stijgt naar € 0,25](https://www.zzp-nederland.nl/nieuws/kilometeraftrek-voor-ondernemers-stijgt-naar-eur-025)
 - [Taxence — Maximum bijdrage-inkomen Zvw 2026](https://www.taxence.nl/nieuws/maximum-bijdrageloon-zvw-2026-vastgesteld/)
 - [Knab — Jaarafsluiting maken als zzp'er](https://bieb.knab.nl/ondernemen/wat-is-een-jaarafsluiting-en-waarom-maak-je-die-als-zzper)
