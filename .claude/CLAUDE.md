@@ -37,6 +37,8 @@ node lib/admin.mjs fx USD 2026-03-15
 node lib/admin.mjs compute-invoice <inv.json>          # preview (read-only)
 node lib/admin.mjs render-invoice <inv.json> facturen/2026-Q2/2026-0005.pdf
 node lib/admin.mjs record-invoice <inv.json> facturen/2026-Q2/2026-0005.pdf   # compute+due_date+PDF+CSV's
+node lib/admin.mjs compute-imported-invoice <zelffactuur.json>   # zelffactuur narekenen tegen het document (preview, read-only)
+node lib/admin.mjs record-imported-invoice <zelffactuur.json>    # narekenen + duplicaat-guard + CSV's (geen PDF)
 node lib/admin.mjs compute-receipt <bon.json>          # bon → euro + btw-kwartaal (preview, read-only)
 node lib/admin.mjs record-receipt <bon.json>           # compute + duplicaat-guard + receipts.csv-rij
 node lib/admin.mjs dashboard                           # stand van zaken (read-only)

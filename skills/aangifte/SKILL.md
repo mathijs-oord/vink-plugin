@@ -43,8 +43,8 @@ omzet rekenkundig. Toon de bedragen ook zonder centen. Zie
 `${CLAUDE_PLUGIN_ROOT}/rules/btw-tarieven.md` (sectie "Afronden op hele euro's").
 
 De rekenregels (port van Vink `calculateBtw`): 5a = BTW van 1a+1b+4a+4b (de afgeronde rubrieken
-opgeteld); 5b = voorbelasting + 4a-BTW + 4b-BTW, als totaal afgerond; 5g = 5a − 5b. Door de
-afronding kan verlegde btw netto € 1 schelen. Niets zelf narekenen — gebruik deze output.
+opgeteld); 5b = voorbelasting + 4a-BTW + 4b-BTW, elk voor het zakelijke deel (`business_pct`), als
+totaal afgerond; 5g = 5a − 5b. Door de afronding kan verlegde btw netto € 1 schelen. Niets zelf narekenen — gebruik deze output.
 
 ### 3. Toon het overzicht + waarschuwingen
 Presenteer de rubrieken beknopt, het saldo (te betalen of terug te vragen) en de deadline.

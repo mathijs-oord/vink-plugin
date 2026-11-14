@@ -74,6 +74,11 @@ Daarna:
    - `/bon` → "Verwerk deze bon" (+ pad naar een PDF/foto).
    - `/aangifte` → "Stel de aangifte voor dit kwartaal samen."
 
+> **Toestemmingsvraag na je bevestiging.** De skills mogen hun eigen commando's zonder vragen draaien,
+> maar die voor-goedkeuring geldt alleen in de beurt waarin je de skill aanroept. Bevestig je daarna
+> een preview, dan vraagt Claude Code toestemming voor de schrijfstap. Dat hoort zo; kies in die vraag
+> "niet meer vragen" als je dat prettiger vindt.
+
 Werk je voor meerdere administraties? Maak per administratie een aparte map en draai `/setup-vink` in
 elk. De plugin is overal beschikbaar; de data blijft per map gescheiden.
 
@@ -125,7 +130,7 @@ vink-plugin/
 - Alles staat lokaal in je eigen map. Er gaat niets naar een externe administratie-dienst.
 - De plugin-repo bevat **nooit** jouw administratie — alleen generieke code + lege templates.
 - Twee externe aanroepen. Bij vreemde valuta haalt `/bon` de ECB-dagkoers op via de open
-  [frankfurter.app](https://www.frankfurter.app)-API. En één keer per maand stuurt de plugin een
+  [frankfurter.dev](https://frankfurter.dev)-API. En één keer per maand stuurt de plugin een
   **anonieme ping** naar vinkapp.nl, zodat de maker ziet hoeveel mensen Vink gebruiken: geen ID en
   niets uit je administratie, alleen of het de eerste keer is.
 - De ping uitzetten: zet `"telemetry": false` in `data/business.json`, of gebruik de

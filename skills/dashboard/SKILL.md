@@ -25,14 +25,15 @@ Dit leest `invoices.csv`, `receipts.csv` en `aangiftes.csv` en geeft JSON terug 
 - `year_totals` — jaartotalen: `omzet` (ex btw), `omzet_incl`, `kosten`, `net`, `invoice_count`,
   `receipt_count`. Dit zijn de headline-cijfers, zodat een net-begonnen kwartaal geen leeg beeld geeft.
 - `quarters[]` — de vier kwartalen van het jaar, elk met `omzet`, `kosten`, `net`, `phase`
-  (`past`/`current`/`future`) en `aangifte` (`recorded`, `deadline_date`, `deadline_days`).
+  (`past`/`current`/`future`), `has_data` (staan er facturen of bonnen in?) en `aangifte` (`recorded`,
+  `deadline_date`, `deadline_days`).
 - `outstanding` — openstaande facturen (status `sent`): `total`, `count`, `overdue_count`,
   `overdue_total`, en `invoices[]` met per factuur `days_overdue` (>0 = te laat, ≤0 = nog te gaan),
   gesorteerd met de meest te late bovenaan.
 - `next_aangifte` — de eerstvolgende aangifte: `quarter`, `deadline_date`, `deadline_days` (>0 = nog
   te gaan), `recorded`, `quarter_ended`. Dat is het zojuist afgelopen kwartaal (`quarter_ended: true`,
-  nu in te dienen), óf — als dat al met `/aangifte` is vastgelegd — het lopende kwartaal
-  (`quarter_ended: false`, kan nog niet worden ingediend).
+  nu in te dienen), óf — als dat al met `/aangifte` is vastgelegd, of leeg is terwijl de deadline al
+  voorbij is — het lopende kwartaal (`quarter_ended: false`, kan nog niet worden ingediend).
 - `warnings` — bv. facturen over de vervaldatum, aangifte-deadline nabij/verlopen, concept-facturen.
 
 De datum-, dagen- en geldberekeningen komen allemaal uit de code — niets zelf narekenen.
@@ -66,7 +67,10 @@ vastgelegd.
 - De headline-tegels tonen **jaartotalen** (omzet/kosten van het hele boekjaar), zodat een net
   begonnen kwartaal geen leeg beeld geeft. De **per-kwartaal-tabel** eronder laat zien welk kwartaal
   nu loopt, wat de vorige kwartalen deden, en de aangifte-status per kwartaal (vastgelegd / aangeven
-  vóór … / te laat / loopt nog).
+  vóór … / te laat / loopt nog / geen gegevens).
+- Een **leeg kwartaal waarvan de deadline voorbij is** (bv. de gebruiker begon pas later met Vink) toont
+  "Geen gegevens" in plaats van "Te laat": er valt hier niets vast te leggen. Had de gebruiker toen al
+  een btw-nummer, dan was er wel een (nul-)aangifte nodig — noem dat als het relevant lijkt.
 - Omzet is **ex btw** (de omzet die telt voor de zzp'er); de tegel toont het incl.-btw-bedrag erbij.
   Kosten zijn de **totaalbedragen** (incl. btw) van de bonnen — het is een liquiditeits-blik, geen
   winstberekening. Vandaar "indicatief resultaat".

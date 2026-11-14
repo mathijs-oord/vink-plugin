@@ -42,7 +42,8 @@ Eerste match wint (port van Vink `vat-classification.ts`):
 
 1. **Categorie `food_drinks` of `insurance`** → `non_deductible`
    (horeca-BTW uitgesloten, Art. 1 BUA; verzekering vrijgesteld, Art. 11).
-2. **NL-leverancier (BTW-nr begint met NL) + BTW > 0** → `deductible` (rubriek 5b).
+2. **NL-leverancier (BTW-nr begint met NL) + BTW > 0** → `deductible` (rubriek 5b). Ook als het een
+   buitenlands concern is dat via een Nederlands filiaal met NL-btw factureert (bv. AWS).
 3. **Buitenlandse leverancier die btw van zijn eigen land rekent** (bv. een Duits hotel met Duitse
    btw) → `non_deductible`. Buitenlandse btw trek je niet af in de Nederlandse aangifte; terugvragen
    kan apart, met een teruggaafverzoek voor btw uit andere EU-landen.
@@ -50,8 +51,11 @@ Eerste match wint (port van Vink `vat-classification.ts`):
    (rubriek 4b + 5b, netto €0).
 5. **Niet-EU leverancier + geen BTW óf verleggingstekst** → `reverse_charge_non_eu`
    (rubriek 4a + 5b, netto €0).
-6. **Jouw eigen BTW-nr op de factuur + geen BTW geheven** → `reverse_charge_non_eu` (best guess;
-   typisch buitenlandse SaaS zoals Anthropic/OpenAI). Bij EU-aanwijzing → `reverse_charge_eu`.
+6. **Jouw eigen BTW-nr op de factuur + geen BTW geheven** → verlegd. Kijk naar het vestigingsland van
+   de **entiteit op de factuur** (adres, btw-nummer), niet naar de merknaam: EU-land →
+   `reverse_charge_eu`, daarbuiten → `reverse_charge_non_eu`. Veel Amerikaanse SaaS-leveranciers
+   factureren EU-klanten vanuit Ierland of Luxemburg. Geen land te vinden → `reverse_charge_non_eu`
+   en meld dat het een aanname is.
 7. **Geen BTW op het document, geen andere signalen** → `non_deductible`
    (waarschijnlijk KOR-leverancier of vrijgesteld — geen aftrek).
 8. **Nederlandse BTW geheven (21%/9%), maar geen leveranciers-BTW-nr** → `deductible`
@@ -120,7 +124,8 @@ Meld kort: leverancier, bedrag, classificatie, kwartaal.
 - **Horeca:** BTW niet aftrekbaar (BUA), maar het **bedrag incl. BTW** is wél een zakelijke kost
   voor de IB. We boeken 'm als `non_deductible` (telt niet mee in BTW-aangifte).
 - **Gemengd gebruik** (telefoon/internet, soms reiskosten): `business_pct` bepaalt het aftrekbare
-  deel van de voorbelasting.
+  deel van de voorbelasting. Dat geldt ook bij een verlegde bon: de btw in 4a/4b blijft volledig
+  verschuldigd, alleen het zakelijke deel komt in 5b.
 - **Valuta:** de code converteert op de **bon-datum**, niet op vandaag — geef dus de juiste datum mee.
 - **Binnenlands verlegd** (Nederlandse leverancier, "btw verlegd" — bv. onderaanneming in de bouw):
   hoort in rubriek 2a en wordt **niet ondersteund**. Meld het en boek de bon niet als

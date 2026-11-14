@@ -110,7 +110,9 @@ Dit berekent regels/subtotaal/BTW/totaal **en** de vervaldatum, rendert de PDF, 
 keer `invoices.csv` + `invoice_items.csv` weg (kwartaalmapje wordt automatisch aangemaakt). **Je tikt
 zelf geen enkel bedrag of datum over.** Het commando print de weggeschreven waarden terug (nummer,
 vervaldatum, subtotaal, BTW, totaal, pad) — gebruik die in je melding. Bestaat het factuurnummer al,
-dan stopt het commando en schrijft het niets (duplicaat-guard); kies dan een nieuw nummer.
+dan stopt het commando en schrijft het niets (duplicaat-guard); kies dan een nieuw nummer. Het stopt
+ook bij een ongeldige datum (geen `YYYY-MM-DD`), een factuur zonder regels of een aantal/tarief dat
+geen getal is (punt als decimaalteken) — corrigeer de JSON en draai opnieuw.
 
 Open daarna de PDF: `open facturen/<YYYY-QN>/2026-0005.pdf`. Meld kort: nummer, klant, totaal, pad.
 
